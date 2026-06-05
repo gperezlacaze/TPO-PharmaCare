@@ -64,6 +64,20 @@ def baja_medicamentos(matriz):
             print("Medicamento no encontrado")
         if input("¿Eliminar otro? (si/no): ") == "no":
             break
+   
+def buscar_medicamento(matriz):
+    '''Permite buscar medicamentos por código o nombre'''
+    busqueda = input("Ingrese código o nombre del producto: ")
+    
+    fila = 0
+    while fila < len(matriz):
+        if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+            print(f"[Fila {fila}] Código: {matriz[fila][0]} | Nombre: {matriz[fila][1]} | Laboratorio: {matriz[fila][2]} | Precio: {matriz[fila][3]} | Stock: {matriz[fila][4]} | Cobertura: {matriz[fila][5]} | Vencimiento: {matriz[fila][6]}")
+            fila = len(matriz)
+        else:
+            fila += 1
+            if fila == len(matriz):
+                print("Medicamento no encontrado")
 
             
 
