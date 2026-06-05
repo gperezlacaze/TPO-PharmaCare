@@ -15,3 +15,11 @@ def mostrar_menu():
     print("6. Salir")
     print("==================================================")
     print("Seleccione una opción (1-6):")
+
+def validar_opcion(desde, hasta):
+    '''valida ingresar un valor en el rango desde-hasta retorna el valor ingresado del teclado'''
+    opcion = int(input("Seleccione una opción: "))
+    while opcion < desde or opcion > hasta:
+        print("La opción seleccionada no es válida") 
+        opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
+    return opcion 
