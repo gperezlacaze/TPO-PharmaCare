@@ -39,3 +39,31 @@ def alta_medicamentos(matriz):
         matriz.append(nueva_fila)
         if input("¿Agregar otro? (si/no): ") == "no":
             break 
+
+def baja_medicamentos(matriz):
+    '''Permite eliminar medicamentos con stock = 0'''
+    while True:
+        busqueda = input("Ingrese código o nombre del producto: ")
+        encontrado = False
+        for fila in range(len(matriz)):
+            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+                encontrado = True
+                print(f"Medicamento encontrado: {matriz[fila][1]}")
+                print(f"Stock: {matriz[fila][4]}")
+                if matriz[fila][4] == 0:
+                    print("¿Desea Eliminarlo? (si/no)")
+                    if input("¿Desea eliminar? (si/no): ") == "si":
+                        matriz.pop(fila)
+                        print("Medicamento eliminado correctamente")
+                    else:
+                        print("Operación cancelada")
+                else:
+                    print("Error: No se puede eliminar, stock > 0")
+                break
+        if not encontrado:
+            print("Medicamento no encontrado")
+        if input("¿Eliminar otro? (si/no): ") == "no":
+            break
+
+            
+
