@@ -22,4 +22,20 @@ def validar_opcion(desde, hasta):
     while opcion < desde or opcion > hasta:
         print("La opción seleccionada no es válida") 
         opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
-    return opcion 
+    return opcion
+
+def alta_medicamentos(matriz):
+    '''Permite el ingreso de nuevos medicamentos al sistema'''
+    while True:   
+        codigo = input("Código: ")
+        nombre = input("Nombre: ")
+        laboratorio = input("Laboratorio: ")
+        precio = input("Precio: ")
+        stock = input("Stock: ")
+        cobertura = input("Cobertura: ")
+        vencimiento = input("Vencimiento: ")
+        
+        nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
+        matriz.append(nueva_fila)
+        if input("¿Agregar otro? (si/no): ") == "no":
+            break 
