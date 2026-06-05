@@ -1,0 +1,149 @@
+# Autor:Lucas Bassi
+# Validaciones
+
+
+def validar_nombre_medicamento(medicamento):
+    '''Validar que el nombre del medicamento no este vacio.'''
+
+  # Verificar si el nombre del medicamento esta vacio
+    if medicamento.strip() == "":
+        print("El nombre del medicamento no puede estar vacío.")
+        return True
+    return False
+
+
+def validar_codigo_medicamento(codigo):
+    """ Validar que el medicamento contenga entre 4 y 10 caracteres(no pueden ser espacios o simbolos). """
+
+    cantidad_caracteres = len(codigo)
+
+# Validar que el codigo tenga entre 4 y 10 caracteres
+    if 4 <= cantidad_caracteres <= 10:
+        simbolos = "@,.=+-_$!¿?¡#%&/()"
+
+        # Recorrer cada caracter
+        for i in range(cantidad_caracteres):
+             # Verificar si el caracter es un espacio o un simbolo
+             if codigo[i].strip() == "" or codigo[i] in simbolos:
+                 # Caracter no valido
+                 return False
+        return True
+                 
+    else: 
+        print("Codigo no valido, debe tener entre 4 y 10 caracteres")
+        return False
+
+
+def validar_laboratorio_fabricante(laboratorio):
+    """ Validar que el nombre del laboratorio solo contenga letras"""
+
+# Validar que el nombre del laboratorio no este vacio
+    if laboratorio.strip() != "":
+         # Verificar si solo contiene letras
+         if laboratorio.isalpha():
+             print("El nombre es correcto")
+             return True
+         else:
+             print("El nombre del laboratorio es incorrecto")
+             return False
+    else:
+        print("El nombre del laboratorio no puede estar vacío")
+        return False
+    
+
+
+def validar_precio_unitario(precio):
+    """ Validar que el precio sea un numero positivo """
+
+    if precio <= 0:
+        print("El precio debe ser un número positivo")
+        return False
+    else:
+        print("Precio ingresado correctamente")
+        return True
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def ingresar_mediacamento():
+    """ Ingresar medicamento y validar su nombre. """
+
+    medicamento = input("Ingrese el nombre del medicamento: ")
+
+    # Validar el nombre del medicamento
+    while True:
+      if validar_nombre_medicamento(medicamento):
+         print("medicamento ingresado no es válido. Intente nuevamente.")
+         medicamento = input("Ingrese el nombre del medicamento: ")
+      else:
+         print(f"medicamento {medicamento} ingresado correctamente.")
+         break
+
+
+        
+
+def ingresar_codigo():
+    """ Ingresar codigo del medicamento y validr su formato """
+
+    codigo = input("Ingresa codigo del medicamento:")
+
+    while True:
+      if validar_codigo_medicamento(codigo):
+         print(f"Codigo {codigo} ingresado correctamente.")
+         break
+      else:
+         print(f"Codigo {codigo} no valido")
+         codigo = input("Ingresa codigo del medicamento:")
+
+
+
+def ingresar_laboratorio():
+    """ ingresar el nombre del laboratorio y validar su formato"""
+
+    laboratorio = str(input("Ingresa el nombre del laboratorio: "))
+
+    while True:
+        # Validar el nombre del laboratorio
+        if validar_laboratorio_fabricante(laboratorio):
+            print(f"El laboratorio {laboratorio} es valido")
+            break
+        else:
+            print(f"El laboratorio {laboratorio} noes valido")
+            laboratorio = str(input("Ingresa el nombre del laboratorio: "))
+
+def ingresar_precio():
+    """ Ingresar el precio del medicamento y verificar que sea correcto"""
+
+    precio = float(input("ingresa el precio del medicamento: "))
+
+    while True:
+        if validar_precio_unitario(precio):
+            print(f"Precio {precio} ingresado correctamente.")
+            break 
+        else:
+            print(f"Precio {precio} no es valido")
+            precio = float(input("ingresa el precio del medicamento: "))
+
+
+ingresar_precio()
+
+
+
+
+
+       
+    
+
