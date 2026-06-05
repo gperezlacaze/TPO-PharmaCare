@@ -1,0 +1,17 @@
+# MÓDULO: Menú principal
+# Autor: Gonzalo Perez Lacaze
+# Fecha: 05/06/2026
+# Descripción: Funciones de menú para PharmaCare
+def mostrar_menu():
+    '''Muestra el menú principal con las opciones disponibles'''
+    print("==================================================")
+    print("SISTEMA DE GESTIÓN: PHARMACARE CENTRAL")
+    print("==================================================")
+    print("1. Registrar nuevo producto")
+    print("2. Eliminar medicamento")
+    print("3. Buscar medicamento")
+    print("4. Modificar stock o precio")
+    print("5. Informe general")
+    print("6. Salir")
+    print("==================================================")
+    print("Seleccione una opción (1-6):")
