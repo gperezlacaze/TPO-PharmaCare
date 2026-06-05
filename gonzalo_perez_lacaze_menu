@@ -1,0 +1,69 @@
+# MÓDULO: Menú principal
+# Autor: Gonzalo Perez Lacaze
+# Fecha: 05/06/2026
+# Descripción: Funciones de menú para PharmaCare
+def mostrar_menu():
+    '''Muestra el menú principal con las opciones disponibles'''
+    print("==================================================")
+    print("SISTEMA DE GESTIÓN: PHARMACARE CENTRAL")
+    print("==================================================")
+    print("1. Registrar nuevo producto")
+    print("2. Eliminar medicamento")
+    print("3. Buscar medicamento")
+    print("4. Modificar stock o precio")
+    print("5. Informe general")
+    print("6. Salir")
+    print("==================================================")
+    print("Seleccione una opción (1-6):")
+
+def validar_opcion(desde, hasta):
+    '''valida ingresar un valor en el rango desde-hasta retorna el valor ingresado del teclado'''
+    opcion = int(input("Seleccione una opción: "))
+    while opcion < desde or opcion > hasta:
+        print("La opción seleccionada no es válida") 
+        opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
+    return opcion
+
+def alta_medicamentos(matriz):
+    '''Permite el ingreso de nuevos medicamentos al sistema'''
+    while True:   
+        codigo = input("Código: ")
+        nombre = input("Nombre: ")
+        laboratorio = input("Laboratorio: ")
+        precio = input("Precio: ")
+        stock = input("Stock: ")
+        cobertura = input("Cobertura: ")
+        vencimiento = input("Vencimiento: ")
+        
+        nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
+        matriz.append(nueva_fila)
+        if input("¿Agregar otro? (si/no): ") == "no":
+            break 
+
+def baja_medicamentos(matriz):
+    '''Permite eliminar medicamentos con stock = 0'''
+    while True:
+        busqueda = input("Ingrese código o nombre del producto: ")
+        encontrado = False
+        for fila in range(len(matriz)):
+            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+                encontrado = True
+                print(f"Medicamento encontrado: {matriz[fila][1]}")
+                print(f"Stock: {matriz[fila][4]}")
+                if matriz[fila][4] == 0:
+                    print("¿Desea Eliminarlo? (si/no)")
+                    if input("¿Desea eliminar? (si/no): ") == "si":
+                        matriz.pop(fila)
+                        print("Medicamento eliminado correctamente")
+                    else:
+                        print("Operación cancelada")
+                else:
+                    print("Error: No se puede eliminar, stock > 0")
+                break
+        if not encontrado:
+            print("Medicamento no encontrado")
+        if input("¿Eliminar otro? (si/no): ") == "no":
+            break
+
+            
+
