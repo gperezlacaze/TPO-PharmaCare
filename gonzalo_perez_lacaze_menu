@@ -79,5 +79,53 @@ def buscar_medicamento(matriz):
             if fila == len(matriz):
                 print("Medicamento no encontrado")
 
-            
+def modificar_stock_precio(matriz):
+    '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
+    while True:
+        busqueda = input("Ingrese código o nombre del producto: ")
+        fila = 0
+        while fila < len(matriz):
+            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+                # Mostrar medicamento encontrado
+                print(f"[Fila {fila}] {matriz[fila][1]}")
+                print(f"Stock actual: {matriz[fila][4]} | Precio actual: {matriz[fila][3]}")
+                # MINI MENU AL ENCONTRAR EL MEDICAMENTO BUSCADO
+                print("¿Qué desea modificar?")
+                print("1. Stock")
+                print("2. Precio")
+                print("3. Ambos")
+                opcion_mod = int(input("Seleccione (1-3): "))
+                while opcion_mod < 1 or opcion_mod > 3:
+                    print("ERROR. Ingrese una opción válida")
+                    opcion_mod = int(input("Seleccione (1-3): "))
+                if opcion_mod == 1:
+                    nuevo_stock = int(input("Nuevo stock: "))
+                    matriz[fila][4] = nuevo_stock
+                    print("Stock modificado")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Stock: {matriz[fila][4]} ")
+                elif opcion_mod == 2:
+                    nuevo_precio = float(input("Nuevo precio: "))
+                    matriz[fila][3] = nuevo_precio
+                    print("Precio modificado")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]}")
+                elif opcion_mod == 3:
+                    nuevo_stock = int(input("Nuevo stock: "))
+                    matriz[fila][4] = nuevo_stock
+                    nuevo_precio = float(input("Nuevo precio: "))
+                    matriz[fila][3] = nuevo_precio
+                    print("Los cambios han sido efectuados")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]} | Stock: {matriz[fila][4]} ")                        
+                fila = len(matriz)
+            else:
+                fila += 1
+                if fila == len(matriz):
+                    print("Medicamento no encontrado")
+        
+        if input("¿Modificar otro? (si/no): ") == "no":
+            break    
+
+def salir():
+    '''Termina el programa'''
+    print("¡Gracias por usar PharmaCare Central!")
+    print("Hasta luego.")            
 
