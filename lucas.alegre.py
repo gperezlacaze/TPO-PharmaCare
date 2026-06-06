@@ -39,15 +39,14 @@ def mostrar_matriz(matriz):
 
     # Encabezados
     print("\n" + "=" * 100)
-    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} "
-          f"{'Stock':<10} {'Cobertura':<15} {'Vencimiento':<12}")
+    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Vencimiento':<12}")
     print("=" * 100)
 
     # Filas
     i = 0
     while i < len(matriz):
         fila = matriz[i]
-        print(f"{fila[0]:<12} {fila[1]:<25} {fila[2]:<15} {fila[3]:<12.2f} {fila[4]:<8} {fila[5]:<15} {fila[6]:<10}")
+        print(f"{fila[0]:<12} {fila[1]:<30} {fila[2]:<20} {fila[3]:<12.2f} {fila[4]:<10} {fila[5]:<15} {fila[6]:<12}")
         i = i + 1
 
     print("=" * 100 + "\n")
