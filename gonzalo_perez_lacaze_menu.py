@@ -21,11 +21,11 @@ def mostrar_menu():
     print("5. Informe general")
     print("6. Salir")
     print("==================================================")
-    print("Seleccione una opción (1-6):")
+    print("Seleccione una opción (1-6) o presione 8 para salir:")
 
 
 def validar_opcion(desde, hasta):
-    opcion = int(input("Seleccione una opción: "))
+    opcion = int(input("Seleccione una opción: "))  
     while (opcion < desde or opcion > hasta) and opcion != 8:
         print("La opción seleccionada no es válida") 
         opcion = int(input("Seleccione una opción: "))
@@ -43,6 +43,7 @@ def validar_confirmacion(pregunta):
 
 def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
+    print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
         codigo = ingresar_codigo()
         nombre = ingresar_medicamento()
@@ -60,6 +61,7 @@ def alta_medicamentos(matriz):
 
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
+    print("\n(Presione 8 en el menú principal para salir)\n")   
     while True:
         busqueda = input("Ingrese código o nombre del producto: ")
         encontrado = False
@@ -86,6 +88,7 @@ def baja_medicamentos(matriz):
 
 def buscar_medicamento(matriz):
     '''Permite buscar medicamentos por código o nombre'''
+    print("\n(Presione 8 en el menú principal para salir)\n")
     busqueda = input("Ingrese código o nombre del producto: ")
     
     fila = 0
@@ -101,6 +104,7 @@ def buscar_medicamento(matriz):
 
 def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
+    print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
         busqueda = input("Ingrese código o nombre del producto: ")
         fila = 0
@@ -147,6 +151,7 @@ def modificar_stock_precio(matriz):
 
 def informe_general(matriz):
     '''Muestra la matriz ordenada por vencimiento'''
+    print("\n(Presione 8 en el menú principal para salir)\n")
     # COPIO LA MATRIZ PARA NO MODIFICAR LA ORIGINAL
     matriz_ordenada = [fila[:] for fila in matriz]
     # ORDENO POR VENCIMIENTO
