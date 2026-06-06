@@ -1,0 +1,53 @@
+CAMBIOS AL ALCANCE - TPO PharmaCare Central
+Materia: Pensamiento Computacional, Algoritmia y Programación
+UADE 2026
+
+RESUMEN
+
+El presente documento describe los cambios y mejoras implementadas en el sistema 
+PharmaCare Central que van más allá del alcance mínimo especificado en la consigna.
+
+ACLARACIÓN SOBRE ESTRUCTURA DE OPCIONES
+
+La consigna original especificaba opciones 1-4 más opción 8 para salir. En esta 
+implementación se agregó una quinta opción (búsqueda de medicamentos), resultando 
+en opciones 1-5 más opción 6 (Salir convencional) y opción 8 como alternativa de 
+salida del menú principal, en adherencia a la consigna original. La permanencia 
+de la opción 8 queda a evaluación de los profesores.
+
+OPCIÓN 3: BÚSQUEDA INDEPENDIENTE DE MEDICAMENTOS
+
+Decisión: Se agregó una opción de búsqueda independiente en el menú (opción 3).
+
+Justificación: Aunque las opciones de eliminación (opción 2) y modificación (opción 4) 
+incluyen búsqueda de medicamentos para localizar el código o nombre antes de ejecutar 
+la operación, se consideró necesario crear una opción de búsqueda independiente que 
+permita al usuario consultar información de medicamentos sin intención de modificarlos 
+o eliminarlos. Esta opción facilita tareas como verificar disponibilidad, consultar 
+precios o vencimientos sin necesidad de entrar en un flujo de modificación.
+
+Diferencia: En las opciones de eliminar o modificar, la búsqueda es solo el primer 
+paso para encontrar el medicamento que querés cambiar o borrar. En cambio, la opción 
+de búsqueda independiente solo muestra los datos del medicamento sin hacer cambios, 
+permitiendo consultar información sin afectar nada.
+
+CAMBIOS IMPLEMENTADOS
+
+1. VALIDACIÓN MEJORADA DE CONFIRMACIONES (validar_confirmacion)
+
+DECISIONES TÉCNICAS
+
+- Uso de .ljust() para alineación de columnas (consistente con mostrar_matriz).
+- Operador > en Bubble Sort para ascendente.
+- case-insensitive en validaciones (mejor UX).
+- Rango de código 4-10 caracteres alfanuméricos (flexibilidad vs validación).
+
+CONCLUSIÓN
+
+Los cambios implementados van más allá del requisito mínimo, enfocándose en 
+experiencia de usuario, código limpio, separación de responsabilidades y 
+validación robusta. Todos mantienen la consigna original: datos en RAM (listas), 
+sin estructuras avanzadas, código explicable y defendible.
+
+Fecha: 6 de junio de 2026
+Equipo: Gonzalo Perez Lacaze, Lucas Alegre, Lucas Bassi
