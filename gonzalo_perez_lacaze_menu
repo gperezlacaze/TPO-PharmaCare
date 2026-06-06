@@ -35,19 +35,19 @@ def validar_opcion(desde, hasta):
 
 def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
-    while True:   
-        codigo = input("Código: ")
-        nombre = input("Nombre: ")
-        laboratorio = input("Laboratorio: ")
-        precio = input("Precio: ")
-        stock = input("Stock: ")
-        cobertura = input("Cobertura: ")
-        vencimiento = input("Vencimiento: ")
+    while True:
+        codigo = ingresar_codigo()
+        nombre = ingresar_medicamento()
+        laboratorio = ingresar_laboratorio()
+        precio = ingresar_precio()
+        stock = ingresar_stock()
+        cobertura = ingresar_cobertura()
+        vencimiento = ingresar_dias_vencimiento()
         
         nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
         matriz.append(nueva_fila)
         if input("¿Agregar otro? (si/no): ") == "no":
-            break 
+            break
 
 
 def baja_medicamentos(matriz):
@@ -111,19 +111,19 @@ def modificar_stock_precio(matriz):
                     print("ERROR. Ingrese una opción válida")
                     opcion_mod = int(input("Seleccione (1-3): "))
                 if opcion_mod == 1:
-                    nuevo_stock = int(input("Nuevo stock: "))
+                    nuevo_stock = ingresar_stock()
                     matriz[fila][4] = nuevo_stock
                     print("Stock modificado")
                     print(f"[Fila {fila}] {matriz[fila][1]} | Stock: {matriz[fila][4]} ")
                 elif opcion_mod == 2:
-                    nuevo_precio = float(input("Nuevo precio: "))
+                    nuevo_precio = ingresar_precio()
                     matriz[fila][3] = nuevo_precio
                     print("Precio modificado")
                     print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]}")
                 elif opcion_mod == 3:
-                    nuevo_stock = int(input("Nuevo stock: "))
+                    nuevo_stock = ingresar_stock()
                     matriz[fila][4] = nuevo_stock
-                    nuevo_precio = float(input("Nuevo precio: "))
+                    nuevo_precio = ingresar_precio()
                     matriz[fila][3] = nuevo_precio
                     print("Los cambios han sido efectuados")
                     print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]} | Stock: {matriz[fila][4]} ")                        
