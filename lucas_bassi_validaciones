@@ -1,214 +1,149 @@
-# Autor:Lucas Bassi
-# Validaciones 
+# ============================================================
+# Módulo de Validaciones e Ingreso de Datos
+# Autor: Lucas Bassi
+# Proyecto: PharmaCare Central
+# ============================================================
+
+# ------------------------------------------------------------
+# FUNCIONES DE VALIDACIÓN
+# (puras: reciben un dato y devuelven True/False, sin imprimir)
+# ------------------------------------------------------------
 
 
-def validar_nombre_medicamento(medicamento):
-    '''Validar que el nombre del medicamento no este vacio.'''
-
-  # Verificar si el nombre del medicamento esta vacio
-    if medicamento.strip() == "":
-        print("El nombre del medicamento no puede estar vacío.")
+def validar_nombre_medicamento(nombre):
+    """Validar que el nombre del medicamento no esté vacío."""
+    if nombre.strip() == "":
         return False
     return True
 
 
-
 def validar_codigo_medicamento(codigo):
-    """ Validar que el medicamento contenga entre 4 y 10 caracteres(no pueden ser espacios o simbolos). """
-
-    cantidad_caracteres = len(codigo)
-
-# Validar que el codigo tenga entre 4 y 10 caracteres
-    if 4 <= cantidad_caracteres <= 10:
-        simbolos = "@,.=+-_$!¿?¡#%&/()"
-
-        # Recorrer cada caracter
-        for i in range(cantidad_caracteres):
-             # Verificar si el caracter es un espacio o un simbolo
-             if codigo[i].strip() == "" or codigo[i] in simbolos:
-                 # Caracter no valido
-                 return False
-        return True
-                 
-    else: 
-        print("Codigo no valido, debe tener entre 4 y 10 caracteres")
+    """Validar que el código tenga entre 4 y 10 caracteres alfanuméricos."""
+    cantidad = len(codigo)
+    if not (4 <= cantidad <= 10):
         return False
-
+    if not codigo.isalnum():
+        return False
+    return True
 
 
 def validar_laboratorio_fabricante(laboratorio):
-    """ Validar que el nombre del laboratorio solo contenga letras"""
-
-# Validar que el nombre del laboratorio no este vacio
-    if laboratorio.strip() != "":
-         # Verificar si solo contiene letras
-         if laboratorio.isalpha():
-             print("El nombre es correcto")
-             return True
-         else:
-             print("El nombre del laboratorio es incorrecto")
-             return False
-    else:
-        print("El nombre del laboratorio no puede estar vacío")
+    """Validar que el nombre del laboratorio no esté vacío."""
+    if laboratorio.strip() == "":
         return False
-    
+    return True
 
-    
-def validar_precio(precio):
-    """ Validar que un numero sea positivo para dias, precio y stock """
 
-    if precio >= 0:
-        return True
-    else:
-        print("El número no puede ser negativo")
+def validar_entero_positivo(texto):
+    """Validar que el texto represente un número entero positivo (> 0)."""
+    texto = texto.strip()
+    if not texto.isdigit():
         return False
-    
-
-
-def validar_numero_positivo(numero):
-    """ Validar que un numero sea positivo para dias y stock """
-
-    if numero > 0:
-        return True
-    else:
-        print("El número no puede ser negativo")
+    if int(texto) <= 0:
         return False
+    return True
 
-      
+
+def validar_precio(texto):
+    """Validar que el texto represente un número decimal positivo (> 0)."""
+    texto = texto.strip()
+    if texto == "":
+        return False
+    # Como máximo puede haber un punto decimal
+    if texto.count(".") > 1:
+        return False
+    # Saco un único punto y verifico que lo demás sean dígitos
+    sin_punto = texto.replace(".", "", 1)
+    if sin_punto == "":
+        return False
+    if not sin_punto.isdigit():
+        return False
+    # El formato ya es numérico válido: ahora exijo que sea mayor a cero
+    if float(texto) <= 0:
+        return False
+    return True
+
 
 def validar_cobertura(cobertura):
-    """ Validar que la cobertura sea: 'Con cobertura' o 'Sin cobertura' """
-  
-    if cobertura.capitalize() == "Con cobertura" or cobertura.capitalize() == "Sin cobertura":
+    """Validar que la cobertura sea 'Con cobertura' o 'Sin cobertura'."""
+    cobertura = cobertura.strip().capitalize()
+    if cobertura == "Con cobertura" or cobertura == "Sin cobertura":
         return True
-    else:
-        print("La cobertura no es válida")
-        return False
+    return False
 
 
+# ------------------------------------------------------------
+# FUNCIONES DE INGRESO
+# (interactúan con el usuario y reutilizan las validaciones)
+# ------------------------------------------------------------
 
-
-
-
-
-# ingresar elementos y validar cada uno de ellos
 
 def ingresar_medicamento():
-    """ Ingresar medicamento y validar su nombre. """
-
-    medicamento = input("Ingrese el nombre del medicamento: ").capitalize()
-
-    # Validar el nombre del medicamento
-    while True:
-      if validar_nombre_medicamento(medicamento):
-        print(f"medicamento {medicamento} ingresado correctamente.")
-        break
-      else:
-         print("medicamento ingresado no es válido. Intente nuevamente.")
-         medicamento = input("Ingrese el nombre del medicamento: ").capitalize()
-    return medicamento
-       
+    """Pedir y validar el nombre del medicamento."""
+    nombre = input("Ingrese el nombre del medicamento: ").strip().capitalize()
+    while not validar_nombre_medicamento(nombre):
+        print("El nombre no puede estar vacío. Intente nuevamente.")
+        nombre = input("Ingrese el nombre del medicamento: ").strip().capitalize()
+    return nombre
 
 
 def ingresar_codigo():
-    """ Ingresar codigo del medicamento y validr su formato """
-
-    codigo = input("Ingresa codigo del medicamento:").upper()
-
-    while True:
-      if validar_codigo_medicamento(codigo):
-         print(f"Codigo {codigo} ingresado correctamente.")
-         break
-      else:
-         print(f"Codigo {codigo} no valido")
-         codigo = input("Ingresa codigo del medicamento:").upper()
+    """Pedir y validar el código del medicamento."""
+    codigo = input("Ingrese el código del medicamento: ").strip().upper()
+    while not validar_codigo_medicamento(codigo):
+        print("Código inválido: debe tener entre 4 y 10 caracteres "
+              "alfanuméricos (sin espacios ni símbolos).")
+        codigo = input("Ingrese el código del medicamento: ").strip().upper()
     return codigo
 
 
-
 def ingresar_laboratorio():
-    """ ingresar el nombre del laboratorio y validar su formato"""
-
-    laboratorio = str(input("Ingresa el nombre del laboratorio: "))
-
-    while True:
-        # Validar el nombre del laboratorio
-        if validar_laboratorio_fabricante(laboratorio):
-            print(f"El laboratorio {laboratorio} es valido")
-            break
-        else:
-            print(f"El laboratorio {laboratorio} noes valido")
-            laboratorio = str(input("Ingresa el nombre del laboratorio: "))
+    """Pedir y validar el nombre del laboratorio."""
+    laboratorio = input("Ingrese el nombre del laboratorio: ").strip()
+    while not validar_laboratorio_fabricante(laboratorio):
+        print("El nombre del laboratorio no puede estar vacío. Intente nuevamente.")
+        laboratorio = input("Ingrese el nombre del laboratorio: ").strip()
     return laboratorio
 
 
-
 def ingresar_precio():
-    """ Ingresar el precio del medicamento y verificar que sea correcto"""
-
-    precio = float(input("ingresa el precio del medicamento: "))
-
-    while True:
-        # Validar el precio del medicamento
-        if validar_precio(precio):
-             print(f"Precio {precio} ingresado correctamente.")
-             break 
-        else:
-             print(f"Precio {precio} no es valido")
-             precio = float(input("ingresa el precio del medicamento: "))
-    return precio
-          
+    """Pedir y validar el precio unitario del medicamento."""
+    texto = input("Ingrese el precio del medicamento: ")
+    while not validar_precio(texto):
+        print("Precio inválido: debe ser un número positivo mayor a cero (ej: 2500.50).")
+        texto = input("Ingrese el precio del medicamento: ")
+    return float(texto)
 
 
 def ingresar_stock():
-    """ Ingresar el stock del medicamento y validar que sea correcto   """
-
-    stock = int(input("ingresa el stock del medicamento: "))
-
-    while True:
-        # Validar el stock del medicamento
-        if validar_numero_positivo(stock):
-            print(f"Stock {stock} ingresado correctamente.")
-            break
-        else:
-            print(f"Stock {stock} no es valido")
-            stock = int(input("ingresa el stock del medicamento: "))
-    return stock
-
-
-
-def ingresar_cobertura():
-    """ Ingresar la cobertura del medicamento y validar que sea correcta """
-
-    cobertura = str(input("Ingrese la cobertura del medicamento (Con cobertura/Sin cobertura): "))
-
-    while True:
-        # Validar la cobertura del medicamento
-        if validar_cobertura(cobertura):
-            print(f"Cobertura {cobertura} ingresada correctamente.")
-            break
-        else:
-            print(f"Cobertura {cobertura} no es valida")
-            cobertura = input("Ingrese la cobertura del medicamento (Con cobertura/Sin cobertura): ")
-    return cobertura
-
+    """Pedir y validar el stock disponible del medicamento."""
+    texto = input("Ingrese el stock del medicamento: ")
+    while not validar_entero_positivo(texto):
+        print("Stock inválido: debe ser un número entero positivo (mayor a cero).")
+        texto = input("Ingrese el stock del medicamento: ")
+    return int(texto)
 
 
 def ingresar_dias_vencimiento():
-    """ Ingresar los dias para el vencimiento del medicamento y validar que sean correctos """
+    """Pedir y validar los días restantes para el vencimiento."""
+    texto = input("Ingrese los días para el vencimiento: ")
+    while not validar_entero_positivo(texto):
+        print("Valor inválido: debe ser un número entero positivo (mayor a cero).")
+        texto = input("Ingrese los días para el vencimiento: ")
+    return int(texto)
 
-    dias = int(input("Ingrese los días para el vencimiento del medicamento: "))
 
-    while True:
-        # Validar los días para el vencimiento del medicamento
-        if validar_numero_positivo(dias):
-            print(f"Días para el vencimiento {dias} ingresados correctamente.")
-            break
-        else:
-            print(f"Días para el vencimiento {dias} no es valido")
-            dias = int(input("Ingrese los días para el vencimiento del medicamento: "))
-    return dias
-
+def ingresar_cobertura():
+    """Pedir y validar la cobertura médica del medicamento."""
+    cobertura = input(
+        "Ingrese la cobertura (Con cobertura / Sin cobertura): "
+    ).strip().capitalize()
+    while not validar_cobertura(cobertura):
+        print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
+        cobertura = input(
+            "Ingrese la cobertura (Con cobertura / Sin cobertura): "
+        ).strip().capitalize()
+    return cobertura
 
 
     
