@@ -16,6 +16,7 @@ def mostrar_menu():
     print("==================================================")
     print("Seleccione una opción (1-6):")
 
+
 def validar_opcion(desde, hasta):
     '''valida ingresar un valor en el rango desde-hasta retorna el valor ingresado del teclado'''
     opcion = int(input("Seleccione una opción: "))
@@ -23,6 +24,7 @@ def validar_opcion(desde, hasta):
         print("La opción seleccionada no es válida") 
         opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
     return opcion
+
 
 def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
@@ -39,6 +41,7 @@ def alta_medicamentos(matriz):
         matriz.append(nueva_fila)
         if input("¿Agregar otro? (si/no): ") == "no":
             break 
+
 
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
@@ -65,6 +68,7 @@ def baja_medicamentos(matriz):
         if input("¿Eliminar otro? (si/no): ") == "no":
             break
    
+
 def buscar_medicamento(matriz):
     '''Permite buscar medicamentos por código o nombre'''
     busqueda = input("Ingrese código o nombre del producto: ")
@@ -78,6 +82,7 @@ def buscar_medicamento(matriz):
             fila += 1
             if fila == len(matriz):
                 print("Medicamento no encontrado")
+
 
 def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
@@ -124,8 +129,38 @@ def modificar_stock_precio(matriz):
         if input("¿Modificar otro? (si/no): ") == "no":
             break    
 
+
+def informe_general(matriz):
+    '''Muestra la matriz ordenada por vencimiento'''
+    # COPIO LA MATRIZ PARA NO MODIFICAR LA ORIGINAL
+    matriz_ordenada = [fila[:] for fila in matriz]
+    # ORDENO POR VENCIMIENTO
+    for i in range(len(matriz_ordenada) - 1):
+        for j in range(len(matriz_ordenada) - 1 - i):
+            if matriz_ordenada[j][6] > matriz_ordenada[j + 1][6]:
+                aux = matriz_ordenada[j]  # ← Fila completa (7 datos)
+                matriz_ordenada[j] = matriz_ordenada[j+1]
+                matriz_ordenada[j+1] = aux
+            elif matriz_ordenada[j][6] == matriz_ordenada[j + 1][6]:
+                if matriz_ordenada[j][1] > matriz_ordenada[j + 1][1]:
+                    aux = matriz_ordenada[j]
+                    matriz_ordenada[j] = matriz_ordenada[j+1]
+                    matriz_ordenada[j+1] = aux
+    # MOSTRAR MATRIZ ORDENADA
+    print("\n" + "="*120)
+    print("INFORME GENERAL - MEDICAMENTOS ORDENADOS POR VENCIMIENTO (MENOR A MAYOR)")
+    print("="*120)
+    print(f"{'Código':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Vencimiento':<12}")                
+    print("-"*120)
+    for fila in range(len(matriz_ordenada)):
+        print(f"{matriz_ordenada[fila][0]:<12} {matriz_ordenada[fila][1]:<30} {matriz_ordenada[fila][2]:<20} {matriz_ordenada[fila][3]:<12} {matriz_ordenada[fila][4]:<10} {matriz_ordenada[fila][5]:<15} {matriz_ordenada[fila][6]:<12}")
+    print("="*120)
+
+
 def salir():
     '''Termina el programa'''
+    print("\n" + "="*60)
     print("¡Gracias por usar PharmaCare Central!")
-    print("Hasta luego.")            
+    print("Hasta luego.")
+    print("="*60)
 
