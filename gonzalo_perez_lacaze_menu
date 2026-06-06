@@ -2,6 +2,13 @@
 # Autor: Gonzalo Perez Lacaze
 # Fecha: 05/06/2026
 # Descripción: Funciones de menú para PharmaCare
+from lucas_bassi_validaciones import (
+    ingresar_codigo, ingresar_medicamento,
+    ingresar_laboratorio, ingresar_precio,
+    ingresar_stock, ingresar_cobertura, ingresar_dias_vencimiento
+)
+
+
 def mostrar_menu():
     '''Muestra el menú principal con las opciones disponibles'''
     print("==================================================")
@@ -162,5 +169,5 @@ def salir():
     print("\n" + "="*60)
     print("¡Gracias por usar PharmaCare Central!")
     print("Hasta luego.")
-    print("="*60)
+    print("="*60)   
 
