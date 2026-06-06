@@ -5,7 +5,7 @@
 # Descripción: Coordina el flujo del sistema de gestión de inventario
 # ============================================================
 
-from lucas_alegre import crear_matriz_inicial
+from lucas_ alegre import crear_matriz_inicial
 from gonzalo_perez_lacaze_menu import (
     mostrar_menu, validar_opcion, alta_medicamentos,
     baja_medicamentos, buscar_medicamento,
@@ -20,12 +20,11 @@ def main():
 
     # Bucle principal del programa
     opcion = 0
-    while opcion != 6:
-        # Mostrar menú y validar opción ingresada
+    opcion = 0
+    while opcion != 6 and opcion != 8:
         mostrar_menu()
         opcion = validar_opcion(1, 6)
 
-        # Procesar la opción seleccionada
         if opcion == 1:
             alta_medicamentos(inventario)
         elif opcion == 2:
@@ -36,7 +35,7 @@ def main():
             modificar_stock_precio(inventario)
         elif opcion == 5:
             informe_general(inventario)
-        elif opcion == 6:
+        elif opcion == 6 or opcion == 8:
             salir()
 
 
