@@ -1,5 +1,5 @@
 # Autor:Lucas Bassi
-# Validaciones
+# Validaciones 
 
 
 def validar_nombre_medicamento(medicamento):
@@ -8,8 +8,9 @@ def validar_nombre_medicamento(medicamento):
   # Verificar si el nombre del medicamento esta vacio
     if medicamento.strip() == "":
         print("El nombre del medicamento no puede estar vacío.")
-        return True
-    return False
+        return False
+    return True
+
 
 
 def validar_codigo_medicamento(codigo):
@@ -34,6 +35,7 @@ def validar_codigo_medicamento(codigo):
         return False
 
 
+
 def validar_laboratorio_fabricante(laboratorio):
     """ Validar que el nombre del laboratorio solo contenga letras"""
 
@@ -51,17 +53,37 @@ def validar_laboratorio_fabricante(laboratorio):
         return False
     
 
+    
+def validar_precio(precio):
+    """ Validar que un numero sea positivo para dias, precio y stock """
 
-def validar_precio_unitario(precio):
-    """ Validar que el precio sea un numero positivo """
-
-    if precio <= 0:
-        print("El precio debe ser un número positivo")
-        return False
-    else:
-        print("Precio ingresado correctamente")
+    if precio >= 0:
         return True
+    else:
+        print("El número no puede ser negativo")
+        return False
+    
+
+
+def validar_numero_positivo(numero):
+    """ Validar que un numero sea positivo para dias y stock """
+
+    if numero > 0:
+        return True
+    else:
+        print("El número no puede ser negativo")
+        return False
+
+      
+
+def validar_cobertura(cobertura):
+    """ Validar que la cobertura sea: 'Con cobertura' o 'Sin cobertura' """
   
+    if cobertura.capitalize() == "Con cobertura" or cobertura.capitalize() == "Sin cobertura":
+        return True
+    else:
+        print("La cobertura no es válida")
+        return False
 
 
 
@@ -69,36 +91,29 @@ def validar_precio_unitario(precio):
 
 
 
+# ingresar elementos y validar cada uno de ellos
 
-
-
-
-
-
-
-
-
-def ingresar_mediacamento():
+def ingresar_medicamento():
     """ Ingresar medicamento y validar su nombre. """
 
-    medicamento = input("Ingrese el nombre del medicamento: ")
+    medicamento = input("Ingrese el nombre del medicamento: ").capitalize()
 
     # Validar el nombre del medicamento
     while True:
       if validar_nombre_medicamento(medicamento):
-         print("medicamento ingresado no es válido. Intente nuevamente.")
-         medicamento = input("Ingrese el nombre del medicamento: ")
+        print(f"medicamento {medicamento} ingresado correctamente.")
+        break
       else:
-         print(f"medicamento {medicamento} ingresado correctamente.")
-         break
+         print("medicamento ingresado no es válido. Intente nuevamente.")
+         medicamento = input("Ingrese el nombre del medicamento: ").capitalize()
+    return medicamento
+       
 
-
-        
 
 def ingresar_codigo():
     """ Ingresar codigo del medicamento y validr su formato """
 
-    codigo = input("Ingresa codigo del medicamento:")
+    codigo = input("Ingresa codigo del medicamento:").upper()
 
     while True:
       if validar_codigo_medicamento(codigo):
@@ -106,7 +121,8 @@ def ingresar_codigo():
          break
       else:
          print(f"Codigo {codigo} no valido")
-         codigo = input("Ingresa codigo del medicamento:")
+         codigo = input("Ingresa codigo del medicamento:").upper()
+    return codigo
 
 
 
@@ -123,6 +139,9 @@ def ingresar_laboratorio():
         else:
             print(f"El laboratorio {laboratorio} noes valido")
             laboratorio = str(input("Ingresa el nombre del laboratorio: "))
+    return laboratorio
+
+
 
 def ingresar_precio():
     """ Ingresar el precio del medicamento y verificar que sea correcto"""
@@ -130,20 +149,67 @@ def ingresar_precio():
     precio = float(input("ingresa el precio del medicamento: "))
 
     while True:
-        if validar_precio_unitario(precio):
-            print(f"Precio {precio} ingresado correctamente.")
-            break 
+        # Validar el precio del medicamento
+        if validar_precio(precio):
+             print(f"Precio {precio} ingresado correctamente.")
+             break 
         else:
-            print(f"Precio {precio} no es valido")
-            precio = float(input("ingresa el precio del medicamento: "))
+             print(f"Precio {precio} no es valido")
+             precio = float(input("ingresa el precio del medicamento: "))
+    return precio
+          
 
 
-ingresar_precio()
+def ingresar_stock():
+    """ Ingresar el stock del medicamento y validar que sea correcto   """
+
+    stock = int(input("ingresa el stock del medicamento: "))
+
+    while True:
+        # Validar el stock del medicamento
+        if validar_numero_positivo(stock):
+            print(f"Stock {stock} ingresado correctamente.")
+            break
+        else:
+            print(f"Stock {stock} no es valido")
+            stock = int(input("ingresa el stock del medicamento: "))
+    return stock
 
 
 
+def ingresar_cobertura():
+    """ Ingresar la cobertura del medicamento y validar que sea correcta """
+
+    cobertura = str(input("Ingrese la cobertura del medicamento (Con cobertura/Sin cobertura): "))
+
+    while True:
+        # Validar la cobertura del medicamento
+        if validar_cobertura(cobertura):
+            print(f"Cobertura {cobertura} ingresada correctamente.")
+            break
+        else:
+            print(f"Cobertura {cobertura} no es valida")
+            cobertura = input("Ingrese la cobertura del medicamento (Con cobertura/Sin cobertura): ")
+    return cobertura
 
 
-       
+
+def ingresar_dias_vencimiento():
+    """ Ingresar los dias para el vencimiento del medicamento y validar que sean correctos """
+
+    dias = int(input("Ingrese los días para el vencimiento del medicamento: "))
+
+    while True:
+        # Validar los días para el vencimiento del medicamento
+        if validar_numero_positivo(dias):
+            print(f"Días para el vencimiento {dias} ingresados correctamente.")
+            break
+        else:
+            print(f"Días para el vencimiento {dias} no es valido")
+            dias = int(input("Ingrese los días para el vencimiento del medicamento: "))
+    return dias
+
+
+
     
 
