@@ -25,12 +25,20 @@ def mostrar_menu():
 
 
 def validar_opcion(desde, hasta):
-    '''valida ingresar un valor en el rango desde-hasta retorna el valor ingresado del teclado'''
     opcion = int(input("Seleccione una opción: "))
-    while opcion < desde or opcion > hasta:
+    while (opcion < desde or opcion > hasta) and opcion != 8:
         print("La opción seleccionada no es válida") 
-        opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
+        opcion = int(input("Seleccione una opción: "))
     return opcion
+
+
+def validar_confirmacion(pregunta):
+    """Valida que la respuesta sea 'si' o 'no' (case-insensitive)"""
+    respuesta = input(pregunta).strip().lower()
+    while respuesta not in ["si", "no"]:
+        print("Respuesta inválida. Ingrese 'si' o 'no':")
+        respuesta = input(pregunta).strip().lower()
+    return respuesta == "si"
 
 
 def alta_medicamentos(matriz):
@@ -46,7 +54,7 @@ def alta_medicamentos(matriz):
         
         nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
         matriz.append(nueva_fila)
-        if input("¿Agregar otro? (si/no): ") == "no":
+        if not validar_confirmacion("¿Agregar otro? (si/no): "):
             break
 
 
@@ -72,7 +80,7 @@ def baja_medicamentos(matriz):
                 break
         if not encontrado:
             print("Medicamento no encontrado")
-        if input("¿Eliminar otro? (si/no): ") == "no":
+        if not validar_confirmacion("¿Eliminar otro? (si/no): "):
             break
    
 
@@ -133,7 +141,7 @@ def modificar_stock_precio(matriz):
                 if fila == len(matriz):
                     print("Medicamento no encontrado")
         
-        if input("¿Modificar otro? (si/no): ") == "no":
+        if not validar_confirmacion("¿Modificar otro? (si/no): "):
             break    
 
 
