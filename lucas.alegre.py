@@ -1,6 +1,6 @@
 # ============================================================
 # MODULO: matriz_medicamentos.py
-# Autores: Lucas Alegre
+# Autor: Lucas Alegre
 # Descripcion: Modulo para crear y mostrar la matriz de medicamentos
 # ============================================================
 
@@ -39,7 +39,8 @@ def mostrar_matriz(matriz):
 
     # Encabezados
     print("\n" + "=" * 100)
-    print(f"{'Codigo':<12} {'Nombre':<25} {'Laboratorio':<15} {'Precio':<12} {'Stock':<8} {'Cobertura':<15} {'Vencimiento':<10}")
+    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} "
+          f"{'Stock':<10} {'Cobertura':<15} {'Vencimiento':<12}")
     print("=" * 100)
 
     # Filas
@@ -50,9 +51,3 @@ def mostrar_matriz(matriz):
         i = i + 1
 
     print("=" * 100 + "\n")
-
-
-# Prueba - eliminar después
-if __name__ == "__main__":
-    matriz = crear_matriz_inicial()
-    mostrar_matriz(matriz)
