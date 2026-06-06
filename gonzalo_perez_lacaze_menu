@@ -16,6 +16,7 @@ def mostrar_menu():
     print("==================================================")
     print("Seleccione una opción (1-6):")
 
+
 def validar_opcion(desde, hasta):
     '''valida ingresar un valor en el rango desde-hasta retorna el valor ingresado del teclado'''
     opcion = int(input("Seleccione una opción: "))
@@ -23,6 +24,7 @@ def validar_opcion(desde, hasta):
         print("La opción seleccionada no es válida") 
         opcion = int(input("Seleccione una opción: ")) #Vuelvo a pedir el ingreso de opciones en el caso de que sea invalida la opcion seleccionada
     return opcion
+
 
 def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
@@ -39,6 +41,7 @@ def alta_medicamentos(matriz):
         matriz.append(nueva_fila)
         if input("¿Agregar otro? (si/no): ") == "no":
             break 
+
 
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
@@ -64,6 +67,100 @@ def baja_medicamentos(matriz):
             print("Medicamento no encontrado")
         if input("¿Eliminar otro? (si/no): ") == "no":
             break
+   
 
-            
+def buscar_medicamento(matriz):
+    '''Permite buscar medicamentos por código o nombre'''
+    busqueda = input("Ingrese código o nombre del producto: ")
+    
+    fila = 0
+    while fila < len(matriz):
+        if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+            print(f"[Fila {fila}] Código: {matriz[fila][0]} | Nombre: {matriz[fila][1]} | Laboratorio: {matriz[fila][2]} | Precio: {matriz[fila][3]} | Stock: {matriz[fila][4]} | Cobertura: {matriz[fila][5]} | Vencimiento: {matriz[fila][6]}")
+            fila = len(matriz)
+        else:
+            fila += 1
+            if fila == len(matriz):
+                print("Medicamento no encontrado")
+
+
+def modificar_stock_precio(matriz):
+    '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
+    while True:
+        busqueda = input("Ingrese código o nombre del producto: ")
+        fila = 0
+        while fila < len(matriz):
+            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+                # Mostrar medicamento encontrado
+                print(f"[Fila {fila}] {matriz[fila][1]}")
+                print(f"Stock actual: {matriz[fila][4]} | Precio actual: {matriz[fila][3]}")
+                # MINI MENU AL ENCONTRAR EL MEDICAMENTO BUSCADO
+                print("¿Qué desea modificar?")
+                print("1. Stock")
+                print("2. Precio")
+                print("3. Ambos")
+                opcion_mod = int(input("Seleccione (1-3): "))
+                while opcion_mod < 1 or opcion_mod > 3:
+                    print("ERROR. Ingrese una opción válida")
+                    opcion_mod = int(input("Seleccione (1-3): "))
+                if opcion_mod == 1:
+                    nuevo_stock = int(input("Nuevo stock: "))
+                    matriz[fila][4] = nuevo_stock
+                    print("Stock modificado")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Stock: {matriz[fila][4]} ")
+                elif opcion_mod == 2:
+                    nuevo_precio = float(input("Nuevo precio: "))
+                    matriz[fila][3] = nuevo_precio
+                    print("Precio modificado")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]}")
+                elif opcion_mod == 3:
+                    nuevo_stock = int(input("Nuevo stock: "))
+                    matriz[fila][4] = nuevo_stock
+                    nuevo_precio = float(input("Nuevo precio: "))
+                    matriz[fila][3] = nuevo_precio
+                    print("Los cambios han sido efectuados")
+                    print(f"[Fila {fila}] {matriz[fila][1]} | Precio actual: {matriz[fila][3]} | Stock: {matriz[fila][4]} ")                        
+                fila = len(matriz)
+            else:
+                fila += 1
+                if fila == len(matriz):
+                    print("Medicamento no encontrado")
+        
+        if input("¿Modificar otro? (si/no): ") == "no":
+            break    
+
+
+def informe_general(matriz):
+    '''Muestra la matriz ordenada por vencimiento'''
+    # COPIO LA MATRIZ PARA NO MODIFICAR LA ORIGINAL
+    matriz_ordenada = [fila[:] for fila in matriz]
+    # ORDENO POR VENCIMIENTO
+    for i in range(len(matriz_ordenada) - 1):
+        for j in range(len(matriz_ordenada) - 1 - i):
+            if matriz_ordenada[j][6] > matriz_ordenada[j + 1][6]:
+                aux = matriz_ordenada[j]  # ← Fila completa (7 datos)
+                matriz_ordenada[j] = matriz_ordenada[j+1]
+                matriz_ordenada[j+1] = aux
+            elif matriz_ordenada[j][6] == matriz_ordenada[j + 1][6]:
+                if matriz_ordenada[j][1] > matriz_ordenada[j + 1][1]:
+                    aux = matriz_ordenada[j]
+                    matriz_ordenada[j] = matriz_ordenada[j+1]
+                    matriz_ordenada[j+1] = aux
+    # MOSTRAR MATRIZ ORDENADA
+    print("\n" + "="*120)
+    print("INFORME GENERAL - MEDICAMENTOS ORDENADOS POR VENCIMIENTO (MENOR A MAYOR)")
+    print("="*120)
+    print(f"{'Código':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Vencimiento':<12}")                
+    print("-"*120)
+    for fila in range(len(matriz_ordenada)):
+        print(f"{matriz_ordenada[fila][0]:<12} {matriz_ordenada[fila][1]:<30} {matriz_ordenada[fila][2]:<20} {matriz_ordenada[fila][3]:<12} {matriz_ordenada[fila][4]:<10} {matriz_ordenada[fila][5]:<15} {matriz_ordenada[fila][6]:<12}")
+    print("="*120)
+
+
+def salir():
+    '''Termina el programa'''
+    print("\n" + "="*60)
+    print("¡Gracias por usar PharmaCare Central!")
+    print("Hasta luego.")
+    print("="*60)
 
