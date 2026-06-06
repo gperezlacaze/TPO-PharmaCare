@@ -5,7 +5,7 @@
 # Descripción: Coordina el flujo del sistema de gestión de inventario
 # ============================================================
 
-from lucas.alegre import crear_matriz_inicial
+from lucas_alegre import crear_matriz_inicial
 from gonzalo_perez_lacaze_menu import (
     mostrar_menu, validar_opcion, alta_medicamentos,
     baja_medicamentos, buscar_medicamento,
