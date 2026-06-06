@@ -88,7 +88,6 @@ def baja_medicamentos(matriz):
 
 def buscar_medicamento(matriz):
     '''Permite buscar medicamentos por código o nombre'''
-    print("\n(Presione 8 en el menú principal para salir)\n")
     busqueda = input("Ingrese código o nombre del producto: ")
     
     fila = 0
@@ -104,7 +103,6 @@ def buscar_medicamento(matriz):
 
 def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
-    print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
         busqueda = input("Ingrese código o nombre del producto: ")
         fila = 0
