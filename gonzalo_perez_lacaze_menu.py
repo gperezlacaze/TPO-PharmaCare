@@ -99,7 +99,7 @@ def buscar_medicamento(matriz):
         tipo = input("Seleccione (1 o 2): ")
     
     if tipo == "1":  # CÓDIGO
-        busqueda_codigo = input("Ingrese el código: ")
+        busqueda_codigo = input("Ingrese el código: ").upper()
         for fila in range(len(matriz)):
             if matriz[fila][0] == busqueda_codigo:
                 # Mostrar completo
