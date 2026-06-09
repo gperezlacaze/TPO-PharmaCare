@@ -25,6 +25,7 @@ def mostrar_menu():
 
 
 def validar_opcion(desde, hasta):
+    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
     opcion = int(input("Seleccione una opción: "))  
     while (opcion < desde or opcion > hasta) and opcion != 8:
         print("La opción seleccionada no es válida") 
@@ -66,19 +67,19 @@ def baja_medicamentos(matriz):
         busqueda = input("Ingrese código o nombre del producto: ")
         encontrado = False
         for fila in range(len(matriz)):
-            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
-                encontrado = True
-                print(f"Medicamento encontrado: {matriz[fila][1]}")
-                print(f"Stock: {matriz[fila][4]}")
-                if matriz[fila][4] == 0:
-                    print("¿Desea Eliminarlo? (si/no)")
-                    if input("¿Desea eliminar? (si/no): ") == "si":
-                        matriz.pop(fila)
-                        print("Medicamento eliminado correctamente")
-                    else:
-                        print("Operación cancelada")
+        if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+            encontrado = True
+            print(f"Medicamento encontrado: {matriz[fila][1]}")
+            print(f"Stock: {matriz[fila][4]}")
+            if matriz[fila][4] == 0:
+                print("¿Desea Eliminarlo? (si/no)")
+                if input("¿Desea eliminar? (si/no): ") == "si":
+                    matriz.pop(fila)
+                    print("Medicamento eliminado correctamente")
                 else:
-                    print("Error: No se puede eliminar, stock > 0")
+                    print("Operación cancelada")
+            else:
+                print("Error: No se puede eliminar, stock > 0")
                 break
         if not encontrado:
             print("Medicamento no encontrado")
