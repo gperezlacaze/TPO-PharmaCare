@@ -46,7 +46,7 @@ def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
     print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
-        codigo = ingresar_codigo()
+        codigo = ingresar_codigo(matriz)
         nombre = ingresar_medicamento()
         laboratorio = ingresar_laboratorio()
         precio = ingresar_precio()
@@ -88,19 +88,51 @@ def baja_medicamentos(matriz):
    
 
 def buscar_medicamento(matriz):
-    '''Permite buscar medicamentos por código o nombre'''
-    busqueda = input("Ingrese código o nombre del producto: ")
-    
-    fila = 0
-    while fila < len(matriz):
-        if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
-            print(f"[Fila {fila}] Código: {matriz[fila][0]} | Nombre: {matriz[fila][1]} | Laboratorio: {matriz[fila][2]} | Precio: {matriz[fila][3]} | Stock: {matriz[fila][4]} | Cobertura: {matriz[fila][5]} | Vencimiento: {matriz[fila][6]}")
-            fila = len(matriz)
-        else:
-            fila += 1
-            if fila == len(matriz):
-                print("Medicamento no encontrado")
+    ''''''
+    print("\n¿Cómo desea buscar?")
+    print("1. Por código (búsqueda exacta)")
+    print("2. Por nombre (búsqueda parcial)")
+    tipo = input("Seleccione (1 o 2): ")
 
+    while tipo not in ["1", "2"]:
+        print("Opción inválida. Intente nuevamente.")
+        tipo = input("Seleccione (1 o 2): ")
+    
+    if tipo == "1":  # CÓDIGO
+        busqueda_codigo = input("Ingrese el código: ")
+        for fila in range(len(matriz)):
+            if matriz[fila][0] == busqueda_codigo:
+                # Mostrar completo
+                print(f"\nMedicamento encontrado:")
+                print(f"{matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}\n")
+                return fila  # ← Retorna INDEX
+        else:
+            # Se ejecuta si el ciclo termina sin encontrar
+            print("\nMedicamento no encontrado")
+            return None
+    elif tipo == "2":
+        busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
+        resultados = []
+
+        for fila in range(len(matriz)):
+            if busqueda_nombre in matriz[fila][1].lower():
+                resultados.append(fila)
+        
+        if resultados:
+            print(f"\nSe encontraron {len(resultados)} medicamento(s):\n")
+            
+            i = 0
+            while i < len(resultados):
+                fila = resultados[i]
+                posicion = i + 1
+                print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+                i = i + 1
+            
+            return resultados  # Retorna lista de índices
+        else:
+            print("\nMedicamento no encontrado")
+            return None
+ 
 
 def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
