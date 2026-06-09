@@ -135,14 +135,10 @@ def ingresar_dias_vencimiento():
 
 def ingresar_cobertura():
     """Pedir y validar la cobertura médica del medicamento."""
-    cobertura = input(
-        "Ingrese la cobertura (Con cobertura / Sin cobertura): "
-    ).strip().capitalize()
+    cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
     while not validar_cobertura(cobertura):
         print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
-        cobertura = input(
-            "Ingrese la cobertura (Con cobertura / Sin cobertura): "
-        ).strip().capitalize()
+        cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
     return cobertura
 
 
