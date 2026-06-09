@@ -18,12 +18,20 @@ def validar_nombre_medicamento(nombre):
 
 
 def validar_codigo_medicamento(codigo):
-    """Validar que el código tenga entre 4 y 10 caracteres alfanuméricos."""
+    """Validar que el código tenga entre 4 y 10 caracteres alfanuméricos"""
     cantidad = len(codigo)
     if not (4 <= cantidad <= 10):
         return False
     if not codigo.isalnum():
         return False
+    return True
+
+
+def validar_codigo_unico(codigo, matriz):
+    """ Validar que el codigo no exista en la matriz"""
+    for f in range(len(matriz)):
+        if matriz[f][0] == codigo:
+            return False
     return True
 
 
@@ -72,6 +80,23 @@ def validar_cobertura(cobertura):
     return False
 
 
+def validar_opcion(desde, hasta):
+    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
+    opcion = input("Seleccione una opción: ")
+    while not opcion.isdigit():
+         print("La opción debe ser un número.")
+         opcion = input("Seleccione una opción: ")
+    opcion = int(opcion)
+    while (opcion < desde or opcion > hasta) and opcion != 8:
+        print("La opción seleccionada no es válida") 
+        opcion = input("Seleccione una opción: ")
+        while not opcion.isdigit():
+         print("La opción debe ser un número.")
+         opcion = input("Seleccione una opción: ")
+        opcion = int(opcion)
+    return opcion
+
+
 # ------------------------------------------------------------
 # FUNCIONES DE INGRESO
 # (interactúan con el usuario y reutilizan las validaciones)
@@ -87,12 +112,15 @@ def ingresar_medicamento():
     return nombre
 
 
-def ingresar_codigo():
+def ingresar_codigo(matriz):
     """Pedir y validar el código del medicamento."""
     codigo = input("Ingrese el código del medicamento: ").strip().upper()
-    while not validar_codigo_medicamento(codigo):
-        print("Código inválido: debe tener entre 4 y 10 caracteres "
+    while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
+        if not validar_codigo_medicamento(codigo):
+            print("Código inválido: debe tener entre 4 y 10 caracteres "
               "alfanuméricos (sin espacios ni símbolos).")
+        else:
+            print("Codigo ya existente en la matriz")
         codigo = input("Ingrese el código del medicamento: ").strip().upper()
     return codigo
 
