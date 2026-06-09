@@ -107,10 +107,9 @@ def buscar_medicamento(matriz):
                 print(f"{matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}\n")
                 return fila  # ← Retorna INDEX
         else:
-            # Se ejecuta si el ciclo termina sin encontrar
-            print("\nMedicamento no encontrado")
-            respuesta = input("¿Desea intentar de nuevo? (si/no): ").lower()
-            if respuesta != "si":
+            print("\nMedicamento no encontrado. Intente de nuevo o deje vacío para volver al menú.")
+            respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
+            if respuesta == "":
                 return None
 
     elif tipo == "2":
