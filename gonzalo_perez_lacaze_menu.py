@@ -67,10 +67,10 @@ def baja_medicamentos(matriz):
         busqueda = input("Ingrese código o nombre del producto: ")
         encontrado = False
         for fila in range(len(matriz)):
-        if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
-            encontrado = True
-            print(f"Medicamento encontrado: {matriz[fila][1]}")
-            print(f"Stock: {matriz[fila][4]}")
+            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
+                encontrado = True
+                print(f"Medicamento encontrado: {matriz[fila][1]}")
+                print(f"Stock: {matriz[fila][4]}")
             if matriz[fila][4] == 0:
                 print("¿Desea Eliminarlo? (si/no)")
                 if input("¿Desea eliminar? (si/no): ") == "si":
