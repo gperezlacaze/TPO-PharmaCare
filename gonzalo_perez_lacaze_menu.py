@@ -46,7 +46,7 @@ def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
     print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
-        codigo = ingresar_codigo(matriz)
+        codigo = ingresar_codigo()
         nombre = ingresar_medicamento()
         laboratorio = ingresar_laboratorio()
         precio = ingresar_precio()
