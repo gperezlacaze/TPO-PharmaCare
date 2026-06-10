@@ -133,7 +133,9 @@ def buscar_medicamento(matriz):
             return resultados  # Retorna lista de índices
         else:
             print("\nMedicamento no encontrado")
-            return None
+            respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
+            if respuesta == "":
+                return None
  
 
 def modificar_stock_precio(matriz):
