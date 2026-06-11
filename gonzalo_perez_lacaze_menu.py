@@ -21,25 +21,8 @@ def mostrar_menu():
     print("5. Informe general")
     print("6. Salir")
     print("==================================================")
+    opcion = validar_opcion(1, 6)
     print("Seleccione una opción (1-6) o presione 8 para salir:")
-
-
-def validar_opcion(desde, hasta):
-    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
-    opcion = int(input("Seleccione una opción: "))  
-    while (opcion < desde or opcion > hasta) and opcion != 8:
-        print("La opción seleccionada no es válida") 
-        opcion = int(input("Seleccione una opción: "))
-    return opcion
-
-
-def validar_confirmacion(pregunta):
-    """Valida que la respuesta sea 'si' o 'no' (case-insensitive)"""
-    respuesta = input(pregunta).strip().lower()
-    while respuesta not in ["si", "no"]:
-        print("Respuesta inválida. Ingrese 'si' o 'no':")
-        respuesta = input(pregunta).strip().lower()
-    return respuesta == "si"
 
 
 def alta_medicamentos(matriz):
