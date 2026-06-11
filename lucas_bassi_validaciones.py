@@ -80,24 +80,6 @@ def validar_cobertura(cobertura):
     return False
 
 
-def validar_opcion(desde, hasta):
-    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
-    opcion = input("Seleccione una opción: ")
-    while not opcion.isdigit():
-         print("La opción debe ser un número.")
-         opcion = input("Seleccione una opción: ")
-
-    opcion = int(opcion)
-    while (opcion < desde or opcion > hasta) and opcion != 8:
-        print("La opción seleccionada no es válida") 
-        opcion = input("Seleccione una opción: ")
-        while not opcion.isdigit():
-             print("La opción debe ser un número.")
-             opcion = input("Seleccione una opción: ")
-        opcion = int(opcion)
-    return opcion
-
-
 # ------------------------------------------------------------
 # FUNCIONES DE INGRESO
 # (interactúan con el usuario y reutilizan las validaciones)
@@ -169,6 +151,35 @@ def ingresar_cobertura():
         print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
         cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
     return cobertura
+
+
+def validar_opcion(desde, hasta):
+    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
+    opcion = input("Seleccione una opción: ")
+    while not opcion.isdigit():
+         print("La opción debe ser un número.")
+         opcion = input("Seleccione una opción: ")
+
+    opcion = int(opcion)
+    while (opcion < desde or opcion > hasta) and opcion != 8:
+        print("La opción seleccionada no es válida") 
+        opcion = input("Seleccione una opción: ")
+        while not opcion.isdigit():
+             print("La opción debe ser un número.")
+             opcion = input("Seleccione una opción: ")
+        opcion = int(opcion)
+    return opcion
+
+
+def validar_confirmacion(pregunta):
+    """Valida que la respuesta sea 'si' o 'no' (case-insensitive)"""
+    respuesta = input(pregunta).strip().lower()
+    while respuesta not in ["si", "no"]:
+        print("Respuesta inválida. Ingrese 'si' o 'no':")
+        respuesta = input(pregunta).strip().lower()
+    return respuesta == "si"
+
+    
 
 
     
