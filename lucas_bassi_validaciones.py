@@ -101,7 +101,7 @@ def ingresar_codigo(matriz):
     while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
         if not validar_codigo_medicamento(codigo):
             print("Código inválido: debe tener entre 4 y 10 caracteres "
-              "alfanuméricos (sin espacios ni símbolos).")
+            "alfanuméricos (sin espacios ni símbolos).")
         else:
             print("Codigo ya existente en la matriz")
         codigo = input("Ingrese el código del medicamento: ").strip().upper()
@@ -157,16 +157,16 @@ def validar_opcion(desde, hasta):
     '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
     opcion = input("Seleccione una opción: ")
     while not opcion.isdigit():
-         print("La opción debe ser un número.")
-         opcion = input("Seleccione una opción: ")
+        print("La opción debe ser un número.")
+        opcion = input("Seleccione una opción: ")
 
     opcion = int(opcion)
     while (opcion < desde or opcion > hasta) and opcion != 8:
         print("La opción seleccionada no es válida") 
         opcion = input("Seleccione una opción: ")
         while not opcion.isdigit():
-             print("La opción debe ser un número.")
-             opcion = input("Seleccione una opción: ")
+            print("La opción debe ser un número.")
+            opcion = input("Seleccione una opción: ")
         opcion = int(opcion)
     return opcion
 
