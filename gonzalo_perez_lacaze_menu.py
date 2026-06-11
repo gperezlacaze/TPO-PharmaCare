@@ -70,55 +70,55 @@ def baja_medicamentos(matriz):
             break
    
 
-def buscar_medicamento(matriz):
-    ''''''
-    print("\n¿Cómo desea buscar?")
-    print("1. Por código (búsqueda exacta)")
-    print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2): ")
-
-    while tipo not in ["1", "2"]:
-        print("Opción inválida. Intente nuevamente.")
+    def buscar_medicamento(matriz):
+        ''''''
+        print("\n¿Cómo desea buscar?")
+        print("1. Por código (búsqueda exacta)")
+        print("2. Por nombre (búsqueda parcial)")
         tipo = input("Seleccione (1 o 2): ")
-    
-    if tipo == "1":  # CÓDIGO
-        busqueda_codigo = input("Ingrese el código: ").strip().upper()
-        for fila in range(len(matriz)):
-            if matriz[fila][0] == busqueda_codigo:
-                # Mostrar completo
-                print(f"\nMedicamento encontrado:")
-                print(f"{matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}\n")
-                return fila  # ← Retorna INDEX
-        else:
-            print("\nMedicamento no encontrado. Intente de nuevo o deje vacío para volver al menú.")
-            respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
-            if respuesta == "":
-                return None
 
-    elif tipo == "2":
-        busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
-        resultados = []
-
-        for fila in range(len(matriz)):
-            if busqueda_nombre in matriz[fila][1].lower():
-                resultados.append(fila)
+        while tipo not in ["1", "2"]:
+            print("Opción inválida. Intente nuevamente.")
+            tipo = input("Seleccione (1 o 2): ")
         
-        if resultados:
-            print(f"\nSe encontraron {len(resultados)} medicamento(s):\n")
+        if tipo == "1":  # CÓDIGO
+            busqueda_codigo = input("Ingrese el código: ").strip().upper()
+            for fila in range(len(matriz)):
+                if matriz[fila][0] == busqueda_codigo:
+                    # Mostrar completo
+                    print(f"\nMedicamento encontrado:")
+                    print(f"{matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}\n")
+                    return [fila]  # ← Retorna INDEX
+            else:
+                print("\nMedicamento no encontrado. Intente de nuevo o deje vacío para volver al menú.")
+                respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
+                if respuesta == "":
+                    return None
+
+        elif tipo == "2":
+            busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
+            resultados = []
+
+            for fila in range(len(matriz)):
+                if busqueda_nombre in matriz[fila][1].lower():
+                    resultados.append(fila)
             
-            i = 0
-            while i < len(resultados):
-                fila = resultados[i]
-                posicion = i + 1
-                print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
-                i = i + 1
-            
-            return resultados  # Retorna lista de índices
-        else:
-            print("\nMedicamento no encontrado")
-            respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
-            if respuesta == "":
-                return None
+            if resultados:
+                print(f"\nSe encontraron {len(resultados)} medicamento(s):\n")
+                
+                i = 0
+                while i < len(resultados):
+                    fila = resultados[i]
+                    posicion = i + 1
+                    print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+                    i = i + 1
+                
+                return resultados  # Retorna lista de índices
+            else:
+                print("\nMedicamento no encontrado")
+                respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
+                if respuesta == "":
+                    return None
  
 
 def modificar_stock_precio(matriz):

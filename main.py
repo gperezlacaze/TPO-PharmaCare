@@ -7,7 +7,7 @@
 
 from lucas_alegre import crear_matriz_inicial
 from gonzalo_perez_lacaze_menu import (
-    mostrar_menu, validar_opcion, alta_medicamentos,
+    mostrar_menu, alta_medicamentos,
     baja_medicamentos, buscar_medicamento,
     modificar_stock_precio, informe_general, salir
 )
