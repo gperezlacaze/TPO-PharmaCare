@@ -189,8 +189,8 @@ if __name__ == "__main__":
     print("VÁLIDO - '  RST2578P ': ", validar_codigo_medicamento("  RST2578P ")) # True
     print("VÁLIDO - 'ouRS56': ", validar_codigo_medicamento("ouRS56")) # True
     print("INVÁLIDO -  'RTX 456' (Espacio central): ", validar_codigo_medicamento("RTX 456")) # False
-    print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento("UEYDMWM34675")) # False
-    print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("UEYDMWM34675")) # False
+    print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento(" ")) # False
+    print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("as3")) # False
     print("INVÁLIDO -  'UEYDMWM34675'(Muy largo): ", validar_codigo_medicamento("UEYDMWM34675")) # False
     print("INVÁLIDO -  'WES@546'(Caracteres especiales): ", validar_codigo_medicamento("WES@546")) # False
     
@@ -218,7 +218,7 @@ if __name__ == "__main__":
     print("\nvalidar_precio:")
     print("VÁLIDO - '674': ", validar_precio("674")) # True
     print("VÁLIDO - '3980  ': ", validar_precio("3980  ")) # True
-    print("VÁLIDO - '34.65': ", validar_precio("3980  ")) # True
+    print("VÁLIDO - '34.65': ", validar_precio("34.65")) # True
     print("INVÁLIDO - ' '(Vacio): ", validar_precio(" ")) # False
     print("INVÁLIDO - 'noventa'(Texto): ", validar_precio("noventa")) # False
     print("INVÁLIDO - '23.65.8':(mas puntos) ", validar_precio("23.65.8")) # False
@@ -232,6 +232,17 @@ if __name__ == "__main__":
     print("VÁLIDO - 'CoN cobeRtuRa': ", validar_cobertura("CoN cobeRtuRa")) # True
     print("INVÁLIDO - ' '(Vacio): ", validar_cobertura(" ")) # False
     print("INVÁLIDO - 'Con'(Vacio): ", validar_cobertura("Con")) # False
+
+    # Funcion 7: validar_codigo_unico
+    print("\nvalidar_codigo_unico:")
+    matriz_prueba = [
+        ["MED001", "Ibuprofeno 600mg"],
+        ["FAR125", "Amoxicilina 500mg"],
+        ["LAB789", "Omeprazol 20mg"]] 
+    
+    print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba)) # True
+    print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba)) # False
+   
 
 
 
