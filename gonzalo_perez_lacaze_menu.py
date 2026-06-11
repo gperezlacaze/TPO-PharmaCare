@@ -8,7 +8,7 @@ from lucas_bassi_validaciones import (
     ingresar_stock, ingresar_cobertura, ingresar_dias_vencimiento,
     validar_confirmacion
 )
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
+from lucas_alegre import mostrar_matriz
 
 
 def mostrar_menu():
