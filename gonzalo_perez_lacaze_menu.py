@@ -8,6 +8,7 @@ from lucas_bassi_validaciones import (
     ingresar_stock, ingresar_cobertura, ingresar_dias_vencimiento,
     validar_confirmacion
 )
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
 
 
 def mostrar_menu():
@@ -42,6 +43,52 @@ def alta_medicamentos(matriz):
         if not validar_confirmacion("¿Agregar otro? (si/no): "):
             break
 
+def baja_medicamentos(matriz):
+    '''Permite eliminar medicamentos con stock = 0'''
+    print("\n(Presione 8 en el menú principal para salir)\n")   
+    while True:
+        resultado = buscar_medicamento(matriz)
+        if resultado is None:
+            break
+        
+        # PASO 1: Filtrar solo medicamentos con stock = 0
+        medicamentos_a_eliminar = []
+        
+        i = 0
+        while i < len(resultado):                         
+            fila = resultado[i]        
+            if matriz[fila][4] == 0: 
+                medicamentos_a_eliminar.append(fila)
+            i = i + 1
+        
+        # PASO 2: Ahora verifica después de terminar de filtrar
+        if len(medicamentos_a_eliminar) == 0:
+            print("Ningún medicamento encontrado tiene stock = 0")
+        else:
+            print(f"\nMedicamentos con stock = 0:\n")
+            
+            # PASO 3: Usuario elige cuál eliminar
+            if len(medicamentos_a_eliminar) == 1:
+                fila = medicamentos_a_eliminar[0]
+            else:
+                eleccion = input(f"¿Cuál desea eliminar? (1-{len(medicamentos_a_eliminar)}): ")
+                while not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(medicamentos_a_eliminar):
+                    print("Selección inválida")
+                    eleccion = input(f"Ingrese el número (1-{len(medicamentos_a_eliminar)}): ")
+                fila = medicamentos_a_eliminar[int(eleccion) - 1]
+            
+            # PASO 4: Confirmar y eliminar
+            if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): "):
+                print(f"Eliminando: {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+                matriz.pop(fila)
+                print("Medicamento eliminado correctamente")
+            else:
+                print("Operación cancelada")
+        
+        # PASO 5: Preguntar si elimina otro
+        if not validar_confirmacion("¿Eliminar otro? (si/no): "):
+            break
+
 
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
@@ -70,7 +117,7 @@ def baja_medicamentos(matriz):
             break
    
 
-    def buscar_medicamento(matriz):
+def buscar_medicamento(matriz):
         ''''''
         print("\n¿Cómo desea buscar?")
         print("1. Por código (búsqueda exacta)")
@@ -202,3 +249,14 @@ def salir():
     print("Hasta luego.")
     print("="*60)   
 
+
+if __name__ == '__main__':
+    print("=== PRUEBAS DE MÓDULO MENÚ ===")
+    
+    print("\nPrueba 1: Mostrar menú")
+    mostrar_menu()
+    
+    print("\nPrueba 2: Función salir")
+    salir()
+    
+    print("\n=== FIN DE PRUEBAS ===")
