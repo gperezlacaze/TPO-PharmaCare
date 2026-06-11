@@ -17,6 +17,7 @@ def validar_nombre_medicamento(nombre):
 
 def validar_codigo_medicamento(codigo):
     """Validar que el código tenga entre 4 y 10 caracteres alfanuméricos"""
+    codigo = codigo.strip()
     cantidad = len(codigo)
     if not (4 <= cantidad <= 10):
         return False
@@ -91,7 +92,7 @@ def ingresar_medicamento():
 
 def ingresar_codigo(matriz):
     """Pedir y validar el código del medicamento."""
-    codigo = input("Ingrese el código del medicamento: ").strip().upper()
+    codigo = input("Ingrese el código del medicamento: ").upper()
     while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
         if not validar_codigo_medicamento(codigo):
             print("Código inválido: debe tener entre 4 y 10 caracteres "
@@ -179,8 +180,68 @@ def validar_confirmacion(pregunta):
         respuesta = input(pregunta).strip().lower()
     return respuesta == "si"
 
+
+if __name__ == "__main__":
+
+    # Funcion 1: validar_codigo_medicamento
+    print("\nvalidar_codigo_medicamento:")
+    print("VÁLIDO - 'MED3452': ", validar_codigo_medicamento("Med3452")) # True
+    print("VÁLIDO - '  RST2578P ': ", validar_codigo_medicamento("  RST2578P ")) # True
+    print("VÁLIDO - 'ouRS56': ", validar_codigo_medicamento("ouRS56")) # True
+    print("INVÁLIDO -  'RTX 456' (Espacio central): ", validar_codigo_medicamento("RTX 456")) # False
+    print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento("UEYDMWM34675")) # False
+    print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("UEYDMWM34675")) # False
+    print("INVÁLIDO -  'UEYDMWM34675'(Muy largo): ", validar_codigo_medicamento("UEYDMWM34675")) # False
+    print("INVÁLIDO -  'WES@546'(Caracteres especiales): ", validar_codigo_medicamento("WES@546")) # False
+    
+    # Funcion 2: validar_nombre_medicamento
+    print("\nvalidar_nombre_medicamento:")
+    print("VÁLIDO - 'Ibuprofeno 600mg': ", validar_nombre_medicamento("Ibuprofeno 600mg")) # True
+    print("VÁLIDO - '  Omeprazol  ': ", validar_nombre_medicamento("  Omeprazol  ")) # True
+    print("INVÁLIDO - '  '(Vacio): ", validar_nombre_medicamento("  ")) # False
+
+    # Funcion 3: validar_laboratorio_fabricante
+    print("\nvalidar_laboratorio_fabricante:")
+    print("VÁLIDO - 'Roemmers': ", validar_laboratorio_fabricante("Roemmers")) # True
+    print("VÁLIDO - 'ISA  ': ", validar_laboratorio_fabricante("ISA  ")) # True
+    print("INVÁLIDO - '  '(Vacio): ", validar_laboratorio_fabricante("  ")) # False
+
+    # Funcion 4: validar_entero_positivo
+    print("\nvalidar_entero_positivo:")
+    print("VÁLIDO - '12': ", validar_entero_positivo("12")) # True
+    print("VÁLIDO - ' 6732': ", validar_entero_positivo(" 6732")) # True
+    print("INVÁLIDO - '56.8'(Decimal): ", validar_entero_positivo("56.8")) # False
+    print("INVÁLIDO - '43,9'(Coma): ", validar_entero_positivo("43,9")) # False
+    print("INVÁLIDO - '-78'(Negativo): ", validar_entero_positivo("-78")) # False
+
+    # Funcion 5: validar_precio
+    print("\nvalidar_precio:")
+    print("VÁLIDO - '674': ", validar_precio("674")) # True
+    print("VÁLIDO - '3980  ': ", validar_precio("3980  ")) # True
+    print("VÁLIDO - '34.65': ", validar_precio("3980  ")) # True
+    print("INVÁLIDO - ' '(Vacio): ", validar_precio(" ")) # False
+    print("INVÁLIDO - 'noventa'(Texto): ", validar_precio("noventa")) # False
+    print("INVÁLIDO - '23.65.8':(mas puntos) ", validar_precio("23.65.8")) # False
+    print("INVÁLIDO - '.'(Solo un punto): ", validar_precio(".")) # False
+    print("INVÁLIDO - '-34.8'(Negativo): ", validar_precio("-34.8")) # False
+
+    # Funcion 6:validar_cobertura
+    print("\nvalidar_cobertura:")
+    print("VÁLIDO - 'Con cobertura': ", validar_cobertura("Con cobertura")) # True
+    print("VÁLIDO - 'Sin cobertura  ': ", validar_cobertura("Sin cobertura  ")) # True
+    print("VÁLIDO - 'CoN cobeRtuRa': ", validar_cobertura("CoN cobeRtuRa")) # True
+    print("INVÁLIDO - ' '(Vacio): ", validar_cobertura(" ")) # False
+    print("INVÁLIDO - 'Con'(Vacio): ", validar_cobertura("Con")) # False
+
+
+
     
 
 
     
 
+    
+    
+
+
+    
