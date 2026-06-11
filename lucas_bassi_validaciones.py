@@ -86,13 +86,14 @@ def validar_opcion(desde, hasta):
     while not opcion.isdigit():
          print("La opción debe ser un número.")
          opcion = input("Seleccione una opción: ")
+
     opcion = int(opcion)
     while (opcion < desde or opcion > hasta) and opcion != 8:
         print("La opción seleccionada no es válida") 
         opcion = input("Seleccione una opción: ")
         while not opcion.isdigit():
-         print("La opción debe ser un número.")
-         opcion = input("Seleccione una opción: ")
+             print("La opción debe ser un número.")
+             opcion = input("Seleccione una opción: ")
         opcion = int(opcion)
     return opcion
 
