@@ -12,9 +12,7 @@
 
 def validar_nombre_medicamento(nombre):
     """Validar que el nombre del medicamento no esté vacío."""
-    if nombre.strip() == "":
-        return False
-    return True
+    return nombre.strip() != ""
 
 
 def validar_codigo_medicamento(codigo):
@@ -37,9 +35,7 @@ def validar_codigo_unico(codigo, matriz):
 
 def validar_laboratorio_fabricante(laboratorio):
     """Validar que el nombre del laboratorio no esté vacío."""
-    if laboratorio.strip() == "":
-        return False
-    return True
+    return laboratorio.strip() != ""
 
 
 def validar_entero_positivo(texto):
@@ -75,9 +71,7 @@ def validar_precio(texto):
 def validar_cobertura(cobertura):
     """Validar que la cobertura sea 'Con cobertura' o 'Sin cobertura'."""
     cobertura = cobertura.strip().capitalize()
-    if cobertura == "Con cobertura" or cobertura == "Sin cobertura":
-        return True
-    return False
+    return cobertura in ["Con cobertura", "Sin cobertura" ]
 
 
 # ------------------------------------------------------------
@@ -151,6 +145,12 @@ def ingresar_cobertura():
         print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
         cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
     return cobertura
+
+
+# ------------------------------------------------------------
+# FUNCIONES DE VALIDACIÓN DE MENÚ
+# (interactúan con el usuario para opciones y confirmaciones)
+# ------------------------------------------------------------
 
 
 def validar_opcion(desde, hasta):
