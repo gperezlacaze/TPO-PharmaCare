@@ -10,6 +10,8 @@ from gonzalo_perez_lacaze_menu import (
     baja_medicamentos, buscar_medicamento,
     modificar_stock_precio, informe_general, salir
 )
+from lucas_alegre import crear_matriz_inicial
+from lucas_bassi_validaciones import validar_opcion
 
 
 def main():
