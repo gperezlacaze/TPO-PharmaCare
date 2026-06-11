@@ -5,7 +5,8 @@
 from lucas_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento,
     ingresar_laboratorio, ingresar_precio,
-    ingresar_stock, ingresar_cobertura, ingresar_dias_vencimiento
+    ingresar_stock, ingresar_cobertura, ingresar_dias_vencimiento,
+    validar_confirmacion
 )
 
 
@@ -21,7 +22,6 @@ def mostrar_menu():
     print("5. Informe general")
     print("6. Salir")
     print("==================================================")
-    opcion = validar_opcion(1, 6)
     print("Seleccione una opción (1-6) o presione 8 para salir:")
 
 
@@ -29,7 +29,7 @@ def alta_medicamentos(matriz):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
     print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
-        codigo = ingresar_codigo()
+        codigo = ingresar_codigo(matriz)
         nombre = ingresar_medicamento()
         laboratorio = ingresar_laboratorio()
         precio = ingresar_precio()
