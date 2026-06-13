@@ -2,14 +2,16 @@
 # Autor: Lucas Bassi
 # Proyecto: PharmaCare Central
 
-from lucas_bassi_validaciones import(validar_opcion)
+from lucas_bassi_validaciones import(validar_opcion, validar_entero_positivo)
+from lucas_alegre_validaciones_fase_2 import(validar_laboratorio_duplicado, 
+    validar_nombre_laboratorio)
 
 # "Roemmers", "Bagó", "Pfizer", "Roche", "ISA"
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 
 
 # ------------------------------------------------------------
-# FUNCIONES RF04 - GESTIÓN DE LABORATORIOS
+# FUNCIONES - GESTIÓN DE LABORATORIOS
 # ------------------------------------------------------------
 
 
@@ -34,18 +36,82 @@ def submenu_laboratorios(laboratorios):
      mostrar_menu_laboratorios()
      opcion = validar_opcion(1,5)
      if opcion == 1:
-         pass # Agregar laboratorios
+         agregar_laboratorio(laboratorios)
      elif opcion == 2:
-         pass # modificar laboratorios
+         modificar_laboratorio(laboratorios)
      elif opcion == 3:
-         pass # dar de baja laboratorios
+         dar_de_baja_laboratorio(laboratorios)
      elif opcion == 4:
          ver_laboratorios(laboratorios)
-     elif opcion == 5:
-         pass # salir
+
+
+# Opcion 1:
+def agregar_laboratorio(laboratorios):
+    """Agregar laboratorio a la lista"""
+
+    laboratorio = input("Ingresá el nombre del laboratorio: ").strip()
+
+    while not validar_nombre_laboratorio(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
+        if not validar_nombre_laboratorio(laboratorio):
+            print("El nombre no puede estar vacío.")
+        else:
+            print("El laboratorio ya existe en la lista.")
+        laboratorio = input("Ingresá el nombre del laboratorio: ").strip()
+
+    laboratorios.append(laboratorio)
+    print(f"Laboratorio {laboratorio} agregado exitosamente.")
+
+# Opcion 2
+def modificar_laboratorio(laboratorios):
+    """Modificar el laboratorio"""
+    ver_laboratorios(laboratorios)
     
+    numero = input("Ingrese el numero del laboratorio que desea modificar: ")
+
+    while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
+        if not validar_entero_positivo(numero):
+            print("El numero debe ser entero y positivo")
+        else:
+            print("El numero ingresado no tiene asignado un laboratorio")
+        numero = input("Ingrese el numero del laboratorio que desea modificar: ")
+         
+    nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").strip()
+
+    while not validar_nombre_laboratorio(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
+        if not validar_nombre_laboratorio(nuevo_nombre):
+            print("El nombre no puede estar vacío.")
+        else:
+            print("El laboratorio ya existe en la lista.")
+        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").strip()
+
+    laboratorios[int(numero) - 1] = nuevo_nombre
+    print(f"Laboratorio modificado exitosamente a {nuevo_nombre}.")
+
+# Opcion 3
+def dar_de_baja_laboratorio(laboratorios):
+    """Eliminar laboratorio de la lista"""
+    if len(laboratorios) == 0:
+        print("No hay laboratorios registrados")
+    else:
+        ver_laboratorios(laboratorios)
+
+        numero = input("Ingresa numero de laboratorio que desea eliminar: ")
+
+        while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
+          if not validar_entero_positivo(numero):
+             print("El numero debe ser entero y positivo")
+          else:
+             print("El numero ingresado no tiene asignado un laboratorio")
+          numero = input("Ingresa numero de laboratorio que desea eliminar: ")
+        
+        nombre = laboratorios[int(numero) - 1]
+        laboratorios.pop(int(numero) - 1)
+        print(f"Laboratorio {nombre} eliminado con exito")
+
+
 # Opcion 4:
 def ver_laboratorios(laboratorios):
+    """Ver lista de laboratorios registrados"""
     print("========================================")
     print("LABORATORIOS REGISTRADOS")
     print("========================================")
@@ -67,7 +133,7 @@ def ver_laboratorios(laboratorios):
 
 
 def menu_gestion():
-    "Mostrar menu de gestiones con todas sus opciones"
+    """Mostrar menu de gestiones con todas sus opciones"""
     print("========================================")
     print("GESTIONES - PHARMACARE CENTRAL")
     print("========================================")
