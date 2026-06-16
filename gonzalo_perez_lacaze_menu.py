@@ -43,17 +43,14 @@ def alta_medicamentos(matriz):
         if not validar_confirmacion("¿Agregar otro? (si/no): "):
             break
 
+
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
-    print("\n(Presione 8 en el menú principal para salir)\n")   
-    while True:
-        resultado = buscar_medicamento(matriz)
-        if resultado is None:
-            break
-        
+    print("\n(Presione 8 en el menú principal para salir)\n")
+    resultado = buscar_medicamento(matriz)   
+    while resultado:
         # PASO 1: Filtrar solo medicamentos con stock = 0
         medicamentos_a_eliminar = []
-        
         i = 0
         while i < len(resultado):                         
             fila = resultado[i]        
@@ -64,72 +61,44 @@ def baja_medicamentos(matriz):
         # PASO 2: Ahora verifica después de terminar de filtrar
         if len(medicamentos_a_eliminar) == 0:
             print("Ningún medicamento encontrado tiene stock = 0")
+        elif len(medicamentos_a_eliminar) == 1:
+            fila = medicamentos_a_eliminar[0]
+            print(f"\nMedicamento a eliminar: {matriz[fila][1]}")
+        else:  # len > 1
+            eleccion = input(f"¿Cuál desea eliminar? (1-{len(medicamentos_a_eliminar)}): ")
+            while not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(medicamentos_a_eliminar):
+                print("Selección inválida")
+                eleccion = input(f"Ingrese el número (1-{len(medicamentos_a_eliminar)}): ")
+            fila = medicamentos_a_eliminar[int(eleccion) - 1]
+
+        # PASO 3: Confirmar y eliminar
+        if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): "):
+            print(f"Eliminando: {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+            matriz.pop(fila)
+            print("Medicamento eliminado correctamente")
         else:
-            print(f"\nMedicamentos con stock = 0:\n")
-            
-            # PASO 3: Usuario elige cuál eliminar
-            if len(medicamentos_a_eliminar) == 1:
-                fila = medicamentos_a_eliminar[0]
-            else:
-                eleccion = input(f"¿Cuál desea eliminar? (1-{len(medicamentos_a_eliminar)}): ")
-                while not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(medicamentos_a_eliminar):
-                    print("Selección inválida")
-                    eleccion = input(f"Ingrese el número (1-{len(medicamentos_a_eliminar)}): ")
-                fila = medicamentos_a_eliminar[int(eleccion) - 1]
-            
-            # PASO 4: Confirmar y eliminar
-            if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): "):
-                print(f"Eliminando: {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
-                matriz.pop(fila)
-                print("Medicamento eliminado correctamente")
-            else:
-                print("Operación cancelada")
+            print("Operación cancelada")
         
-        # PASO 5: Preguntar si elimina otro
-        if not validar_confirmacion("¿Eliminar otro? (si/no): "):
-            break
-
-
-def baja_medicamentos(matriz):
-    '''Permite eliminar medicamentos con stock = 0'''
-    print("\n(Presione 8 en el menú principal para salir)\n")   
-    while True:
-        busqueda = input("Ingrese código o nombre del producto: ")
-        encontrado = False
-        for fila in range(len(matriz)):
-            if matriz[fila][0] == busqueda or matriz[fila][1] == busqueda:
-                encontrado = True
-                print(f"Medicamento encontrado: {matriz[fila][1]}")
-                print(f"Stock: {matriz[fila][4]}")
-            if matriz[fila][4] == 0:
-                print("¿Desea Eliminarlo? (si/no)")
-                if input("¿Desea eliminar? (si/no): ") == "si":
-                    matriz.pop(fila)
-                    print("Medicamento eliminado correctamente")
-                else:
-                    print("Operación cancelada")
-            else:
-                print("Error: No se puede eliminar, stock > 0")
-                break
-        if not encontrado:
-            print("Medicamento no encontrado")
-        if not validar_confirmacion("¿Eliminar otro? (si/no): "):
-            break
-   
+        # PASO 4: Preguntar si elimina otro
+        if validar_confirmacion("¿Eliminar otro?"):
+            resultado = buscar_medicamento(matriz)
+        else:
+            resultado = None
 
 def buscar_medicamento(matriz):
-        ''''''
-        print("\n¿Cómo desea buscar?")
-        print("1. Por código (búsqueda exacta)")
-        print("2. Por nombre (búsqueda parcial)")
-        tipo = input("Seleccione (1 o 2): ")
+    '''La funcion busca por codigo (resultado unico) o por nombre (resultados multiples posibles) y muestra los resultados con posiciones'''
+    print("\n¿Cómo desea buscar?")
+    print("1. Por código (búsqueda exacta)")
+    print("2. Por nombre (búsqueda parcial)")
+    tipo = input("Seleccione (1 o 2): ")
 
-        while tipo not in ["1", "2"]:
-            print("Opción inválida. Intente nuevamente.")
-            tipo = input("Seleccione (1 o 2): ")
+    while tipo not in ["1", "2"]:
+        print("Opción inválida. Intente nuevamente.")
+        tipo = input("Seleccione (1 o 2): ")
         
-        if tipo == "1":  # CÓDIGO
-            busqueda_codigo = input("Ingrese el código: ").strip().upper()
+    if tipo == "1":  # CÓDIGO
+        busqueda_codigo = input("Ingrese el código: ").strip().upper()
+        while busqueda_codigo != "":
             for fila in range(len(matriz)):
                 if matriz[fila][0] == busqueda_codigo:
                     # Mostrar completo
@@ -138,35 +107,50 @@ def buscar_medicamento(matriz):
                     return [fila]  # ← Retorna INDEX
             else:
                 print("\nMedicamento no encontrado. Intente de nuevo o deje vacío para volver al menú.")
-                respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
-                if respuesta == "":
-                    return None
+                busqueda_codigo = input("Ingrese el código: ").strip().upper()
+        return None
 
-        elif tipo == "2":
-            busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
-            resultados = []
-
-            for fila in range(len(matriz)):
-                if busqueda_nombre in matriz[fila][1].lower():
-                    resultados.append(fila)
+    elif tipo == "2":
+        busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
+        while busqueda_nombre != "":
+            resultados = buscar_por_nombre(matriz, busqueda_nombre)
             
-            if resultados:
+            if resultados != -1:  # ← Interpreta el -1
                 print(f"\nSe encontraron {len(resultados)} medicamento(s):\n")
-                
-                i = 0
-                while i < len(resultados):
-                    fila = resultados[i]
-                    posicion = i + 1
-                    print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
-                    i = i + 1
-                
-                return resultados  # Retorna lista de índices
+                mostrar_posiciones_resultados(matriz, resultados)
+                return resultados
             else:
                 print("\nMedicamento no encontrado")
-                respuesta = input("Ingrese el código (o Enter para volver): ").strip().upper()
-                if respuesta == "":
-                    return None
- 
+                busqueda_nombre = input("Ingrese el nombre del producto (o parte de él): ").strip().lower()
+
+        return None
+
+
+def buscar_por_nombre(matriz, nombre):
+    '''Busca medicamentos por nombre (búsqueda parcial).
+    Retorna lista de índices si encuentra o -1 si no encuentra.'''
+    resultados = []
+    i = 0
+    while i < len(matriz):
+        if nombre.lower() in matriz[i][1].lower():
+            resultados.append(i)
+        i = i + 1
+    
+    if resultados:
+        return resultados
+    else:
+        return -1
+
+
+def mostrar_posiciones_resultados(matriz, resultados):
+    '''Le otorga posiciones a los resultados de busqueda para su visualizacion y seleccion'''
+    i = 0
+    while i < len(resultados):
+        fila = resultados[i]
+        posicion = i + 1
+        print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+        i = i + 1
+
 
 def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos a la vez de un medicamento ya existente'''
