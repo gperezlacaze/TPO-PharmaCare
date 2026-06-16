@@ -48,7 +48,7 @@ def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
     print("\n(Presione 8 en el menú principal para salir)\n")
     resultado = buscar_medicamento(matriz)   
-    while resultado:
+    while resultado != -1:
         # PASO 1: Filtrar solo medicamentos con stock = 0
         medicamentos_a_eliminar = []
         i = 0
@@ -58,13 +58,15 @@ def baja_medicamentos(matriz):
                 medicamentos_a_eliminar.append(fila)
             i = i + 1
         
-        # PASO 2: Ahora verifica después de terminar de filtrar
+        # PASO 2: Verificar resultados del filtro
         if len(medicamentos_a_eliminar) == 0:
             print("Ningún medicamento encontrado tiene stock = 0")
         elif len(medicamentos_a_eliminar) == 1:
             fila = medicamentos_a_eliminar[0]
             print(f"\nMedicamento a eliminar: {matriz[fila][1]}")
         else:  # len > 1
+            print(f"\nSe encontraron {len(medicamentos_a_eliminar)} medicamento(s) con stock = 0:\n")
+            mostrar_posiciones_resultados(matriz, medicamentos_a_eliminar)
             eleccion = input(f"¿Cuál desea eliminar? (1-{len(medicamentos_a_eliminar)}): ")
             while not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(medicamentos_a_eliminar):
                 print("Selección inválida")
@@ -85,6 +87,7 @@ def baja_medicamentos(matriz):
         else:
             resultado = None
 
+            
 def buscar_medicamento(matriz):
     '''La funcion busca por codigo (resultado unico) o por nombre (resultados multiples posibles) y muestra los resultados con posiciones'''
     print("\n¿Cómo desea buscar?")
