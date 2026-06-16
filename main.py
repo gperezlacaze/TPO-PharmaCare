@@ -1,4 +1,4 @@
-# ============================================================
+    # ============================================================
 # PROGRAMA PRINCIPAL: main.py
 # Proyecto: PharmaCare Central
 # Equipo: Gonzalo Perez Lacaze, Lucas Alegre, Lucas Bassi
@@ -7,7 +7,7 @@
 
 from gonzalo_perez_lacaze_menu import (
     mostrar_menu, alta_medicamentos,
-    baja_medicamentos, buscar_medicamento,
+    baja_medicamentos, mostrar_medicamento,
     modificar_stock_precio, informe_general, salir
 )
 from lucas_alegre import crear_matriz_inicial
@@ -31,7 +31,7 @@ def main():
         elif opcion == 2:
             baja_medicamentos(inventario)
         elif opcion == 3:
-            buscar_medicamento(inventario)
+            mostrar_medicamento(inventario)
         elif opcion == 4:
             modificar_stock_precio(inventario)
         elif opcion == 5:
