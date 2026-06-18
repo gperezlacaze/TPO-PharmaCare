@@ -4,11 +4,19 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
-from lucas_bassi_validaciones import(validar_opcion, 
-    validar_entero_positivo, validar_confirmacion, validar_precio)
-from lucas_alegre_validaciones_fase_2 import(validar_laboratorio_duplicado, 
-    validar_nombre_laboratorio, validar_stock_suficiente, validar_monto_efectivo)
-from lucas_alegre import(crear_matriz_inicial, mostrar_matriz)
+from lucas_bassi_validaciones import (
+    validar_opcion,
+    validar_entero_positivo,
+    validar_confirmacion,
+    validar_precio,
+)
+from lucas_alegre_validaciones_fase_2 import (
+    validar_laboratorio_duplicado,
+    validar_nombre_laboratorio,
+    validar_stock_suficiente,
+    validar_monto_efectivo,
+)
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
 
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
@@ -37,16 +45,16 @@ def submenu_laboratorios(laboratorios):
     """Submenú de gestión de laboratorios"""
     opcion = 0
     while opcion != 5:
-     mostrar_menu_laboratorios()
-     opcion = validar_opcion(1,5)
-     if opcion == 1:
-         agregar_laboratorio(laboratorios)
-     elif opcion == 2:
-         modificar_laboratorio(laboratorios)
-     elif opcion == 3:
-         dar_de_baja_laboratorio(laboratorios)
-     elif opcion == 4:
-         ver_laboratorios(laboratorios)
+        mostrar_menu_laboratorios()
+        opcion = validar_opcion(1,5)
+        if opcion == 1:
+            agregar_laboratorio(laboratorios)
+        elif opcion == 2:
+            modificar_laboratorio(laboratorios)
+        elif opcion == 3:
+            dar_de_baja_laboratorio(laboratorios)
+        elif opcion == 4:
+            ver_laboratorios(laboratorios)
 
 
 # Opcion 1:
@@ -64,6 +72,7 @@ def agregar_laboratorio(laboratorios):
 
     laboratorios.append(laboratorio)
     print(f"Laboratorio {laboratorio} agregado exitosamente.")
+
 
 # Opcion 2
 def modificar_laboratorio(laboratorios):
@@ -103,11 +112,11 @@ def dar_de_baja_laboratorio(laboratorios):
         numero = input("Ingresa numero de laboratorio que desea eliminar: ")
 
         while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
-          if not validar_entero_positivo(numero):
-             print("El numero debe ser entero y positivo")
-          else:
-             print("El numero ingresado no tiene asignado un laboratorio")
-          numero = input("Ingresa numero de laboratorio que desea eliminar: ")
+            if not validar_entero_positivo(numero):
+                print("El numero debe ser entero y positivo")
+            else:
+                print("El numero ingresado no tiene asignado un laboratorio")
+            numero = input("Ingresa numero de laboratorio que desea eliminar: ")
         
         nombre = laboratorios[int(numero) - 1]
         laboratorios.pop(int(numero) - 1)
@@ -127,24 +136,26 @@ def ver_laboratorios(laboratorios):
         print("No hay laboratorios registrados")
     else:
         for lab in laboratorios:
-         print(f"{contador}. {lab}")
-         contador += 1
+            print(f"{contador}. {lab}")
+            contador += 1
     print("========================================")
 
 # ------------------------------------------------------------
 # FUNCIONES - GESTIÓN DE STOCK
 # ------------------------------------------------------------
 
-def mostrar_menu_stock():
-     """Mostrar el menu de stock y sus opciones"""
 
-     print("========================================")
-     print("GESTIÓN DE STOCK")
-     print("========================================")
-     print("1. Configurar stock mínimo")
-     print("2. Reporte stock bajo mínimo")
-     print("3. Salir")
-     print("========================================")
+def mostrar_menu_stock():
+    """Mostrar el menu de stock y sus opciones"""
+
+    print("========================================")
+    print("GESTIÓN DE STOCK")
+    print("========================================")
+    print("1. Configurar stock mínimo")
+    print("2. Reporte stock bajo mínimo")
+    print("3. Salir")
+    print("========================================")
+
 
 def submenu_stock(matriz):
     """Menú principal de gestiones"""
@@ -152,12 +163,12 @@ def submenu_stock(matriz):
     stock_minimo = None
 
     while opcion != 3:
-     mostrar_menu_stock()
-     opcion = validar_opcion(1,3)
-     if opcion == 1:
-         stock_minimo = configuracion_stock_minimo()
-     elif opcion == 2:
-         reporte_stock_bajo(matriz, stock_minimo)
+        mostrar_menu_stock()
+        opcion = validar_opcion(1,3)
+        if opcion == 1:
+            stock_minimo = configuracion_stock_minimo()
+        elif opcion == 2:
+            reporte_stock_bajo(matriz, stock_minimo)
 
 
 # Opcion 1:
@@ -201,26 +212,28 @@ def reporte_stock_bajo(matriz, stock_minimo):
 # ------------------------------------------------------------
 
 def mostrar_menu_ventas():
-     """Mostrar el menu de ventas y sus opciones"""
+    """Mostrar el menu de ventas y sus opciones"""
 
-     print("========================================")
-     print("GESTIÓN DE VENTAS")
-     print("========================================")
-     print("1. Registrar venta")
-     print("2. Ver ventas")
-     print("3. Salir")
-     print("========================================")
+    print("========================================")
+    print("GESTIÓN DE VENTAS")
+    print("========================================")
+    print("1. Registrar venta")
+    print("2. Ver ventas")
+    print("3. Salir")
+    print("========================================")
+
 
 def submenu_ventas(matriz):
-     """Submenú de gestión de ventas"""
-     opcion = 0
-     while opcion != 3:
-         mostrar_menu_ventas()
-         opcion = validar_opcion(1, 3)
-         if opcion == 1:
-             registrar_venta(matriz)
-         elif opcion == 2:
-             ver_ventas(ventas)
+    """Submenú de gestión de ventas"""
+    opcion = 0
+    while opcion != 3:
+        mostrar_menu_ventas()
+        opcion = validar_opcion(1, 3)
+        if opcion == 1:
+            registrar_venta(matriz)
+        elif opcion == 2:
+            ver_ventas(ventas)
+
 
 # Opcion 1/2:
 def mostrar_medicamentos_disponibles(matriz):
@@ -251,7 +264,7 @@ def procesar_pago(total):
     print("2. Tarjeta(10% de recargo)")
     print("========================================")
 
-    opcion = validar_opcion(1,2)
+    opcion = validar_opcion(1, 2)
 
     if opcion == 1:
         monto = input("Ingresa el monto en efectivo: ")
@@ -274,7 +287,6 @@ def procesar_pago(total):
         total = total + recargo
 
         print(f"El total a pagar es de ${total}")
-
 
 
 def registrar_venta(matriz):
@@ -333,6 +345,7 @@ def registrar_venta(matriz):
     for f in range(len(items)):
         ventas.append(items[f])
 
+
 def ver_ventas(ventas):
     """Mostrar el historial de ventas registradas"""
     print("========================================")
@@ -367,17 +380,17 @@ def mostrar_menu(matriz):
     opcion = 0
 
     while opcion != 4:
-     menu_gestion()
-     opcion = validar_opcion(1,4)
-     if opcion == 1:
-         submenu_laboratorios(laboratorios)
-     elif opcion == 2:
-         submenu_stock(matriz)
-     elif opcion == 3:
-         submenu_ventas(matriz)
-     elif opcion == 4:
-         print("Volviendo al menu principal...")
-     
+        menu_gestion()
+        opcion = validar_opcion(1,4)
+        if opcion == 1:
+            submenu_laboratorios(laboratorios)
+        elif opcion == 2:
+            submenu_stock(matriz)
+        elif opcion == 3:
+            submenu_ventas(matriz)
+        elif opcion == 4:
+            print("Volviendo al menu principal...")
+
 
 if __name__ == "__main__":
     matriz = crear_matriz_inicial()
