@@ -13,6 +13,7 @@ from gonzalo_perez_lacaze_menu import (
 )
 from lucas_bassi_validaciones import validar_opcion
 from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones
+from lucas_bassi_menu_2 import laboratorios
 
 
 def main():
@@ -21,7 +22,6 @@ def main():
     Crea el inventario inicial y maneja el menú principal.
     """
     inventario = crear_matriz_inicial()
-    laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 
     opcion = 0
     while opcion != 7 and opcion != 8:
