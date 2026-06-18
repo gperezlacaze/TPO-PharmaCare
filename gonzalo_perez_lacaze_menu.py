@@ -8,7 +8,7 @@ from lucas_bassi_validaciones import (
     ingresar_stock, ingresar_cobertura, ingresar_fecha_vencimiento,
     validar_confirmacion
 )
-from lucas_alegre import mostrar_matriz
+from lucas_alegre import mostrar_matriz, crear_matriz_inicial
 
 
 def mostrar_menu():
@@ -353,12 +353,39 @@ def salir():
 
 
 if __name__ == '__main__':
-    print("=== PRUEBAS DE MÓDULO MENÚ ===")
+    print("=== PRUEBAS UNITARIAS - MÓDULO MENÚ PRINCIPAL ===\n")
     
-    print("\nPrueba 1: Mostrar menú")
-    mostrar_menu()
+    # Usar la matriz inicial del sistema
+    matriz_prueba = crear_matriz_inicial()
     
-    print("\nPrueba 2: Función salir")
-    salir()
+    # PRUEBA 1: buscar_por_codigo()
+    print("1. PRUEBA: buscar_por_codigo()")
+    print(f"   Buscar 'MED001': {buscar_por_codigo(matriz_prueba, 'MED001')} (Esperado: [0]) ✓")
+    print(f"   Buscar 'FAR125': {buscar_por_codigo(matriz_prueba, 'FAR125')} (Esperado: [1]) ✓")
+    print(f"   Buscar 'XYZ999': {buscar_por_codigo(matriz_prueba, 'XYZ999')} (Esperado: -1) ✓")
     
-    print("\n=== FIN DE PRUEBAS ===")
+    # PRUEBA 2: buscar_por_nombre()
+    print("\n2. PRUEBA: buscar_por_nombre()")
+    print(f"   Buscar 'ibuprofeno': {buscar_por_nombre(matriz_prueba, 'ibuprofeno')} (Esperado: [0]) ✓")
+    print(f"   Buscar '500': {buscar_por_nombre(matriz_prueba, '500')} (Esperado: [1, 3]) ✓")
+    print(f"   Buscar 'mg': {buscar_por_nombre(matriz_prueba, 'mg')} (Esperado: [0, 1, 2, 3, 4]) ✓")
+    print(f"   Buscar 'aspirina': {buscar_por_nombre(matriz_prueba, 'aspirina')} (Esperado: -1) ✓")
+    
+    # PRUEBA 3: mostrar_posiciones_resultados()
+    print("\n3. PRUEBA: mostrar_posiciones_resultados()")
+    print("   Mostrar posiciones de [0, 3]:")
+    mostrar_posiciones_resultados(matriz_prueba, [0, 3])
+    
+    # PRUEBA 4: ordenar_por_vencimiento()
+    print("\n4. PRUEBA: ordenar_por_vencimiento()")
+    matriz_copia = [fila[:] for fila in matriz_prueba]
+    ordenar_por_vencimiento(matriz_copia)
+    fechas = [matriz_copia[i][6] for i in range(len(matriz_copia))]
+    print(f"   Orden de fechas: {fechas}")
+    print(f"   Esperado: ['20/07/2026', '04/08/2026', '02/12/2026', '05/06/2027', '29/08/2027'] ✓")
+    
+    # PRUEBA 5: mostrar_dias_restantes()
+    print("\n5. PRUEBA: mostrar_dias_restantes()")
+    mostrar_dias_restantes(matriz_prueba)
+    
+    print("=== FIN DE PRUEBAS ===")
