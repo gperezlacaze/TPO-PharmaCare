@@ -8,9 +8,9 @@
 from gonzalo_perez_lacaze_menu import (
     mostrar_menu, alta_medicamentos,
     baja_medicamentos, mostrar_medicamento,
-    modificar_stock_precio, informe_general, salir
+    modificar_stock_precio, informe_general, salir,
+    crear_matriz_inicial
 )
-from lucas_alegre import crear_matriz_inicial
 from lucas_bassi_validaciones import validar_opcion
 
 
