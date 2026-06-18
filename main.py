@@ -26,7 +26,7 @@ def main():
     opcion = 0
     while opcion != 7 and opcion != 8:
         mostrar_menu()
-        opcion = validar_opcion(1, 6)
+        opcion = validar_opcion(1, 7)
 
         if opcion == 1:
             alta_medicamentos(inventario, laboratorios)
