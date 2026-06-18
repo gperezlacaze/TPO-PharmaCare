@@ -12,6 +12,7 @@ from gonzalo_perez_lacaze_menu import (
     crear_matriz_inicial
 )
 from lucas_bassi_validaciones import validar_opcion
+from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones 
 
 
 def main():
@@ -36,9 +37,10 @@ def main():
             modificar_stock_precio(inventario)
         elif opcion == 5:
             informe_general(inventario)
-        elif opcion == 6 or opcion == 8:
+        elif opcion == 6:
+            menu_gestiones(inventario)  # ← OPCIÓN 6
+        elif opcion == 7 or opcion == 8:
             salir()
-
 
 if __name__ == "__main__":
     main()
