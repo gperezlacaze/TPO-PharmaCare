@@ -9,7 +9,6 @@ from lucas_bassi_validaciones import (
     validar_confirmacion
 )
 from lucas_alegre import mostrar_matriz, crear_matriz_inicial
-from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones
 
 
 def mostrar_menu():
