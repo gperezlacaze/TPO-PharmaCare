@@ -1,4 +1,4 @@
-    # ============================================================
+# ============================================================
 # PROGRAMA PRINCIPAL: main.py
 # Proyecto: PharmaCare Central
 # Equipo: Gonzalo Perez Lacaze, Lucas Alegre, Lucas Bassi
