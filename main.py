@@ -21,7 +21,7 @@ def main():
     Función principal que coordina el flujo del programa.
     Crea el inventario inicial y maneja el menú principal.
     """
-    inventario = crear_matriz_inicial()
+    inventario = crear_matriz_inicial() 
 
     opcion = 0
     while opcion != 7 and opcion != 8:
