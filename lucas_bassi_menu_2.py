@@ -19,7 +19,6 @@ from lucas_alegre_validaciones_fase_2 import (
 from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
 
 
-laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
 
 # ------------------------------------------------------------
@@ -375,7 +374,7 @@ def menu_gestion():
     print("========================================")
 
 
-def mostrar_menu(matriz):
+def mostrar_menu(matriz, laboratorios):
     """Menú principal de gestiones"""
     opcion = 0
 
