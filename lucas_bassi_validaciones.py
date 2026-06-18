@@ -48,6 +48,22 @@ def validar_entero_positivo(texto):
     return True
 
 
+def validar_fecha_vencimiento(fecha):
+    """Validar que la fecha este en formato dd/mm/aaaa"""
+    fecha = fecha.strip()
+    if fecha.count("/") != 2:
+        return False
+    partes = fecha.split("/")
+    if len(partes) != 3:
+        return False
+    d, m, a = partes
+    if not(d.isdigit() and m.isdigit() and a.isdigit()):
+        return False
+    if not(1 <= int(d) <= 31 and 1 <= int(m) <= 12 and len(a) == 4):
+        return False
+    return True
+
+
 def validar_precio(texto):
     """Validar que el texto represente un número decimal positivo (> 0)."""
     texto = texto.strip()
@@ -148,11 +164,11 @@ def ingresar_stock():
 
 def ingresar_dias_vencimiento():
     """Pedir y validar los días restantes para el vencimiento."""
-    texto = input("Ingrese los días para el vencimiento: ")
-    while not validar_entero_positivo(texto):
+    fecha = input("Ingrese los días para el vencimiento: ")
+    while not validar_fecha_vencimiento(fecha):
         print("Valor inválido: debe ser un número entero positivo (mayor a cero).")
-        texto = input("Ingrese los días para el vencimiento: ")
-    return int(texto)
+        fecha = input("Ingrese los días para el vencimiento: ")
+    return int(fecha)
 
 
 def ingresar_cobertura():
@@ -230,7 +246,20 @@ if __name__ == "__main__":
     print("INVÁLIDO - '43,9'(Coma): ", validar_entero_positivo("43,9")) # False
     print("INVÁLIDO - '-78'(Negativo): ", validar_entero_positivo("-78")) # False
 
-    # Funcion 5: validar_precio
+    # Funcion 5: validar_fecha_vencimiento
+    print("\nvalidar_fecha_vencimiento: ")
+    print("VÁLIDO - '12/09/2034': ", validar_fecha_vencimiento("12/09/2034")) # True
+    print("VÁLIDO - '07/12/2012': ", validar_fecha_vencimiento("07/12/2012")) # True
+    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012")) # True
+    print("INVÁLIDO - ''(Vacio): ", validar_fecha_vencimiento("")) # False
+    print("INVÁLIDO - '//'(Barras): ", validar_fecha_vencimiento("//")) # False
+    print("INVÁLIDO - '32/1/2052'(dia no valido): ", validar_fecha_vencimiento("32/1/2052")) # False
+    print("INVÁLIDO - '32/1/2052'(vacio): ", validar_fecha_vencimiento("32/1/2052")) # False
+    print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018")) # False
+    print("INVÁLIDO - '12/01'(sin año): ", validar_fecha_vencimiento("12-1-2018")) # False
+
+
+    # Funcion 6: validar_precio
     print("\nvalidar_precio:")
     print("VÁLIDO - '674': ", validar_precio("674")) # True
     print("VÁLIDO - '3980  ': ", validar_precio("3980  ")) # True
@@ -241,7 +270,7 @@ if __name__ == "__main__":
     print("INVÁLIDO - '.'(Solo un punto): ", validar_precio(".")) # False
     print("INVÁLIDO - '-34.8'(Negativo): ", validar_precio("-34.8")) # False
 
-    # Funcion 6:validar_cobertura
+    # Funcion 7:validar_cobertura
     print("\nvalidar_cobertura:")
     print("VÁLIDO - 'Con cobertura': ", validar_cobertura("Con cobertura")) # True
     print("VÁLIDO - 'Sin cobertura  ': ", validar_cobertura("Sin cobertura  ")) # True
@@ -249,7 +278,7 @@ if __name__ == "__main__":
     print("INVÁLIDO - ' '(Vacio): ", validar_cobertura(" ")) # False
     print("INVÁLIDO - 'Con'(Vacio): ", validar_cobertura("Con")) # False
 
-    # Funcion 7: validar_codigo_unico
+    # Funcion 8: validar_codigo_unico
     print("\nvalidar_codigo_unico:")
     matriz_prueba = [
         ["MED001", "Ibuprofeno 600mg"],
