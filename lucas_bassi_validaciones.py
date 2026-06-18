@@ -160,13 +160,12 @@ def ingresar_stock():
     return int(texto)
 
 
-def ingresar_dias_vencimiento():
-    """Pedir y validar los días restantes para el vencimiento."""
-    fecha = input("Ingrese los días para el vencimiento: ")
+def ingresar_fecha_vencimiento():
+    fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
     while not validar_fecha_vencimiento(fecha):
-        print("Valor inválido: debe ser un número entero positivo (mayor a cero).")
-        fecha = input("Ingrese los días para el vencimiento: ")
-    return int(fecha)
+        print('Fecha inválida: debe estar en formato dd/mm/aaaa')
+        fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
+    return fecha
 
 
 def ingresar_cobertura():
