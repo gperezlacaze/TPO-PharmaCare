@@ -93,7 +93,7 @@ def procesar_eliminacion(matriz, resultado):
         if matriz[fila][4] == 0: 
             medicamentos_a_eliminar.append(fila)
         i = i + 1
-    
+    #REVISAR 
     if len(medicamentos_a_eliminar) == 0:
         print("Ningún medicamento encontrado tiene stock = 0")
     elif len(medicamentos_a_eliminar) == 1:
