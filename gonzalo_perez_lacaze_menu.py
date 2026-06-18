@@ -22,8 +22,9 @@ def mostrar_menu():
     print("4. Modificar stock o precio")
     print("5. Informe general")
     print("6. Gestiones")
+    print("7. Salir")
     print("==================================================")
-    print("Seleccione una opción (1-6) o presione 8 para salir:")
+    print("Seleccione una opción (1-6) o presione 7 u 8 para salir:")
 
 
 def alta_medicamentos(matriz, laboratorios):
