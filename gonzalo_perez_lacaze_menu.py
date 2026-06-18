@@ -9,6 +9,7 @@ from lucas_bassi_validaciones import (
     validar_confirmacion
 )
 from lucas_alegre import mostrar_matriz, crear_matriz_inicial
+from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones
 
 
 def mostrar_menu():
@@ -21,7 +22,7 @@ def mostrar_menu():
     print("3. Buscar medicamento")
     print("4. Modificar stock o precio")
     print("5. Informe general")
-    print("6. Salir")
+    print("6. Gestiones")
     print("==================================================")
     print("Seleccione una opción (1-6) o presione 8 para salir:")
 
@@ -349,7 +350,7 @@ def salir():
     print("\n" + "="*60)
     print("¡Gracias por usar PharmaCare Central!")
     print("Hasta luego.")
-    print("="*60)   
+    print("="*60)
 
 
 if __name__ == '__main__':
