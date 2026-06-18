@@ -317,7 +317,7 @@ def informe_general(matriz):
 
 def mostrar_dias_restantes(matriz):
     '''Calcula y muestra el código, nombre y días restantes para el vencimiento de cada medicamento'''
-    import time
+    from datetime import datetime
     
     print("\n" + "=" * 70)
     print(f"{'Código':<12} {'Nombre':<30} {'Días Restantes':<15}")
@@ -330,20 +330,21 @@ def mostrar_dias_restantes(matriz):
         nombre = fila[1]
         fecha_vencimiento_str = fila[6]
         
-        # Convertir string "dd/mm/aaaa" a struct_time
-        fecha_vencimiento = time.strptime(fecha_vencimiento_str, "%d/%m/%Y")
+        try:
+            # Convertir string "dd/mm/aaaa" a datetime
+            fecha_vencimiento = datetime.strptime(fecha_vencimiento_str, "%d/%m/%Y")
+            
+            # Obtener fecha actual
+            fecha_hoy = datetime.now()
+            
+            # Calcular diferencia en días
+            diferencia = fecha_vencimiento - fecha_hoy
+            dias_restantes = diferencia.days
+            
+            print(f"{codigo:<12} {nombre:<30} {dias_restantes:<15}")
+        except Exception as e:
+            print(f"{codigo:<12} {nombre:<30} Error en fecha")
         
-        # Convertir struct_time a timestamp (segundos desde 1970)
-        timestamp_vencimiento = time.mktime(fecha_vencimiento)
-        
-        # Obtener timestamp actual
-        timestamp_hoy = time.time()
-        
-        # Calcular diferencia en segundos y convertir a días
-        segundos_restantes = timestamp_vencimiento - timestamp_hoy
-        dias_restantes = int(segundos_restantes // 86400)  # 86400 segundos = 1 día
-        
-        print(f"{codigo:<12} {nombre:<30} {dias_restantes:<15}")
         i = i + 1
     
     print("=" * 70 + "\n")
