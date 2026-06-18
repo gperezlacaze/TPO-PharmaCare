@@ -9,7 +9,6 @@
 # (puras: reciben un dato y devuelven True/False, sin imprimir)
 # ------------------------------------------------------------
 
-
 def validar_nombre_medicamento(nombre):
     """Validar que el nombre del medicamento no esté vacío."""
     return nombre.strip() != ""
@@ -103,13 +102,30 @@ def ingresar_codigo(matriz):
     return codigo
 
 
-def ingresar_laboratorio():
+def ingresar_laboratorio(laboratorios):
     """Pedir y validar el nombre del laboratorio."""
-    laboratorio = input("Ingrese el nombre del laboratorio: ").strip()
-    while not validar_laboratorio_fabricante(laboratorio):
-        print("El nombre del laboratorio no puede estar vacío. Intente nuevamente.")
-        laboratorio = input("Ingrese el nombre del laboratorio: ").strip()
-    return laboratorio
+
+    # Ver laboratorios registrados
+    print("========================================")
+    print("LABORATORIOS REGISTRADOS")
+    print("========================================")
+
+    contador = 1
+    # Recorrer la lista para verificar que existan laboratorios
+    if len(laboratorios) == 0:
+        print("No hay laboratorios registrados")
+        return None
+    else:
+        for lab in laboratorios:
+         print(f"{contador}. {lab}")
+         contador += 1
+    print("========================================")
+
+    # Seleccionar una opcion
+    opcion = validar_opcion(1, len(laboratorios))
+
+    return laboratorios[opcion - 1]
+
 
 
 def ingresar_precio():
