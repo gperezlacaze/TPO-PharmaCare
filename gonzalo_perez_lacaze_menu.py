@@ -28,6 +28,10 @@ def mostrar_menu():
 
 def alta_medicamentos(matriz, laboratorios):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
+    if len(laboratorios) == 0:
+        print("No se puede agregar sin laboratorios registrados.")
+        return None
+    
     print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
         codigo = ingresar_codigo(matriz)
