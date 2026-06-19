@@ -165,20 +165,20 @@ def validar_cobertura(cobertura):
 
 def ingresar_codigo(matriz):
     '''Pedir y validar el código del medicamento. Presione -1 para salir.'''
-    codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
+    codigo = input(f"Ingrese el código {AMARILLO}(4-8 caracteres){RESET} (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
     
     if codigo == "-1":
         return None
     
     while not validar_codigo_medicamento(codigo):
         print(f"Código {ROJO}inválido{RESET}: debe tener 4-8 caracteres alfanuméricos sin espacios.")
-        codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
+        codigo = input(f"Ingrese el código {AMARILLO}(4-8 caracteres){RESET} (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         if codigo == "-1":
             return None
     
     while not validar_codigo_unico(codigo, matriz):
         print(f"Código {ROJO}duplicado{RESET}: ya existe en el sistema.")
-        codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
+        codigo = input(f"Ingrese el código {AMARILLO}(4-8 caracteres){RESET} (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         if codigo == "-1":
             return None
     
