@@ -24,7 +24,7 @@ def main():
     inventario = crear_matriz_inicial() 
 
     opcion = 0
-    while opcion != 7 and opcion != 8:
+    while opcion != 7:
         mostrar_menu()
         opcion = validar_opcion(1, 7)
 
@@ -39,8 +39,8 @@ def main():
         elif opcion == 5:
             informe_general(inventario)
         elif opcion == 6:
-            menu_gestiones(inventario, laboratorios)  # ← OPCIÓN 6
-        elif opcion == 7 or opcion == 8:
+            menu_gestiones(inventario, laboratorios)
+        elif opcion == 7 or opcion == -1:  # ← Trata -1 como 7 (salida)
             salir()
 
 
