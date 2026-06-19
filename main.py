@@ -22,7 +22,6 @@ def main():
     Crea el inventario inicial y maneja el menú principal.
     """
     inventario = crear_matriz_inicial() 
-    stock_minimo = None  # Variable para guardar el stock mínimo configurado
 
     opcion = 0
     while opcion != 7:
@@ -38,10 +37,9 @@ def main():
         elif opcion == 4:
             modificar_stock_precio(inventario)
         elif opcion == 5:
-            informe_general(inventario, stock_minimo)
+            informe_general(inventario)
         elif opcion == 6:
-            # Llamar a menu_gestiones y capturar el stock_minimo actualizado
-            stock_minimo = menu_gestiones(inventario, laboratorios, stock_minimo)
+            menu_gestiones(inventario, laboratorios)
         elif opcion == 7:
             salir()
 
