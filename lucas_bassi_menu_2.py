@@ -4,6 +4,13 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
+# CÓDIGOS DE COLOR ANSI
+VERDE = '\033[92m'
+AZUL = '\033[94m'
+AMARILLO = '\033[93m'
+ROJO = '\033[91m'
+RESET = '\033[0m'
+
 from lucas_bassi_validaciones import (
     validar_opcion,
     validar_opcion_menu_anterior,
@@ -16,10 +23,22 @@ from lucas_bassi_validaciones import (
     validar_stock_suficiente,
     validar_monto_efectivo
 )
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz, mostrar_matriz_con_colores)
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
+stock_minimo_configurado = None  # Variable que almacena el stock mínimo configurado
+
+
+def obtener_stock_minimo():
+    """Retorna el stock mínimo configurado"""
+    return stock_minimo_configurado
+
+
+def establecer_stock_minimo(nuevo_stock_minimo):
+    """Establece el stock mínimo configurado"""
+    global stock_minimo_configurado
+    stock_minimo_configurado = nuevo_stock_minimo
 
 # ------------------------------------------------------------
 # FUNCIONES - GESTIÓN DE LABORATORIOS
@@ -98,7 +117,7 @@ def agregar_laboratorio(laboratorios):
             laboratorio = laboratorio.capitalize()
 
     laboratorios.append(laboratorio)
-    print(f"Laboratorio {laboratorio} agregado exitosamente.")
+    print(f"{VERDE}✓ Laboratorio {laboratorio} agregado exitosamente.{RESET}")
     print()
 
 
@@ -160,7 +179,7 @@ def modificar_laboratorio(laboratorios):
             nuevo_nombre = nuevo_nombre.capitalize()
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
-    print(f"Laboratorio modificado exitosamente a {nuevo_nombre}.")
+    print(f"{VERDE}✓ Laboratorio modificado exitosamente a {nuevo_nombre}.{RESET}")
     print()
 
 
@@ -192,7 +211,7 @@ def dar_de_baja_laboratorio(laboratorios):
         
         nombre = laboratorios[int(numero) - 1]
         laboratorios.pop(int(numero) - 1)
-        print(f"Laboratorio {nombre} eliminado con exito")
+        print(f"{ROJO}✓ Laboratorio {nombre} eliminado con exito{RESET}")
         print()
 
 
@@ -233,18 +252,17 @@ def mostrar_menu_stock():
 
 
 def submenu_stock(matriz):
-    """Menú principal de gestiones"""
+    """Menú de gestiones de stock"""
     opcion = 0
-    stock_minimo = None
 
     while opcion != 3:
         mostrar_menu_stock()
         print("(Presione una opción válida para continuar)")
         opcion = validar_opcion(1, 3)
         if opcion == 1:
-            stock_minimo = configuracion_stock_minimo()
+            configuracion_stock_minimo()
         elif opcion == 2:
-            reporte_stock_bajo(matriz, stock_minimo)
+            reporte_stock_bajo(matriz, obtener_stock_minimo())
 
 
 # Opcion 1:
@@ -253,10 +271,11 @@ def configuracion_stock_minimo():
     print("(Presione -1 para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
     if asignar_stock_minimo is not None:
-        print("Stock minimo configurado con exito")
+        establecer_stock_minimo(asignar_stock_minimo)
+        print(f"{VERDE}✓ Stock minimo configurado con exito{RESET}")
         print()
     
-    return int(asignar_stock_minimo) if asignar_stock_minimo is not None else None
+    return None  # No retorna el valor, lo establece globalmente
 
 
 # Opcion 2:
@@ -264,7 +283,7 @@ def reporte_stock_bajo(matriz, stock_minimo):
     """Informe que muestra medicamentos cuyo stock esta por debajo del minimo"""
     
     if stock_minimo == None:
-        print("No hay un stock minimo asignado")
+        print(f"{ROJO}✗ No hay un stock minimo asignado{RESET}")
         return False
     
     # Almacenar medicamentos(filas) con stock por debajo del minimo
@@ -276,11 +295,12 @@ def reporte_stock_bajo(matriz, stock_minimo):
     
     # Verificar si dentro de la matriz existen medicamentos
     if len(mtz_debajo_stockMin) > 0:
-        # Mostrar informe
-        mostrar_matriz(mtz_debajo_stockMin)
+        print(f"\n{ROJO}⚠ MEDICAMENTOS CON STOCK POR DEBAJO DEL MÍNIMO ({stock_minimo}){RESET}")
+        # Mostrar informe con colores
+        mostrar_matriz_con_colores(mtz_debajo_stockMin, stock_minimo)
         print()
     else:
-        print("Todos los medicamentos tienen stock suficiente")
+        print(f"{VERDE}✓ Todos los medicamentos tienen stock suficiente{RESET}")
         print()
 
 
@@ -371,14 +391,14 @@ def procesar_pago(total):
         monto = float(monto)
 
         vuelto = monto - total
-        print(f"El vuelto es de ${vuelto}")
+        print(f"{VERDE}✓ El vuelto es de ${vuelto}{RESET}")
         print()
     elif opcion == 2:
         # Sumar recargo al total
         recargo = total * 0.10
         total = total + recargo
 
-        print(f"El total a pagar es de ${total}")
+        print(f"{AMARILLO}✓ El total a pagar es de ${total}{RESET}")
         print()
 
 
