@@ -80,6 +80,8 @@ def alta_medicamentos(matriz, laboratorios):
         nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
         matriz.append(nueva_fila)
         print()
+        print(f"{VERDE}✓ Medicamento {nombre} agregado exitosamente{RESET}")
+        print()
         respuesta = validar_confirmacion("¿Agregar otro? (si/no): ")
         if respuesta == "no":
             codigo = "-1"  # Salida natural del while
