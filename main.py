@@ -40,7 +40,7 @@ def main():
             informe_general(inventario)
         elif opcion == 6:
             menu_gestiones(inventario, laboratorios)
-        elif opcion == 7:  
+        elif opcion == 7:
             salir()
 
 
