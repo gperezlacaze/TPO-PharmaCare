@@ -2,7 +2,6 @@
 # Autor: Gonzalo Perez Lacaze
 # Fecha: 05/06/2026
 # Descripción: Funciones de menú para PharmaCare
-
 from lucas_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento,
     ingresar_laboratorio, ingresar_precio,
@@ -85,11 +84,14 @@ def baja_medicamentos(matriz):
     print("¿Cómo desea buscar el medicamento?")
     print("1. Por código (búsqueda exacta)")
     print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2): ")
+    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
 
-    while tipo not in ["1", "2"]:
+    while tipo not in ["1", "2", "-1"]:
         print("Opción inválida. Intente nuevamente.")
-        tipo = input("Seleccione (1 o 2): ")
+        tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    
+    if tipo == "-1":
+        return None
     
     print()
     if tipo == "1":
@@ -167,11 +169,14 @@ def mostrar_medicamento(matriz):
     print("¿Cómo desea buscar?")
     print("1. Por código (búsqueda exacta)")
     print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2): ")
+    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
 
-    while tipo not in ["1", "2"]:
+    while tipo not in ["1", "2", "-1"]:
         print("Opción inválida. Intente nuevamente.")
-        tipo = input("Seleccione (1 o 2): ")
+        tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    
+    if tipo == "-1":
+        return None
     
     print()
     print("(Presione -1 para volver al menú principal)")
@@ -260,11 +265,14 @@ def modificar_stock_precio(matriz):
     print("¿Cómo desea buscar?")
     print("1. Por código (búsqueda exacta)")
     print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2): ")
+    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
 
-    while tipo not in ["1", "2"]:
+    while tipo not in ["1", "2", "-1"]:
         print("Opción inválida. Intente nuevamente.")
-        tipo = input("Seleccione (1 o 2): ")
+        tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    
+    if tipo == "-1":
+        return None
     
     print()
     print("(Presione -1 para volver al menú principal)")
