@@ -92,7 +92,8 @@ def validar_entero_positivo(valor):
 
 def validar_fecha_vencimiento(fecha):
     '''Valida fecha en formato dd/mm/aaaa. Retorna True/False.
-    El año debe tener exactamente 4 dígitos (ej: 2026, no 26)'''
+    El año debe tener exactamente 4 dígitos, día y mes 2 dígitos cada uno.
+    Ejemplo correcto: 05/03/2026 (NO 5/3/2026)'''
     fecha = fecha.strip()
     
     if fecha.count('/') != 2:
@@ -109,8 +110,8 @@ def validar_fecha_vencimiento(fecha):
     if not (dia_str.isdigit() and mes_str.isdigit() and anio_str.isdigit()):
         return False
     
-    # Validar que el año tenga exactamente 4 dígitos
-    if len(anio_str) != 4:
+    # ✅ VALIDAR CANTIDAD DE DÍGITOS: día y mes deben tener 2, año 4
+    if len(dia_str) != 2 or len(mes_str) != 2 or len(anio_str) != 4:
         return False
     
     dia = int(dia_str)
@@ -203,6 +204,9 @@ def ingresar_medicamento():
         nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
         if nombre == "-1":
             return None
+    
+    # ✅ CAPITALIZAR automáticamente: primera letra mayúscula, resto minúscula
+    nombre = nombre.capitalize()
     
     return nombre
 

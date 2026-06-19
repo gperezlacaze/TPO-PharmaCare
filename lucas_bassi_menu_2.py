@@ -4,16 +4,6 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
-# CÓDIGOS DE COLOR ANSI
-VERDE = '\033[92m'
-AZUL = '\033[94m'
-AMARILLO = '\033[93m'
-ROJO = '\033[91m'
-CELESTE = '\033[96m'
-VIOLETA = '\033[35m'
-NARANJA = '\033[33m'
-RESET = '\033[0m'
-
 from lucas_bassi_validaciones import (
     validar_opcion,
     validar_opcion_menu_anterior,
@@ -26,7 +16,17 @@ from lucas_bassi_validaciones import (
     validar_stock_suficiente,
     validar_monto_efectivo
 )
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz, mostrar_matriz_con_colores)
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
+
+# CÓDIGOS DE COLOR ANSI
+VERDE = '\033[92m'
+AZUL = '\033[94m'
+AMARILLO = '\033[93m'
+ROJO = '\033[91m'
+CELESTE = '\033[96m'
+VIOLETA = '\033[35m'
+NARANJA = '\033[33m'
+RESET = '\033[0m'
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
