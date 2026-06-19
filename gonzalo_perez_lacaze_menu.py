@@ -106,11 +106,11 @@ def baja_medicamentos(matriz):
     
     print()
     if tipo == "1":
-        busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+        busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         while busqueda_codigo != "" and busqueda_codigo != "-1":
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
             if procesar_eliminacion(matriz, resultado):
-                busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
             else:
                 busqueda_codigo = ""
     
@@ -146,7 +146,7 @@ def procesar_eliminacion(matriz, resultado):
     
     if len(medicamentos_a_eliminar) == 0:
         print()
-        print(f"Ningún medicamento encontrado tiene stock = 0")
+        print(f"{ROJO}Ningún medicamento encontrado tiene stock = 0{RESET}")
         print()
         return False 
     
@@ -200,10 +200,10 @@ def mostrar_medicamento(matriz):
     print()
         
     if tipo == "1":  # CÓDIGO
-        busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+        busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         while busqueda_codigo != "-1":
             if busqueda_codigo == "":
-                busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
                 continue
             
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
@@ -218,7 +218,7 @@ def mostrar_medicamento(matriz):
             else:
                 print()
                 print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
-                busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         print()
         return None
 
@@ -304,7 +304,7 @@ def modificar_stock_precio(matriz):
     print()
     
     if tipo == "1":
-        busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+        busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         while busqueda_codigo != "" and busqueda_codigo != "-1":
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
             if resultado != -1:
@@ -315,11 +315,11 @@ def modificar_stock_precio(matriz):
                 if respuesta == "no":
                     busqueda_codigo = ""
                 else:
-                    busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                    busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
             else:
                 print()
                 print("Medicamento no encontrado. Intente de nuevo o presione -1 para volver.")
-                busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
         print()
     
     elif tipo == "2":
