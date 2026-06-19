@@ -96,9 +96,9 @@ def procesar_eliminacion(matriz, resultado):
     
     if len(medicamentos_a_eliminar) == 0:
         print("Ningún medicamento encontrado tiene stock = 0")
-        return False  # ← SALE SIN CONTINUAR
+        return False 
     
-    if len(medicamentos_a_eliminar) == 1:
+    elif len(medicamentos_a_eliminar) == 1:
         fila = medicamentos_a_eliminar[0]
         print(f"\nMedicamento a eliminar: {matriz[fila][1]}")
     else:
