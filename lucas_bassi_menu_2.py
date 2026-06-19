@@ -4,6 +4,19 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
+from lucas_bassi_validaciones import (
+    validar_opcion,
+    validar_entero_positivo,
+    validar_confirmacion,
+    validar_precio,
+    validar_laboratorio_fabricante,
+    ingresar_stock,
+    validar_laboratorio_duplicado,
+    validar_stock_suficiente,
+    validar_monto_efectivo
+)
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
+
 # CÓDIGOS DE COLOR ANSI
 VERDE = '\033[92m'
 AZUL = '\033[94m'
@@ -14,34 +27,11 @@ VIOLETA = '\033[35m'
 NARANJA = '\033[33m'
 RESET = '\033[0m'
 
-from lucas_bassi_validaciones import (
-    validar_opcion,
-    validar_opcion_menu_anterior,
-    validar_entero_positivo,
-    validar_confirmacion,
-    validar_precio,
-    validar_laboratorio_fabricante,
-    ingresar_stock,
-    validar_laboratorio_duplicado,
-    validar_stock_suficiente,
-    validar_monto_efectivo
-)
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz, mostrar_matriz_con_colores)
-
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
-stock_minimo_configurado = None  # Variable que almacena el stock mínimo configurado
 
-
-def obtener_stock_minimo():
-    """Retorna el stock mínimo configurado"""
-    return stock_minimo_configurado
-
-
-def establecer_stock_minimo(nuevo_stock_minimo):
-    """Establece el stock mínimo configurado"""
-    global stock_minimo_configurado
-    stock_minimo_configurado = nuevo_stock_minimo
+# ✅ ELIMINADAS: stock_minimo_configurado, obtener_stock_minimo(), establecer_stock_minimo()
+# Ahora stock_minimo se pasa como parámetro (OPCIÓN 2)
 
 # ------------------------------------------------------------
 # FUNCIONES - GESTIÓN DE LABORATORIOS
@@ -254,7 +244,7 @@ def mostrar_menu_stock():
     print()
 
 
-def submenu_stock(matriz):
+def submenu_stock(matriz, stock_minimo):  # ✅ AGREGAR parámetro
     """Menú de gestiones de stock"""
     opcion = 0
 
@@ -263,9 +253,13 @@ def submenu_stock(matriz):
         print("(Presione una opción válida para continuar)")
         opcion = validar_opcion(1, 3)
         if opcion == 1:
-            configuracion_stock_minimo()
+            nuevo_stock = configuracion_stock_minimo()  # ✅ RECIBE valor retornado
+            if nuevo_stock is not None:
+                stock_minimo = nuevo_stock  # ✅ ACTUALIZA variable local
         elif opcion == 2:
-            reporte_stock_bajo(matriz, obtener_stock_minimo())
+            reporte_stock_bajo(matriz, stock_minimo)  # ✅ PASAR como parámetro
+    
+    return stock_minimo  # ✅ RETORNAR
 
 
 # Opcion 1:
@@ -274,11 +268,11 @@ def configuracion_stock_minimo():
     print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
     if asignar_stock_minimo is not None:
-        establecer_stock_minimo(asignar_stock_minimo)
         print(f"{VERDE}✓ Stock minimo configurado con exito{RESET}")
         print()
+        return asignar_stock_minimo  # ✅ RETORNA el valor
     
-    return None  # No retorna el valor, lo establece globalmente
+    return None  # ✅ Retorna None si no ingresa  # No retorna el valor, lo establece globalmente
 
 
 # Opcion 2:
@@ -547,7 +541,7 @@ def menu_gestion():
     print()
 
 
-def mostrar_menu(matriz, laboratorios):
+def mostrar_menu(matriz, laboratorios, stock_minimo):  # ✅ AGREGAR parámetro
     """Menú principal de gestiones"""
     opcion = 0
 
@@ -557,11 +551,13 @@ def mostrar_menu(matriz, laboratorios):
         if opcion == 1:
             submenu_laboratorios(laboratorios)
         elif opcion == 2:
-            submenu_stock(matriz)
+            stock_minimo = submenu_stock(matriz, stock_minimo)  # ✅ PASAR Y RECIBIR
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
             print(f"{VERDE}✓ Volviendo al menú principal...{RESET}")
+    
+    return stock_minimo  # ✅ RETORNAR
 
 
 if __name__ == "__main__":
