@@ -42,7 +42,6 @@ def mostrar_menu_laboratorios():
 
 
 def submenu_laboratorios(laboratorios):
-def submenu_laboratorios(laboratorios):
     """Submenú de gestión de laboratorios"""
     opcion = 0
     while opcion != 5:
