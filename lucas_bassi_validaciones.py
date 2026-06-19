@@ -1,204 +1,263 @@
 # ============================================================
-# Módulo de Validaciones e Ingreso de Datos
+# MÓDULO: lucas_bassi_validaciones.py
 # Autor: Lucas Bassi
-# Proyecto: PharmaCare Central
+# Descripción: Funciones de validación para PharmaCare
 # ============================================================
 
-# ------------------------------------------------------------
-# FUNCIONES DE VALIDACIÓN
-# (puras: reciben un dato y devuelven True/False, sin imprimir)
-# ------------------------------------------------------------
+
+# ============================================================
+# SECCIÓN: FUNCIONES DE VALIDACIÓN
+# (para validar datos ingresados por el usuario)
+# ============================================================
+
 
 def validar_nombre_medicamento(nombre):
-    """Validar que el nombre del medicamento no esté vacío."""
-    return nombre.strip() != ""
+    '''Valida que el nombre no esté vacío. Retorna True/False.'''
+    nombre = nombre.strip()
+    return len(nombre) > 0
 
 
 def validar_codigo_medicamento(codigo):
-    """Validar que el código tenga entre 4 y 10 caracteres alfanuméricos"""
-    codigo = codigo.strip()
-    cantidad = len(codigo)
-    if not (4 <= cantidad <= 10):
+    '''Valida el código: 4-8 caracteres alfanuméricos, sin espacios internos. Retorna True/False.'''
+    codigo = codigo.strip().upper()
+    
+    if len(codigo) < 4 or len(codigo) > 8:
         return False
+    
     if not codigo.isalnum():
         return False
+    
     return True
 
 
 def validar_codigo_unico(codigo, matriz):
-    """ Validar que el codigo no exista en la matriz"""
-    for f in range(len(matriz)):
-        if matriz[f][0] == codigo:
-            return False
+    '''Valida que el código no exista ya en la matriz. Retorna True si es único, False si está duplicado.'''
+    codigo = codigo.strip().upper()
+    i = 0
+    while i < len(matriz):
+        if matriz[i][0] == codigo:
+            return False  # Código duplicado
+        i = i + 1
+    return True  # Código único
+
+
+def validar_laboratorio_fabricante(nombre):
+    '''Valida que el laboratorio no esté vacío y tenga al menos una letra. Rechaza solo números y solo símbolos. Retorna True/False.'''
+    nombre = nombre.strip()
+    
+    if len(nombre) == 0:
+        return False
+    
+    # Rechazar si solo contiene números
+    if nombre.isdigit():
+        return False
+    
+    # Rechazar si solo contiene símbolos (sin letras ni números)
+    if not any(c.isalnum() for c in nombre):
+        return False
+    
     return True
 
 
-def validar_laboratorio_fabricante(laboratorio):
-    """Validar que el nombre del laboratorio no esté vacío."""
-    laboratorio = laboratorio.strip()
-    if laboratorio == "":
+def validar_entero_positivo(valor):
+    '''Valida que sea un entero positivo (sin decimales, sin negativos). Retorna True/False.'''
+    valor = valor.strip()
+    
+    if not valor.isdigit():
         return False
-    for caracter in laboratorio:
-        if caracter.isalpha():
-            return True
-    return False
-
-
-def validar_entero_positivo(texto):
-    """Validar que el texto represente un número entero positivo (> 0)."""
-    texto = texto.strip()
-    if not texto.isdigit():
-        return False
-    if int(texto) <= 0:
-        return False
-    return True
+    
+    return int(valor) > 0
 
 
 def validar_fecha_vencimiento(fecha):
-    """Validar que la fecha este en formato dd/mm/aaaa"""
+    '''Valida fecha en formato dd/mm/aaaa. Retorna True/False.'''
     fecha = fecha.strip()
-    if fecha.count("/") != 2:
+    
+    if fecha.count('/') != 2:
         return False
-    partes = fecha.split("/")
+    
+    partes = fecha.split('/')
+    
     if len(partes) != 3:
         return False
-    d, m, a = partes
-    if not (d.isdigit() and m.isdigit() and a.isdigit()):
+    
+    dia_str, mes_str, anio_str = partes
+    
+    if not (dia_str.isdigit() and mes_str.isdigit() and anio_str.isdigit()):
         return False
-    if not (1 <= int(d) <= 31 and 1 <= int(m) <= 12 and len(a) == 4):
+    
+    dia = int(dia_str)
+    mes = int(mes_str)
+    anio = int(anio_str)
+    
+    if mes < 1 or mes > 12:
         return False
+    
+    # Días máximos por mes (sin considerar bisiestos)
+    dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    
+    if dia < 1 or dia > dias_por_mes[mes - 1]:
+        return False
+    
     return True
 
 
-def validar_precio(texto):
-    """Validar que el texto represente un número decimal positivo (> 0)."""
-    texto = texto.strip()
-    if texto == "":
+def validar_precio(precio):
+    '''Valida que sea un número positivo (entero o decimal). Retorna True/False.'''
+    precio = precio.strip()
+    
+    if len(precio) == 0:
         return False
-    # Como máximo puede haber un punto decimal
-    if texto.count(".") > 1:
+    
+    # Contar puntos
+    if precio.count('.') > 1:
         return False
-    # Saco un único punto y verifico que lo demás sean dígitos
-    sin_punto = texto.replace(".", "", 1)
-    if sin_punto == "":
-        return False
-    if not sin_punto.isdigit():
-        return False
-    # El formato ya es numérico válido: ahora exijo que sea mayor a cero
-    if float(texto) <= 0:
-        return False
-    return True
+    
+    # Si solo hay un punto
+    if '.' in precio:
+        partes = precio.split('.')
+        if len(partes) != 2:
+            return False
+        if not (partes[0].isdigit() and partes[1].isdigit()):
+            return False
+        if len(partes[0]) == 0 or len(partes[1]) == 0:
+            return False
+    else:
+        # Sin punto, solo dígitos
+        if not precio.isdigit():
+            return False
+    
+    return float(precio) > 0
 
 
 def validar_cobertura(cobertura):
-    """Validar que la cobertura sea 'Con cobertura' o 'Sin cobertura'."""
-    cobertura = cobertura.strip().capitalize()
-    return cobertura in ["Con cobertura", "Sin cobertura" ]
+    '''Valida que sea "Con cobertura" o "Sin cobertura" (case-insensitive). Retorna True/False.'''
+    cobertura = cobertura.strip().lower()
+    return cobertura in ["con cobertura", "sin cobertura"]
 
 
-# ------------------------------------------------------------
-# FUNCIONES DE INGRESO
-# (interactúan con el usuario y reutilizan las validaciones)
-# ------------------------------------------------------------
-
-
-def ingresar_medicamento():
-    """Pedir y validar el nombre del medicamento. Presione -1 para salir."""
-    nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ").strip()
-    
-    if nombre == "-1":
-        return None
-    
-    nombre = nombre.capitalize()
-    while not validar_nombre_medicamento(nombre):
-        print("El nombre no puede estar vacío. Intente nuevamente.")
-        nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ").strip()
-        if nombre == "-1":
-            return None
-        nombre = nombre.capitalize()
-    return nombre
+# ============================================================
+# SECCIÓN: FUNCIONES DE INGRESO
+# (piden datos al usuario y retornan valores o None si -1)
+# ============================================================
 
 
 def ingresar_codigo(matriz):
-    """Pedir y validar el código del medicamento. Presione -1 para salir."""
-    codigo = input("Ingrese el código del medicamento (o -1 para volver): ").upper()
+    '''Pedir y validar el código del medicamento. Presione -1 para salir.'''
+    codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
     
     if codigo == "-1":
         return None
     
-    while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
-        if not validar_codigo_medicamento(codigo):
-            print("Código inválido: debe tener entre 4 y 10 caracteres alfanuméricos (sin espacios ni símbolos).")
-        else:
-            print("Codigo ya existente en la matriz")
-        codigo = input("Ingrese el código del medicamento (o -1 para volver): ").strip().upper()
+    while not validar_codigo_medicamento(codigo):
+        print("Código inválido: debe tener 4-8 caracteres alfanuméricos sin espacios.")
+        codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
         if codigo == "-1":
             return None
+    
+    while not validar_codigo_unico(codigo, matriz):
+        print("Código duplicado: ya existe en el sistema.")
+        codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
+        if codigo == "-1":
+            return None
+    
     return codigo
 
 
-def ingresar_laboratorio(laboratorios):
-    """Pedir y validar el nombre del laboratorio. Presione -1 para salir."""
-
-    # Ver laboratorios registrados
-    print("========================================")
-    print("LABORATORIOS REGISTRADOS")
-    print("========================================")
-
-    contador = 1
-    # Recorrer la lista para verificar que existan laboratorios
-    if len(laboratorios) == 0:
-        print("No hay laboratorios registrados")
-        return None
-    else:
-        for lab in laboratorios:
-            print(f"{contador}. {lab}")
-            contador += 1
-    print("========================================")
-    print("(Presione -1 para volver al menú anterior)")
-    print("========================================")
-
-    # Seleccionar una opcion
-    opcion = validar_opcion(1, len(laboratorios))
+def ingresar_medicamento():
+    '''Pedir y validar el nombre del medicamento. Presione -1 para salir.'''
+    nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
     
-    if opcion == -1:
+    if nombre == "-1":
         return None
+    
+    while not validar_nombre_medicamento(nombre):
+        print("Nombre inválido: no puede estar vacío.")
+        nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
+        if nombre == "-1":
+            return None
+    
+    return nombre
 
-    return laboratorios[opcion - 1]
+
+def ingresar_laboratorio(laboratorios):
+    '''Pedir y validar el laboratorio. Presione -1 para salir.'''
+    laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
+    
+    if laboratorio == "-1":
+        return None
+    
+    while not validar_laboratorio_fabricante(laboratorio):
+        print("El nombre no puede estar vacío, solo contener números o solo símbolos.")
+        laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
+        if laboratorio == "-1":
+            return None
+    
+    # Detección automática de siglas
+    if laboratorio.isupper() and laboratorio.isalpha():
+        print()
+        respuesta = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+        print()
+        
+        while respuesta not in ["si", "no"]:
+            print("Respuesta inválida. Ingrese 'si' o 'no'")
+            respuesta = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+            print()
+        
+        if respuesta == "no":
+            laboratorio = laboratorio.capitalize()
+    else:
+        # Mezcla de mayúsculas/minúsculas → capitalizar automáticamente
+        laboratorio = laboratorio.capitalize()
+    
+    # Validar duplicados
+    while True:
+        es_duplicado = validar_laboratorio_duplicado(laboratorio, laboratorios)
+        if es_duplicado:
+            print("Laboratorio duplicado: ya existe en el sistema.")
+            laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
+            if laboratorio == "-1":
+                return None
+        else:
+            break
+    
+    return laboratorio
 
 
 def ingresar_precio():
-    """Pedir y validar el precio unitario del medicamento. Presione -1 para salir."""
-    texto = input("Ingrese el precio del medicamento (o -1 para volver): ")
+    '''Pedir y validar el precio del medicamento. Presione -1 para salir.'''
+    precio = input("Ingrese el precio (o -1 para volver): ")
     
-    if texto == "-1":
+    if precio == "-1":
         return None
     
-    while not validar_precio(texto):
-        print("Precio inválido: debe ser un número positivo mayor a cero (ej: 2500.50).")
-        texto = input("Ingrese el precio del medicamento (o -1 para volver): ")
-        if texto == "-1":
+    while not validar_precio(precio):
+        print("Precio inválido: debe ser un número positivo.")
+        precio = input("Ingrese el precio (o -1 para volver): ")
+        if precio == "-1":
             return None
-    return float(texto)
+    
+    return float(precio)
 
 
 def ingresar_stock():
-    """Pedir y validar el stock disponible del medicamento. Presione -1 para salir."""
-    texto = input("Ingrese el stock del medicamento (o -1 para volver): ")
+    '''Pedir y validar el stock del medicamento. Presione -1 para salir.'''
+    stock = input("Ingrese el stock (o -1 para volver): ")
     
-    if texto == "-1":
+    if stock == "-1":
         return None
     
-    while not validar_entero_positivo(texto):
-        print("Stock inválido: debe ser un número entero positivo (mayor a cero).")
-        texto = input("Ingrese el stock del medicamento (o -1 para volver): ")
-        if texto == "-1":
+    while not validar_entero_positivo(stock):
+        print("Stock inválido: debe ser un número entero positivo.")
+        stock = input("Ingrese el stock (o -1 para volver): ")
+        if stock == "-1":
             return None
-    return int(texto)
+    
+    return int(stock)
 
 
 def ingresar_fecha_vencimiento():
-    """Pedir y validar la fecha de vencimiento. Presione -1 para salir."""
+    '''Pedir y validar la fecha de vencimiento. Presione -1 para salir.'''
     fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
     
     if fecha == "-1":
@@ -213,7 +272,7 @@ def ingresar_fecha_vencimiento():
 
 
 def ingresar_cobertura():
-    """Pedir y validar la cobertura médica del medicamento. Presione -1 para salir."""
+    '''Pedir y validar la cobertura médica del medicamento. Presione -1 para salir.'''
     cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
     
     if cobertura == "-1":
@@ -229,10 +288,10 @@ def ingresar_cobertura():
     return cobertura
 
 
-# ------------------------------------------------------------
-# FUNCIONES DE VALIDACIÓN DE MENÚ
+# ============================================================
+# SECCIÓN: FUNCIONES DE MENÚ
 # (interactúan con el usuario para opciones y confirmaciones)
-# ------------------------------------------------------------
+# ============================================================
 
 
 def validar_opcion(desde, hasta):
@@ -255,12 +314,12 @@ def validar_opcion(desde, hasta):
 
 
 def validar_confirmacion(pregunta):
-    """Valida que la respuesta sea 'si' o 'no' (case-insensitive)"""
+    '''Valida que la respuesta sea "si" o "no" (case-insensitive). Solo acepta estas dos palabras.'''
     respuesta = input(pregunta).strip().lower()
     while respuesta not in ["si", "no"]:
         print("Respuesta inválida. Ingrese 'si' o 'no':")
         respuesta = input(pregunta).strip().lower()
-    return respuesta == "si"
+    return respuesta
 
 
 # ============================================================
@@ -278,22 +337,24 @@ def validar_opcion_submenu(desde, hasta):
 
 
 def validar_laboratorio_duplicado(nombre, lista_laboratorios):
-    """Valida si un laboratorio ya existe en la lista (case-insensitive)"""
+    '''Valida si un laboratorio ya existe en la lista (case-insensitive)'''
     nombre_normalizado = nombre.strip().lower()
-    for laboratorio in lista_laboratorios:
-        if laboratorio.lower() == nombre_normalizado:
+    i = 0
+    while i < len(lista_laboratorios):
+        if lista_laboratorios[i].lower() == nombre_normalizado:
             return True
+        i = i + 1
     return False
 
 
 def validar_stock_suficiente(medicamento, cantidad):
-    """Valida si hay stock suficiente. medicamento es una fila de la matriz, cantidad es un int"""
+    '''Valida si hay stock suficiente. medicamento es una fila de la matriz, cantidad es un int'''
     stock_disponible = medicamento[4]  # Índice 4 es el stock
     return stock_disponible >= cantidad
 
 
 def validar_monto_efectivo(monto, total):
-    """Valida si el monto en efectivo es suficiente para pagar el total"""
+    '''Valida si el monto en efectivo es suficiente para pagar el total'''
     return monto >= total
 
 
@@ -364,37 +425,28 @@ if __name__ == "__main__":
     # Funcion 8: validar_codigo_unico
     print("\nvalidar_codigo_unico:")
     matriz_prueba = [
-        ["MED001", "Ibuprofeno 600mg"],
-        ["FAR125", "Amoxicilina 500mg"],
-        ["LAB789", "Omeprazol 20mg"]] 
-    
-    print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba))  # True
-    print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba))  # False
+        ["MED001", "Ibuprofeno", "Roemmers", 2500, 50, "Con cobertura", "02/12/2026"],
+        ["FAR125", "Amoxicilina", "Bagó", 1800, 120, "Sin cobertura", "20/07/2026"],
+    ]
+    print("VÁLIDO - 'MED999' (no existe): ", validar_codigo_unico("MED999", matriz_prueba))  # True
+    print("INVÁLIDO - 'MED001' (ya existe): ", validar_codigo_unico("MED001", matriz_prueba))  # False
 
-    
-    # ============================================================
-    # FASE 2 - PRUEBAS DE VALIDACIONES ADICIONALES (Lucas Alegre)
-    # ============================================================
-    print("\n\n=== Pruebas de validaciones de Fase 2 (Lucas Alegre) ===\n")
-    
-    # Datos de prueba
-    labs_prueba = ["Roemmers", "Bagó", "Pfizer"]
-    fila_prueba = ["MED001", "Ibuprofeno 600mg", "Roemmers", 2500.00, 50, "Con cobertura", "02/12/2026"]
+    # PRUEBAS FASE 2
+    print("\n=== PRUEBAS FASE 2 ===")
     
     # validar_laboratorio_duplicado
-    print("validar_laboratorio_duplicado:")
-    print("VÁLIDO - 'BAGÓ' en lista: ", validar_laboratorio_duplicado("BAGÓ", labs_prueba))  # True
-    print("INVÁLIDO - 'Bayer' no en lista: ", validar_laboratorio_duplicado("Bayer", labs_prueba))  # False
-    print("VÁLIDO - 'pfizer' en lista: ", validar_laboratorio_duplicado("pfizer", labs_prueba))  # True
+    print("\nvalidar_laboratorio_duplicado:")
+    laboratorios = ["Roemmers", "Bagó", "Pfizer"]
+    print("VÁLIDO - 'ISA' (no existe): ", validar_laboratorio_duplicado("ISA", laboratorios))  # False
+    print("INVÁLIDO - 'Roemmers' (existe): ", validar_laboratorio_duplicado("Roemmers", laboratorios))  # True
     
     # validar_stock_suficiente
     print("\nvalidar_stock_suficiente:")
-    print("VÁLIDO - stock 50, cantidad 20: ", validar_stock_suficiente(fila_prueba, 20))  # True
-    print("VÁLIDO - stock 50, cantidad 50: ", validar_stock_suficiente(fila_prueba, 50))  # True
-    print("INVÁLIDO - stock 50, cantidad 60: ", validar_stock_suficiente(fila_prueba, 60))  # False
+    medicamento = ["MED001", "Ibuprofeno", "Roemmers", 2500, 50, "Con cobertura", "02/12/2026"]
+    print("VÁLIDO - Stock 50, cantidad 30: ", validar_stock_suficiente(medicamento, 30))  # True
+    print("INVÁLIDO - Stock 50, cantidad 60: ", validar_stock_suficiente(medicamento, 60))  # False
     
     # validar_monto_efectivo
     print("\nvalidar_monto_efectivo:")
-    print("VÁLIDO - monto 5000, total 4500: ", validar_monto_efectivo(5000.00, 4500.00))  # True
-    print("VÁLIDO - monto 4500, total 4500: ", validar_monto_efectivo(4500.00, 4500.00))  # True
-    print("INVÁLIDO - monto 4000, total 4500: ", validar_monto_efectivo(4000.00, 4500.00))  # False
+    print("VÁLIDO - Monto 1000, total 800: ", validar_monto_efectivo(1000, 800))  # True
+    print("INVÁLIDO - Monto 500, total 800: ", validar_monto_efectivo(500, 800))  # False
