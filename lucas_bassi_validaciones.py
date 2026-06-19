@@ -263,6 +263,40 @@ def validar_confirmacion(pregunta):
     return respuesta == "si"
 
 
+# ============================================================
+# FASE 2 - VALIDACIONES ADICIONALES
+# Autor: Lucas Alegre
+# ============================================================
+
+def validar_opcion_submenu(desde, hasta):
+    '''Valida opción en submenús. NO permite -1 para salir (solo acepta opciones válidas)'''
+    opcion = input("Seleccione una opción: ")
+    while not opcion.isdigit() or int(opcion) < desde or int(opcion) > hasta:
+        print(f"La opción seleccionada no es válida. Ingrese una opción entre {desde} y {hasta}")
+        opcion = input("Seleccione una opción: ")
+    return int(opcion)
+
+
+def validar_laboratorio_duplicado(nombre, lista_laboratorios):
+    """Valida si un laboratorio ya existe en la lista (case-insensitive)"""
+    nombre_normalizado = nombre.strip().lower()
+    for laboratorio in lista_laboratorios:
+        if laboratorio.lower() == nombre_normalizado:
+            return True
+    return False
+
+
+def validar_stock_suficiente(medicamento, cantidad):
+    """Valida si hay stock suficiente. medicamento es una fila de la matriz, cantidad es un int"""
+    stock_disponible = medicamento[4]  # Índice 4 es el stock
+    return stock_disponible >= cantidad
+
+
+def validar_monto_efectivo(monto, total):
+    """Valida si el monto en efectivo es suficiente para pagar el total"""
+    return monto >= total
+
+
 if __name__ == "__main__":
 
     # Funcion 1: validar_codigo_medicamento
@@ -336,3 +370,31 @@ if __name__ == "__main__":
     
     print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba))  # True
     print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba))  # False
+
+    
+    # ============================================================
+    # FASE 2 - PRUEBAS DE VALIDACIONES ADICIONALES (Lucas Alegre)
+    # ============================================================
+    print("\n\n=== Pruebas de validaciones de Fase 2 (Lucas Alegre) ===\n")
+    
+    # Datos de prueba
+    labs_prueba = ["Roemmers", "Bagó", "Pfizer"]
+    fila_prueba = ["MED001", "Ibuprofeno 600mg", "Roemmers", 2500.00, 50, "Con cobertura", "02/12/2026"]
+    
+    # validar_laboratorio_duplicado
+    print("validar_laboratorio_duplicado:")
+    print("VÁLIDO - 'BAGÓ' en lista: ", validar_laboratorio_duplicado("BAGÓ", labs_prueba))  # True
+    print("INVÁLIDO - 'Bayer' no en lista: ", validar_laboratorio_duplicado("Bayer", labs_prueba))  # False
+    print("VÁLIDO - 'pfizer' en lista: ", validar_laboratorio_duplicado("pfizer", labs_prueba))  # True
+    
+    # validar_stock_suficiente
+    print("\nvalidar_stock_suficiente:")
+    print("VÁLIDO - stock 50, cantidad 20: ", validar_stock_suficiente(fila_prueba, 20))  # True
+    print("VÁLIDO - stock 50, cantidad 50: ", validar_stock_suficiente(fila_prueba, 50))  # True
+    print("INVÁLIDO - stock 50, cantidad 60: ", validar_stock_suficiente(fila_prueba, 60))  # False
+    
+    # validar_monto_efectivo
+    print("\nvalidar_monto_efectivo:")
+    print("VÁLIDO - monto 5000, total 4500: ", validar_monto_efectivo(5000.00, 4500.00))  # True
+    print("VÁLIDO - monto 4500, total 4500: ", validar_monto_efectivo(4500.00, 4500.00))  # True
+    print("INVÁLIDO - monto 4000, total 4500: ", validar_monto_efectivo(4000.00, 4500.00))  # False
