@@ -10,6 +10,7 @@
 # (para validar datos ingresados por el usuario)
 # ============================================================
 
+
 def validar_nombre_medicamento(nombre):
     '''Valida que el nombre no esté vacío. Retorna True/False.'''
     nombre = nombre.strip()
