@@ -475,7 +475,7 @@ def mostrar_menu(matriz, laboratorios):
 
     while opcion != 4:
         menu_gestion()
-        opcion = validar_opcion(1,4)
+        opcion = validar_opcion(1, 4)
         if opcion == 1:
             submenu_laboratorios(laboratorios)
         elif opcion == 2:
