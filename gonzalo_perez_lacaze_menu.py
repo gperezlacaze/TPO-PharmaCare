@@ -17,7 +17,7 @@ from lucas_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento,
     ingresar_laboratorio, ingresar_precio,
     ingresar_stock, ingresar_cobertura, ingresar_fecha_vencimiento,
-    validar_confirmacion
+    validar_confirmacion, seleccionar_laboratorio
 )
 from lucas_alegre import mostrar_matriz, crear_matriz_inicial, mostrar_matriz_con_colores
 
@@ -57,7 +57,7 @@ def alta_medicamentos(matriz, laboratorios):
         if nombre is None:
             return None
         
-        laboratorio = ingresar_laboratorio(laboratorios)
+        laboratorio = seleccionar_laboratorio(laboratorios)
         if laboratorio is None:
             return None
         
