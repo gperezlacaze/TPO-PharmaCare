@@ -4,7 +4,7 @@
 # Descripcion: Validaciones de Fase 2 (RF04, RF05, RF07, RF08)
 # ============================================================
 
-#Paso 1: Validar nombre de laboratorio
+# Paso 1: Validar nombre de laboratorio
 
 def validar_nombre_laboratorio(nombre):
     """
@@ -13,9 +13,11 @@ def validar_nombre_laboratorio(nombre):
     Salida: True si es valido, False si no
     """
 
-    return nombre != None and nombre.strip() !=""
+    return nombre is not None and nombre.strip() != ""
 
-#Paso 2: Validar laboratorio duplicado
+
+# Paso 2: Validar laboratorio duplicado
+
 
 def validar_laboratorio_duplicado(nombre, lista_laboratorios):
     """
@@ -28,8 +30,10 @@ def validar_laboratorio_duplicado(nombre, lista_laboratorios):
         if nombre.lower() == lab.lower():
             return True
     return False
-    
-#Paso 3: Validar si existe laboratorio
+
+
+# Paso 3: Validar si existe laboratorio
+
 
 def validar_laboratorio_existe(nombre, lista_laboratorios):
     """
@@ -43,7 +47,9 @@ def validar_laboratorio_existe(nombre, lista_laboratorios):
             return True
     return False
 
-#Paso 4: Validar stock minimo
+
+# Paso 4: Validar stock minimo
+
 
 def validar_stock_minimo(stock):
     """
@@ -53,7 +59,8 @@ def validar_stock_minimo(stock):
     """
     return stock > 0
 
-#Paso 5: Validar cantidad positiva de medicamentos
+# Paso 5: Validar cantidad positiva de medicamentos
+
 
 def validar_cantidad_positiva(cantidad):
     """
@@ -63,7 +70,9 @@ def validar_cantidad_positiva(cantidad):
     """
     return cantidad > 0
 
-#Paso 6: Validar stock suficiente
+
+# Paso 6: Validar stock suficiente
+
 
 def validar_stock_suficiente(medicamento, cantidad):
     """
@@ -73,7 +82,9 @@ def validar_stock_suficiente(medicamento, cantidad):
     """
     return medicamento[4] >= cantidad
 
-#Paso 7: Validar monto efectivo
+
+# Paso 7: Validar monto efectivo
+
 
 def validar_monto_efectivo(monto, total):
     """
@@ -83,37 +94,38 @@ def validar_monto_efectivo(monto, total):
     """
     return monto >= total
 
+
 if __name__ == "__main__":
     print("=== Pruebas de validaciones de Fase 2 ===")
     
-    #Datos de prueba
+    # Datos de prueba
     labs_prueba = ["Roemmers", "Bagó", "Pfizer"]
     fila_prueba = ["MED001", "Ibuprofeno 600mg", "Roemmers", 2500.00, 50, "Con cobertura", "02/12/2026"]
     
-    #Paso 1: validar_nombre_laboratorio
+    # Paso 1: validar_nombre_laboratorio
     print(validar_nombre_laboratorio("Roemmers"))
     print(validar_nombre_laboratorio(None))
     
-    #Paso 2: Validad si el laboratorio ya existe
+    # Paso 2: Validar si el laboratorio ya existe
     print(validar_laboratorio_duplicado("BAGÓ", labs_prueba))
     print(validar_laboratorio_duplicado("Bayer", labs_prueba))
 
-    #Paso 3: Validar si el laboratorio existe
+    # Paso 3: Validar si el laboratorio existe
     print(validar_laboratorio_existe("Pfizer", labs_prueba))
     print(validar_laboratorio_existe("Bayer", labs_prueba))
 
-    #Paso 4: Validar stock minimo
+    # Paso 4: Validar stock minimo
     print(validar_stock_minimo(10))
     print(validar_stock_minimo(0))
 
-    #Paso 5: Validar cantidad positiva
+    # Paso 5: Validar cantidad positiva
     print(validar_cantidad_positiva(5))
     print(validar_cantidad_positiva(-3))
 
-    #Paso 6: Validar stock suficiente
-    print(validar_stock_suficiente(fila_prueba,20))
+    # Paso 6: Validar stock suficiente
+    print(validar_stock_suficiente(fila_prueba, 20))
     print(validar_stock_suficiente(fila_prueba, 60))
 
-    #Paso 7: Validar monto efectivo
+    # Paso 7: Validar monto efectivo
     print(validar_monto_efectivo(5000.00, 4500.00))
     print(validar_monto_efectivo(4000.00, 4500.00))

@@ -12,6 +12,8 @@ from gonzalo_perez_lacaze_menu import (
     crear_matriz_inicial
 )
 from lucas_bassi_validaciones import validar_opcion
+from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones
+from lucas_bassi_menu_2 import laboratorios
 
 
 def main():
@@ -19,15 +21,15 @@ def main():
     Función principal que coordina el flujo del programa.
     Crea el inventario inicial y maneja el menú principal.
     """
-    inventario = crear_matriz_inicial()
+    inventario = crear_matriz_inicial() 
 
     opcion = 0
-    while opcion != 6 and opcion != 8:
+    while opcion != 7 and opcion != 8:
         mostrar_menu()
-        opcion = validar_opcion(1, 6)
+        opcion = validar_opcion(1, 7)
 
         if opcion == 1:
-            alta_medicamentos(inventario)
+            alta_medicamentos(inventario, laboratorios)
         elif opcion == 2:
             baja_medicamentos(inventario)
         elif opcion == 3:
@@ -36,7 +38,9 @@ def main():
             modificar_stock_precio(inventario)
         elif opcion == 5:
             informe_general(inventario)
-        elif opcion == 6 or opcion == 8:
+        elif opcion == 6:
+            menu_gestiones(inventario, laboratorios)  # ← OPCIÓN 6
+        elif opcion == 7 or opcion == 8:
             salir()
 
 

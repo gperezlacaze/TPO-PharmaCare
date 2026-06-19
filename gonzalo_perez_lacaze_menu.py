@@ -21,13 +21,18 @@ def mostrar_menu():
     print("3. Buscar medicamento")
     print("4. Modificar stock o precio")
     print("5. Informe general")
-    print("6. Salir")
+    print("6. Gestiones")
+    print("7. Salir")
     print("==================================================")
-    print("Seleccione una opción (1-6) o presione 8 para salir:")
+    print("Seleccione una opción (1-6) o presione 7 u 8 para salir:")
 
 
 def alta_medicamentos(matriz, laboratorios):
     '''Permite el ingreso de nuevos medicamentos al sistema'''
+    if len(laboratorios) == 0:
+        print("No se puede agregar sin laboratorios registrados.")
+        return None
+    
     print("\n(Presione 8 en el menú principal para salir)\n")
     while True:
         codigo = ingresar_codigo(matriz)
@@ -90,8 +95,11 @@ def procesar_eliminacion(matriz, resultado):
         i = i + 1
     
     if len(medicamentos_a_eliminar) == 0:
+        print("\n")
         print("Ningún medicamento encontrado tiene stock = 0")
-    elif len(medicamentos_a_eliminar) == 1:
+        return False 
+    
+    if len(medicamentos_a_eliminar) == 1:
         fila = medicamentos_a_eliminar[0]
         print(f"\nMedicamento a eliminar: {matriz[fila][1]}")
     else:
@@ -349,7 +357,7 @@ def salir():
     print("\n" + "="*60)
     print("¡Gracias por usar PharmaCare Central!")
     print("Hasta luego.")
-    print("="*60)   
+    print("="*60)
 
 
 if __name__ == '__main__':

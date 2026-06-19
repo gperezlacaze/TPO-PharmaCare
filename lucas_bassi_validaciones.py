@@ -63,9 +63,9 @@ def validar_fecha_vencimiento(fecha):
     if len(partes) != 3:
         return False
     d, m, a = partes
-    if not(d.isdigit() and m.isdigit() and a.isdigit()):
+    if not (d.isdigit() and m.isdigit() and a.isdigit()):
         return False
-    if not(1 <= int(d) <= 31 and 1 <= int(m) <= 12 and len(a) == 4):
+    if not (1 <= int(d) <= 31 and 1 <= int(m) <= 12 and len(a) == 4):
         return False
     return True
 
@@ -116,8 +116,7 @@ def ingresar_codigo(matriz):
     codigo = input("Ingrese el código del medicamento: ").upper()
     while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
         if not validar_codigo_medicamento(codigo):
-            print("Código inválido: debe tener entre 4 y 10 caracteres "
-            "alfanuméricos (sin espacios ni símbolos).")
+            print("Código inválido: debe tener entre 4 y 10 caracteres alfanuméricos (sin espacios ni símbolos).")
         else:
             print("Codigo ya existente en la matriz")
         codigo = input("Ingrese el código del medicamento: ").strip().upper()
@@ -139,8 +138,8 @@ def ingresar_laboratorio(laboratorios):
         return None
     else:
         for lab in laboratorios:
-         print(f"{contador}. {lab}")
-         contador += 1
+            print(f"{contador}. {lab}")
+            contador += 1
     print("========================================")
 
     # Seleccionar una opcion
@@ -167,13 +166,12 @@ def ingresar_stock():
     return int(texto)
 
 
-def ingresar_dias_vencimiento():
-    """Pedir y validar los días restantes para el vencimiento."""
-    fecha = input("Ingrese los días para el vencimiento: ")
+def ingresar_fecha_vencimiento():
+    fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
     while not validar_fecha_vencimiento(fecha):
-        print("Valor inválido: debe ser un número entero positivo (mayor a cero).")
-        fecha = input("Ingrese los días para el vencimiento: ")
-    return int(fecha)
+        print('Fecha inválida: debe estar en formato dd/mm/aaaa')
+        fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
+    return fecha
 
 
 def ingresar_cobertura():
@@ -222,20 +220,20 @@ if __name__ == "__main__":
 
     # Funcion 1: validar_codigo_medicamento
     print("\nvalidar_codigo_medicamento:")
-    print("VÁLIDO - 'MED3452': ", validar_codigo_medicamento("Med3452")) # True
-    print("VÁLIDO - '  RST2578P ': ", validar_codigo_medicamento("  RST2578P ")) # True
-    print("VÁLIDO - 'ouRS56': ", validar_codigo_medicamento("ouRS56")) # True
-    print("INVÁLIDO -  'RTX 456' (Espacio central): ", validar_codigo_medicamento("RTX 456")) # False
-    print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento(" ")) # False
-    print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("as3")) # False
-    print("INVÁLIDO -  'UEYDMWM34675'(Muy largo): ", validar_codigo_medicamento("UEYDMWM34675")) # False
-    print("INVÁLIDO -  'WES@546'(Caracteres especiales): ", validar_codigo_medicamento("WES@546")) # False
+    print("VÁLIDO - 'MED3452': ", validar_codigo_medicamento("Med3452"))  # True
+    print("VÁLIDO - '  RST2578P ': ", validar_codigo_medicamento("  RST2578P "))  # True
+    print("VÁLIDO - 'ouRS56': ", validar_codigo_medicamento("ouRS56"))  # True
+    print("INVÁLIDO -  'RTX 456' (Espacio central): ", validar_codigo_medicamento("RTX 456"))  # False
+    print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento(" "))  # False
+    print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("as3"))  # False
+    print("INVÁLIDO -  'UEYDMWM34675'(Muy largo): ", validar_codigo_medicamento("UEYDMWM34675"))  # False
+    print("INVÁLIDO -  'WES@546'(Caracteres especiales): ", validar_codigo_medicamento("WES@546"))  # False
     
     # Funcion 2: validar_nombre_medicamento
     print("\nvalidar_nombre_medicamento:")
-    print("VÁLIDO - 'Ibuprofeno 600mg': ", validar_nombre_medicamento("Ibuprofeno 600mg")) # True
-    print("VÁLIDO - '  Omeprazol  ': ", validar_nombre_medicamento("  Omeprazol  ")) # True
-    print("INVÁLIDO - '  '(Vacio): ", validar_nombre_medicamento("  ")) # False
+    print("VÁLIDO - 'Ibuprofeno 600mg': ", validar_nombre_medicamento("Ibuprofeno 600mg"))  # True
+    print("VÁLIDO - '  Omeprazol  ': ", validar_nombre_medicamento("  Omeprazol  "))  # True
+    print("INVÁLIDO - '  '(Vacio): ", validar_nombre_medicamento("  "))  # False
 
     # Funcion 3: validar_laboratorio_fabricante
     print("\nvalidar_laboratorio_fabricante:")
@@ -253,27 +251,26 @@ if __name__ == "__main__":
 
     # Funcion 5: validar_fecha_vencimiento
     print("\nvalidar_fecha_vencimiento: ")
-    print("VÁLIDO - '12/09/2034': ", validar_fecha_vencimiento("12/09/2034")) # True
-    print("VÁLIDO - '07/12/2012': ", validar_fecha_vencimiento("07/12/2012")) # True
-    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012")) # True
-    print("INVÁLIDO - ''(Vacio): ", validar_fecha_vencimiento("")) # False
+    print("VÁLIDO - '12/09/2034': ", validar_fecha_vencimiento("12/09/2034"))  # True
+    print("VÁLIDO - '07/12/2012': ", validar_fecha_vencimiento("07/12/2012"))  # True
+    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012"))  # True
+    print("INVÁLIDO - ''(Vacio): ", validar_fecha_vencimiento(""))  # False
     print("INVÁLIDO - '//'(Barras): ", validar_fecha_vencimiento("//")) # False
-    print("INVÁLIDO - '32/1/2052'(dia no valido): ", validar_fecha_vencimiento("32/1/2052")) # False
-    print("INVÁLIDO - '32/1/2052'(vacio): ", validar_fecha_vencimiento("32/1/2052")) # False
-    print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018")) # False
-    print("INVÁLIDO - '12/01'(sin año): ", validar_fecha_vencimiento("12-1-2018")) # False
-
+    print("INVÁLIDO - '32/1/2052'(dia no valido): ", validar_fecha_vencimiento("32/1/2052"))  # False
+    print("INVÁLIDO - '32/1/2052'(vacio): ", validar_fecha_vencimiento("32/1/2052"))  # False
+    print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018"))  # False
+    print("INVÁLIDO - '12/01'(sin año): ", validar_fecha_vencimiento("12/01")) # False
 
     # Funcion 6: validar_precio
     print("\nvalidar_precio:")
-    print("VÁLIDO - '674': ", validar_precio("674")) # True
-    print("VÁLIDO - '3980  ': ", validar_precio("3980  ")) # True
-    print("VÁLIDO - '34.65': ", validar_precio("34.65")) # True
-    print("INVÁLIDO - ' '(Vacio): ", validar_precio(" ")) # False
-    print("INVÁLIDO - 'noventa'(Texto): ", validar_precio("noventa")) # False
-    print("INVÁLIDO - '23.65.8':(mas puntos) ", validar_precio("23.65.8")) # False
-    print("INVÁLIDO - '.'(Solo un punto): ", validar_precio(".")) # False
-    print("INVÁLIDO - '-34.8'(Negativo): ", validar_precio("-34.8")) # False
+    print("VÁLIDO - '674': ", validar_precio("674"))  # True
+    print("VÁLIDO - '3980  ': ", validar_precio("3980  "))  # True
+    print("VÁLIDO - '34.65': ", validar_precio("34.65"))  # True
+    print("INVÁLIDO - ' '(Vacio): ", validar_precio(" "))  # False
+    print("INVÁLIDO - 'noventa'(Texto): ", validar_precio("noventa"))  # False
+    print("INVÁLIDO - '23.65.8':(mas puntos) ", validar_precio("23.65.8"))  # False
+    print("INVÁLIDO - '.'(Solo un punto): ", validar_precio("."))  # False
+    print("INVÁLIDO - '-34.8'(Negativo): ", validar_precio("-34.8"))  # False
 
     # Funcion 7:validar_cobertura
     print("\nvalidar_cobertura:")
@@ -290,8 +287,8 @@ if __name__ == "__main__":
         ["FAR125", "Amoxicilina 500mg"],
         ["LAB789", "Omeprazol 20mg"]] 
     
-    print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba)) # True
-    print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba)) # False
+    print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba))  # True
+    print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba))  # False
    
 
 
