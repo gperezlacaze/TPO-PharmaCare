@@ -98,6 +98,6 @@ if __name__ == "__main__":
     matriz = crear_matriz_inicial()
     mostrar_matriz(matriz)
     
-    # Prueba con colores (stock_minimo = 50)
-    print("MATRIZ CON COLORES (stock_minimo = 50):")
-    mostrar_matriz_con_colores(matriz, 50)
+    # Prueba con colores (obtiene stock_minimo internamente)
+    print("MATRIZ CON COLORES:")
+    mostrar_matriz_con_colores(matriz)
