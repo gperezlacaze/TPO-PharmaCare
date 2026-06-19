@@ -2,6 +2,7 @@
 # Autor: Gonzalo Perez Lacaze
 # Fecha: 05/06/2026
 # Descripción: Funciones de menú para PharmaCare
+
 from lucas_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento,
     ingresar_laboratorio, ingresar_precio,
