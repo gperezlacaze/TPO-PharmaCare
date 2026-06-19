@@ -26,9 +26,22 @@ ventas = []
 # ------------------------------------------------------------
 
 
+def mostrar_menu_laboratorios():
+    """Mostrar el menu de laboratorios y sus opciones"""
+
+    print("========================================")
+    print("GESTIÓN DE LABORATORIOS")
+    print("========================================")
+    print("1. Agregar laboratorio")
+    print("2. Modificar laboratorio")
+    print("3. Dar de baja laboratorio")
+    print("4. Ver laboratorios")
+    print("5. Salir")
+    print("========================================")
+    print()
 
 
-
+def submenu_laboratorios(laboratorios):
 def submenu_laboratorios(laboratorios):
     """Submenú de gestión de laboratorios"""
     opcion = 0
@@ -475,7 +488,7 @@ def mostrar_menu(matriz, laboratorios):
 
     while opcion != 4:
         menu_gestion()
-        opcion = validar_opcion(1, 4)
+        opcion = validar_opcion(1,4)
         if opcion == 1:
             submenu_laboratorios(laboratorios)
         elif opcion == 2:
