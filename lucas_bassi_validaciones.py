@@ -91,7 +91,8 @@ def validar_entero_positivo(valor):
 
 
 def validar_fecha_vencimiento(fecha):
-    '''Valida fecha en formato dd/mm/aaaa. Retorna True/False.'''
+    '''Valida fecha en formato dd/mm/aaaa. Retorna True/False.
+    El año debe tener exactamente 4 dígitos (ej: 2026, no 26)'''
     fecha = fecha.strip()
     
     if fecha.count('/') != 2:
@@ -104,7 +105,12 @@ def validar_fecha_vencimiento(fecha):
     
     dia_str, mes_str, anio_str = partes
     
+    # Validar que todos sean números
     if not (dia_str.isdigit() and mes_str.isdigit() and anio_str.isdigit()):
+        return False
+    
+    # Validar que el año tenga exactamente 4 dígitos
+    if len(anio_str) != 4:
         return False
     
     dia = int(dia_str)
@@ -284,7 +290,7 @@ def ingresar_fecha_vencimiento():
         return None
     
     while not validar_fecha_vencimiento(fecha):
-        print(f'Fecha {ROJO}inválida{RESET}: debe estar en formato dd/mm/aaaa')
+        print(f'Fecha {ROJO}inválida{RESET}: debe estar en formato dd/mm/aaaa (año con 4 dígitos, ej: 2026 no 26)')
         fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
         if fecha == "-1":
             return None
@@ -449,6 +455,8 @@ if __name__ == "__main__":
     print("INVÁLIDO - '32/1/2052'(vacio): ", validar_fecha_vencimiento("32/1/2052"))  # False
     print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018"))  # False
     print("INVÁLIDO - '12/01'(sin año): ", validar_fecha_vencimiento("12/01")) # False
+    print("INVÁLIDO - '12/12/27'(año 2 dígitos): ", validar_fecha_vencimiento("12/12/27"))  # False - NUEVO
+    print("INVÁLIDO - '12/12/2026a'(año con letra): ", validar_fecha_vencimiento("12/12/2026a"))  # False - NUEVO
 
     # Funcion 6: validar_precio
     print("\nvalidar_precio:")
