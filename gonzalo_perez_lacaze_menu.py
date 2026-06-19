@@ -36,7 +36,8 @@ def alta_medicamentos(matriz, laboratorios):
     print()
     print("(Presione -1 en cualquier ingreso para volver al menú principal)")
     print()
-    while True:
+    codigo = ""
+    while codigo != "-1":
         codigo = ingresar_codigo(matriz)
         if codigo is None:
             return None
@@ -68,8 +69,9 @@ def alta_medicamentos(matriz, laboratorios):
         nueva_fila = [codigo, nombre, laboratorio, precio, stock, cobertura, vencimiento]
         matriz.append(nueva_fila)
         print()
-        if not validar_confirmacion("¿Agregar otro? (si/no): "):
-            break
+        respuesta = validar_confirmacion("¿Agregar otro? (si/no): ")
+        if respuesta == "no":
+            codigo = "-1"  # Salida natural del while
     print()
 
 
@@ -144,18 +146,18 @@ def procesar_eliminacion(matriz, resultado):
             eleccion = input(f"Ingrese el número (1-{len(medicamentos_a_eliminar)}): ")
         fila = medicamentos_a_eliminar[int(eleccion) - 1]
 
-    if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): "):
+    if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): ") == "si":
         print()
         print(f"Eliminando: {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
         matriz.pop(fila)
         print("Medicamento eliminado correctamente")
         print()
-        return validar_confirmacion("¿Eliminar otro? (si/no): ")
+        return validar_confirmacion("¿Eliminar otro? (si/no): ") == "si"
     else:
         print()
         print("Operación cancelada")
         print()
-        return validar_confirmacion("¿Eliminar otro? (si/no): ")
+        return validar_confirmacion("¿Eliminar otro? (si/no): ") == "si"
 
 
 def mostrar_medicamento(matriz):
@@ -275,10 +277,11 @@ def modificar_stock_precio(matriz):
                 fila = resultado[0]
                 procesar_modificacion_medicamento(matriz, fila)
                 
-                if validar_confirmacion("¿Modificar otro medicamento? (si/no): "):
-                    busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
-                else:
+                respuesta = validar_confirmacion("¿Modificar otro medicamento? (si/no): ")
+                if respuesta == "no":
                     busqueda_codigo = ""
+                else:
+                    busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
             else:
                 print()
                 print("Medicamento no encontrado. Intente de nuevo o presione -1 para volver.")
@@ -304,10 +307,11 @@ def modificar_stock_precio(matriz):
                     fila = resultados[int(eleccion) - 1]
                     procesar_modificacion_medicamento(matriz, fila)
                     
-                    if validar_confirmacion("¿Modificar otro medicamento? (si/no): "):
-                        busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
-                    else:
+                    respuesta = validar_confirmacion("¿Modificar otro medicamento? (si/no): ")
+                    if respuesta == "no":
                         busqueda_nombre = ""
+                    else:
+                        busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
                 else:
                     busqueda_nombre = ""
             else:
@@ -397,7 +401,7 @@ def informe_general(matriz):
     ordenar_por_vencimiento(matriz)
     mostrar_matriz(matriz)
     
-    if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): "):
+    if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): ") == "si":
         mostrar_dias_restantes(matriz)
     print()
 
