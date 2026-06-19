@@ -508,4 +508,4 @@ if __name__ == '__main__':
     print("\n5. PRUEBA: mostrar_dias_restantes()")
     mostrar_dias_restantes(matriz_prueba)
     
-    print("=== FIN DE PRUEBAS ===")
+    print("=== FIN DE PRUEBAS ===") 
