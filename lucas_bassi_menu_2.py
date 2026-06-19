@@ -26,18 +26,7 @@ ventas = []
 # ------------------------------------------------------------
 
 
-def mostrar_menu_laboratorios():
-    """Mostrar el menu de laboratorios y sus opciones"""
 
-    print("========================================")
-    print("GESTIÓN DE LABORATORIOS")
-    print("========================================")
-    print("1. Agregar laboratorio")
-    print("2. Modificar laboratorio")
-    print("3. Dar de baja laboratorio")
-    print("4. Ver laboratorios")
-    print("5. Salir")
-    print("========================================")
 
 
 def submenu_laboratorios(laboratorios):
@@ -64,6 +53,10 @@ def agregar_laboratorio(laboratorios):
     print("(Presione -1 para volver al menú anterior)")
     laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
     
+    # Chequear si presionó -1 para salir
+    if laboratorio == "-1":
+        return None
+    
     # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
     if laboratorio.isupper() and laboratorio.isalpha():
         es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
@@ -80,6 +73,10 @@ def agregar_laboratorio(laboratorios):
             print("El laboratorio ya existe en la lista.")
         laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
         
+        # Chequear si presionó -1 para salir
+        if laboratorio == "-1":
+            return None
+        
         # Aplicar lógica de mayúsculas nuevamente
         if laboratorio.isupper() and laboratorio.isalpha():
             es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
@@ -90,6 +87,7 @@ def agregar_laboratorio(laboratorios):
 
     laboratorios.append(laboratorio)
     print(f"Laboratorio {laboratorio} agregado exitosamente.")
+    print()
 
 
 # Opcion 2
@@ -99,6 +97,10 @@ def modificar_laboratorio(laboratorios):
     
     print("(Presione -1 para volver al menú anterior)")
     numero = input("Ingrese el numero del laboratorio que desea modificar: ")
+    
+    # Chequear si presionó -1 para salir
+    if numero == "-1":
+        return None
 
     while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
         if not validar_entero_positivo(numero):
@@ -106,8 +108,16 @@ def modificar_laboratorio(laboratorios):
         else:
             print("El numero ingresado no tiene asignado un laboratorio")
         numero = input("Ingrese el numero del laboratorio que desea modificar: ")
+        
+        # Chequear si presionó -1 para salir
+        if numero == "-1":
+            return None
          
     nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
+    
+    # Chequear si presionó -1 para salir
+    if nuevo_nombre == "-1":
+        return None
     
     # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
     if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
@@ -125,6 +135,10 @@ def modificar_laboratorio(laboratorios):
             print("El laboratorio ya existe en la lista.")
         nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
         
+        # Chequear si presionó -1 para salir
+        if nuevo_nombre == "-1":
+            return None
+        
         # Aplicar lógica de mayúsculas nuevamente
         if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
             es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
@@ -135,6 +149,7 @@ def modificar_laboratorio(laboratorios):
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
     print(f"Laboratorio modificado exitosamente a {nuevo_nombre}.")
+    print()
 
 
 # Opcion 3
@@ -147,6 +162,10 @@ def dar_de_baja_laboratorio(laboratorios):
         
         print("(Presione -1 para volver al menú anterior)")
         numero = input("Ingresa numero de laboratorio que desea eliminar: ")
+        
+        # Chequear si presionó -1 para salir
+        if numero == "-1":
+            return None
 
         while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
             if not validar_entero_positivo(numero):
@@ -154,10 +173,15 @@ def dar_de_baja_laboratorio(laboratorios):
             else:
                 print("El numero ingresado no tiene asignado un laboratorio")
             numero = input("Ingresa numero de laboratorio que desea eliminar: ")
+            
+            # Chequear si presionó -1 para salir
+            if numero == "-1":
+                return None
         
         nombre = laboratorios[int(numero) - 1]
         laboratorios.pop(int(numero) - 1)
         print(f"Laboratorio {nombre} eliminado con exito")
+        print()
 
 
 # Opcion 4:
@@ -176,6 +200,7 @@ def ver_laboratorios(laboratorios):
             print(f"{contador}. {lab}")
             contador += 1
     print("========================================")
+    print()
 
 # ------------------------------------------------------------
 # FUNCIONES - GESTIÓN DE STOCK
@@ -192,6 +217,7 @@ def mostrar_menu_stock():
     print("2. Reporte stock bajo mínimo")
     print("3. Salir")
     print("========================================")
+    print()
 
 
 def submenu_stock(matriz):
@@ -214,9 +240,11 @@ def configuracion_stock_minimo():
     """Configurar el stock minimo"""
     print("(Presione -1 para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
-    print("Stock minimo configurado con exito")
+    if asignar_stock_minimo is not None:
+        print("Stock minimo configurado con exito")
+        print()
     
-    return int(asignar_stock_minimo)
+    return int(asignar_stock_minimo) if asignar_stock_minimo is not None else None
 
 
 # Opcion 2:
@@ -238,8 +266,10 @@ def reporte_stock_bajo(matriz, stock_minimo):
     if len(mtz_debajo_stockMin) > 0:
         # Mostrar informe
         mostrar_matriz(mtz_debajo_stockMin)
+        print()
     else:
         print("Todos los medicamentos tienen stock suficiente")
+        print()
 
 
 # ------------------------------------------------------------
@@ -256,6 +286,7 @@ def mostrar_menu_ventas():
     print("2. Ver ventas")
     print("3. Salir")
     print("========================================")
+    print()
 
 
 def submenu_ventas(matriz):
@@ -280,6 +311,7 @@ def mostrar_medicamentos_disponibles(matriz):
     print("MEDICAMENTOS DISPONIBLES")
     print("========================================")
     print("(Presione una opción válida para continuar)")
+    print()
     contador = 1
     for f in range(len(matriz)):
         # Mostrar medicamentos con stock mayor a 0
@@ -301,11 +333,16 @@ def procesar_pago(total):
     print("2. Tarjeta(10% de recargo)")
     print("========================================")
     print("(Presione una opción válida para continuar)")
+    print()
 
     opcion = validar_opcion_submenu(1, 2)
 
     if opcion == 1:
-        monto = input("Ingresa el monto en efectivo: ")
+        monto = input("Ingresa el monto en efectivo (o -1 para volver): ")
+        
+        # Chequear si presionó -1 para salir
+        if monto == "-1":
+            return None
 
         while not validar_precio(monto) or not validar_monto_efectivo(float(monto), total):
             if not validar_precio(monto):
@@ -313,18 +350,24 @@ def procesar_pago(total):
             else:
                 print("Monto insuficiente")
 
-            monto = input("Ingresa el monto en efectivo: ")
+            monto = input("Ingresa el monto en efectivo (o -1 para volver): ")
+            
+            # Chequear si presionó -1 para salir
+            if monto == "-1":
+                return None
 
         monto = float(monto)
 
         vuelto = monto - total
         print(f"El vuelto es de ${vuelto}")
+        print()
     elif opcion == 2:
         # Sumar recargo al total
         recargo = total * 0.10
         total = total + recargo
 
         print(f"El total a pagar es de ${total}")
+        print()
 
 
 def registrar_venta(matriz):
@@ -341,13 +384,22 @@ def registrar_venta(matriz):
         medicamento = matriz[indice_real]
 
         # Cantidad a comprar
-        cantidad = input("Ingrese la cantidad a comprar: ")
+        cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
+        
+        # Chequear si presionó -1 para salir
+        if cantidad == "-1":
+            return None
+        
         while not validar_entero_positivo(cantidad) or not validar_stock_suficiente(medicamento, int(cantidad)):
             if not validar_entero_positivo(cantidad):
                 print("Debe ser un número positivo.")
             else:
                 print("No hay stock suficiente.")
-            cantidad = input("Ingrese la cantidad a comprar: ")
+            cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
+            
+            # Chequear si presionó -1 para salir
+            if cantidad == "-1":
+                return None
         cantidad = int(cantidad)
 
         subtotal = medicamento[3] * cantidad
@@ -369,6 +421,7 @@ def registrar_venta(matriz):
         print(f"{f + 1}. {items[f][1]} - Cantidad: {items[f][2]} - Subtotal: ${items[f][4]}")
     print(f"Total: ${total}")
     print("========================================")
+    print()
 
     # Forma de pago
     procesar_pago(total)
@@ -394,6 +447,8 @@ def ver_ventas(ventas):
     else:
         for f in range(len(ventas)):
             print(f"{f + 1}. {ventas[f][1]} - Cantidad: {ventas[f][2]} - Subtotal: ${ventas[f][4]}")
+    print("========================================")
+    print()
 
 
 # ------------------------------------------------------------
@@ -411,6 +466,7 @@ def menu_gestion():
     print("3. Gestión de Ventas")
     print("4. Salir")
     print("========================================")
+    print()
 
 
 def mostrar_menu(matriz, laboratorios):
