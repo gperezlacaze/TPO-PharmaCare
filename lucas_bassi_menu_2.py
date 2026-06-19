@@ -6,7 +6,7 @@
 
 from lucas_bassi_validaciones import (
     validar_opcion,
-    validar_opcion_submenu,
+    validar_opcion_menu_anterior,
     validar_entero_positivo,
     validar_confirmacion,
     validar_precio,
@@ -36,7 +36,7 @@ def mostrar_menu_laboratorios():
     print("2. Modificar laboratorio")
     print("3. Dar de baja laboratorio")
     print("4. Ver laboratorios")
-    print("5. Salir")
+    print("5. Volver al menú anterior")
     print("========================================")
     print()
 
@@ -47,7 +47,7 @@ def submenu_laboratorios(laboratorios):
     while opcion != 5:
         mostrar_menu_laboratorios()
         print("(Presione una opción válida para continuar)")
-        opcion = validar_opcion_submenu(1, 5)
+        opcion = validar_opcion(1, 5)
         if opcion == 1:
             agregar_laboratorio(laboratorios)
         elif opcion == 2:
@@ -227,7 +227,7 @@ def mostrar_menu_stock():
     print("========================================")
     print("1. Configurar stock mínimo")
     print("2. Reporte stock bajo mínimo")
-    print("3. Salir")
+    print("3. Volver al menú anterior")
     print("========================================")
     print()
 
@@ -240,7 +240,7 @@ def submenu_stock(matriz):
     while opcion != 3:
         mostrar_menu_stock()
         print("(Presione una opción válida para continuar)")
-        opcion = validar_opcion_submenu(1, 3)
+        opcion = validar_opcion(1, 3)
         if opcion == 1:
             stock_minimo = configuracion_stock_minimo()
         elif opcion == 2:
@@ -296,7 +296,7 @@ def mostrar_menu_ventas():
     print("========================================")
     print("1. Registrar venta")
     print("2. Ver ventas")
-    print("3. Salir")
+    print("3. Volver al menú anterior")
     print("========================================")
     print()
 
@@ -307,7 +307,7 @@ def submenu_ventas(matriz):
     while opcion != 3:
         mostrar_menu_ventas()
         print("(Presione una opción válida para continuar)")
-        opcion = validar_opcion_submenu(1, 3)
+        opcion = validar_opcion(1, 3)
         if opcion == 1:
             registrar_venta(matriz)
         elif opcion == 2:
@@ -347,7 +347,7 @@ def procesar_pago(total):
     print("(Presione una opción válida para continuar)")
     print()
 
-    opcion = validar_opcion_submenu(1, 2)
+    opcion = validar_opcion(1, 2)
 
     if opcion == 1:
         monto = input("Ingresa el monto en efectivo (o -1 para volver): ")
@@ -386,10 +386,10 @@ def registrar_venta(matriz):
     """Registrar una venta"""
     items = []
 
-    while validar_confirmacion("¿Desea registrar una venta? (si/no): "):
+    while validar_confirmacion("¿Desea registrar una venta? (si/no): ") == "si":
         disponibles = mostrar_medicamentos_disponibles(matriz)
         # Pedir medicamento a comprar
-        numero = validar_opcion_submenu(1, len(disponibles))
+        numero = validar_opcion(1, len(disponibles))
         # Obtener índice real del medicamento en la matriz
         indice_real = disponibles[numero - 1]
         # Obtener fila completa del medicamento elegido
@@ -476,7 +476,7 @@ def menu_gestion():
     print("1. Gestión de Laboratorios")
     print("2. Gestión de Stock")
     print("3. Gestión de Ventas")
-    print("4. Salir")
+    print("4. Volver al menú principal")
     print("========================================")
     print()
 
@@ -487,7 +487,7 @@ def mostrar_menu(matriz, laboratorios):
 
     while opcion != 4:
         menu_gestion()
-        opcion = validar_opcion_submenu(1, 4)
+        opcion = validar_opcion(1, 4)
         if opcion == 1:
             submenu_laboratorios(laboratorios)
         elif opcion == 2:
@@ -495,7 +495,7 @@ def mostrar_menu(matriz, laboratorios):
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
-            print("Volviendo al menu principal...")
+            print("Volviendo al menú principal...")
 
 
 if __name__ == "__main__":
