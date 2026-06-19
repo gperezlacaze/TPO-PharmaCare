@@ -21,6 +21,7 @@ def main():
     Crea el inventario inicial y maneja el menú principal.
     """
     inventario = crear_matriz_inicial() 
+    stock_minimo = None  # ✅ VARIABLE LOCAL - Sin variable global
 
     opcion = 0
     while opcion != 7:
@@ -38,7 +39,7 @@ def main():
         elif opcion == 5:
             informe_general(inventario)
         elif opcion == 6:
-            menu_gestiones(inventario, laboratorios)
+            stock_minimo = menu_gestiones(inventario, laboratorios, stock_minimo)  # ✅ PASA Y RECIBE
         elif opcion == 7:
             salir()
 
