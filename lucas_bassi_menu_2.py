@@ -4,19 +4,6 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
-from lucas_bassi_validaciones import (
-    validar_opcion,
-    validar_entero_positivo,
-    validar_confirmacion,
-    validar_precio,
-    validar_laboratorio_fabricante,
-    ingresar_stock,
-    validar_laboratorio_duplicado,
-    validar_stock_suficiente,
-    validar_monto_efectivo
-)
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
-
 # CÓDIGOS DE COLOR ANSI
 VERDE = '\033[92m'
 AZUL = '\033[94m'
@@ -26,6 +13,20 @@ CELESTE = '\033[96m'
 VIOLETA = '\033[35m'
 NARANJA = '\033[33m'
 RESET = '\033[0m'
+
+from lucas_bassi_validaciones import (
+    validar_opcion,
+    validar_opcion_menu_anterior,
+    validar_entero_positivo,
+    validar_confirmacion,
+    validar_precio,
+    validar_laboratorio_fabricante,
+    ingresar_stock,
+    validar_laboratorio_duplicado,
+    validar_stock_suficiente,
+    validar_monto_efectivo
+)
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz, mostrar_matriz_con_colores)
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
@@ -421,8 +422,27 @@ def registrar_venta(matriz):
             # Vuelve a preguntar si desea registrar otra venta
             primera_venta = validar_confirmacion("¿Desea registrar otra venta? (si/no): ")
         else:
-            # Pedir medicamento a comprar
-            numero = validar_opcion(1, len(disponibles))
+            # ✅ PEDIR OPCIÓN CON -1 PARA VOLVER
+            print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
+            numero = input("Seleccione una opción: ")
+            
+            # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+            if numero == "-1":
+                print()
+                return None
+            
+            # Validar que sea una opción válida
+            while not numero.isdigit() or int(numero) < 1 or int(numero) > len(disponibles):
+                print(f"Opción {ROJO}inválida{RESET}. Ingrese una opción entre 1 y {len(disponibles)}")
+                numero = input("Seleccione una opción: ")
+                
+                # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+                if numero == "-1":
+                    print()
+                    return None
+            
+            numero = int(numero)
+            
             # Obtener índice real del medicamento en la matriz
             indice_real = disponibles[numero - 1]
             # Obtener fila completa del medicamento elegido
