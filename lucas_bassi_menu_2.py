@@ -409,50 +409,64 @@ def registrar_venta(matriz):
     """Registrar una venta"""
     items = []
 
-    while validar_confirmacion("¿Desea registrar una venta? (si/no): ") == "si":
+    # ✅ PRIMERA PREGUNTA: "¿Desea registrar una venta?"
+    primera_venta = validar_confirmacion("¿Desea registrar una venta? (si/no): ")
+    
+    while primera_venta == "si":
         disponibles = mostrar_medicamentos_disponibles(matriz)
         
-        # Si no hay medicamentos disponibles, salir del bucle
+        # Si no hay medicamentos disponibles, muestra mensaje pero continúa
         if len(disponibles) == 0:
             print(f"{ROJO}No hay medicamentos disponibles para vender.{RESET}")
-            break
-        
-        # Pedir medicamento a comprar
-        numero = validar_opcion(1, len(disponibles))
-        # Obtener índice real del medicamento en la matriz
-        indice_real = disponibles[numero - 1]
-        # Obtener fila completa del medicamento elegido
-        medicamento = matriz[indice_real]
+            print()
+            # Vuelve a preguntar si desea registrar otra venta
+            primera_venta = validar_confirmacion("¿Desea registrar otra venta? (si/no): ")
+        else:
+            # Pedir medicamento a comprar
+            numero = validar_opcion(1, len(disponibles))
+            # Obtener índice real del medicamento en la matriz
+            indice_real = disponibles[numero - 1]
+            # Obtener fila completa del medicamento elegido
+            medicamento = matriz[indice_real]
 
-        # Cantidad a comprar
-        cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
-        
-        # Chequear si presionó -1 para salir
-        if cantidad == "-1":
-            return None
-        
-        # ✅ VALIDAR: entero positivo Y que haya stock suficiente
-        while not validar_entero_positivo(cantidad) or not validar_stock_suficiente(medicamento, int(cantidad)):
-            if not validar_entero_positivo(cantidad):
-                print("Debe ser un número positivo.")
-            else:
-                print(f"{ROJO}No hay stock suficiente.{RESET}")
+            # Cantidad a comprar
             cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
             
-            # Chequear si presionó -1 para salir
+            # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
             if cantidad == "-1":
+                print()
+                print("Operación cancelada.")
+                print()
                 return None
-        
-        cantidad = int(cantidad)
+            
+            # ✅ VALIDAR: entero positivo Y que haya stock suficiente
+            while not validar_entero_positivo(cantidad) or not validar_stock_suficiente(medicamento, int(cantidad)):
+                if not validar_entero_positivo(cantidad):
+                    print("Debe ser un número positivo.")
+                else:
+                    print(f"{ROJO}No hay stock suficiente.{RESET}")
+                cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
+                
+                # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+                if cantidad == "-1":
+                    print()
+                    print("Operación cancelada.")
+                    print()
+                    return None
+            
+            cantidad = int(cantidad)
 
-        subtotal = medicamento[3] * cantidad
+            subtotal = medicamento[3] * cantidad
 
-        # Guardamos en items: codigo, nombre, cantidad, precio unitario y subtotal
-        items.append([medicamento[0], medicamento[1], cantidad, medicamento[3], subtotal])
-        
-        # ✅ ACTUALIZAR STOCK EN LA MATRIZ INMEDIATAMENTE
-        # Así la próxima vuelta del while mostrará el stock correcto
-        medicamento[4] -= cantidad
+            # Guardamos en items: codigo, nombre, cantidad, precio unitario y subtotal
+            items.append([medicamento[0], medicamento[1], cantidad, medicamento[3], subtotal])
+            
+            # ✅ ACTUALIZAR STOCK EN LA MATRIZ INMEDIATAMENTE
+            # Así la próxima vuelta del while mostrará el stock correcto
+            medicamento[4] -= cantidad
+            
+            # ✅ PREGUNTA MEJORADA: "¿Desea registrar OTRA venta?"
+            primera_venta = validar_confirmacion("¿Desea registrar otra venta? (si/no): ")
 
     # Verificar que se haya adquirido un producto
     if len(items) == 0:
