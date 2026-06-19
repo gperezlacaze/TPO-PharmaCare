@@ -30,9 +30,6 @@ RESET = '\033[0m'
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
 
-# ✅ ELIMINADAS: stock_minimo_configurado, obtener_stock_minimo(), establecer_stock_minimo()
-# Ahora stock_minimo se pasa como parámetro (OPCIÓN 2)
-
 # ------------------------------------------------------------
 # FUNCIONES - GESTIÓN DE LABORATORIOS
 # ------------------------------------------------------------
@@ -77,17 +74,16 @@ def agregar_laboratorio(laboratorios):
     print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
     
-    # Chequear si presionó -1 para salir
+    # Chequea si presionó -1 para salir
     if laboratorio == "-1":
         return None
     
-    # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
+    # Si todo está en mayúscula, preguntar si es sigla/acrónimo
     if laboratorio.isupper() and laboratorio.isalpha():
         es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
         if es_sigla != "si":
             laboratorio = laboratorio.capitalize()
     else:
-        # Si no está TODO en mayúscula, capitalizar (primera letra mayúscula, resto minúscula)
         laboratorio = laboratorio.capitalize()
 
     while not validar_laboratorio_fabricante(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
@@ -122,7 +118,7 @@ def modificar_laboratorio(laboratorios):
     print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     numero = input("Ingrese el numero del laboratorio que desea modificar: ")
     
-    # Chequear si presionó -1 para salir
+    # Chequea si presionó -1 para salir
     if numero == "-1":
         return None
 
@@ -133,13 +129,13 @@ def modificar_laboratorio(laboratorios):
             print("El numero ingresado no tiene asignado un laboratorio")
         numero = input("Ingrese el numero del laboratorio que desea modificar: ")
         
-        # Chequear si presionó -1 para salir
+        # Chequea si presionó -1 para salir
         if numero == "-1":
             return None
          
     nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
     
-    # Chequear si presionó -1 para salir
+    # Chequea si presionó -1 para salir
     if nuevo_nombre == "-1":
         return None
     
@@ -244,7 +240,7 @@ def mostrar_menu_stock():
     print()
 
 
-def submenu_stock(matriz, stock_minimo):  # ✅ AGREGAR parámetro
+def submenu_stock(matriz, stock_minimo):  
     """Menú de gestiones de stock"""
     opcion = 0
 
@@ -253,13 +249,13 @@ def submenu_stock(matriz, stock_minimo):  # ✅ AGREGAR parámetro
         print("(Presione una opción válida para continuar)")
         opcion = validar_opcion(1, 3)
         if opcion == 1:
-            nuevo_stock = configuracion_stock_minimo()  # ✅ RECIBE valor retornado
+            nuevo_stock = configuracion_stock_minimo() 
             if nuevo_stock is not None:
-                stock_minimo = nuevo_stock  # ✅ ACTUALIZA variable local
+                stock_minimo = nuevo_stock  
         elif opcion == 2:
-            reporte_stock_bajo(matriz, stock_minimo)  # ✅ PASAR como parámetro
+            reporte_stock_bajo(matriz, stock_minimo)  
     
-    return stock_minimo  # ✅ RETORNAR
+    return stock_minimo  
 
 
 # Opcion 1:
@@ -270,9 +266,9 @@ def configuracion_stock_minimo():
     if asignar_stock_minimo is not None:
         print(f"{VERDE}✓ Stock minimo configurado con exito{RESET}")
         print()
-        return asignar_stock_minimo  # ✅ RETORNA el valor
+        return asignar_stock_minimo 
     
-    return None  # ✅ Retorna None si no ingresa  # No retorna el valor, lo establece globalmente
+    return None 
 
 
 # Opcion 2:
@@ -403,7 +399,7 @@ def registrar_venta(matriz):
     """Registrar una venta"""
     items = []
 
-    # ✅ PRIMERA PREGUNTA: "¿Desea registrar una venta?"
+    # PRIMERA PREGUNTA: "¿Desea registrar una venta?"
     primera_venta = validar_confirmacion("¿Desea registrar una venta? (si/no): ")
     
     while primera_venta == "si":
@@ -416,11 +412,11 @@ def registrar_venta(matriz):
             # Vuelve a preguntar si desea registrar otra venta
             primera_venta = validar_confirmacion("¿Desea registrar otra venta? (si/no): ")
         else:
-            # ✅ PEDIR OPCIÓN CON -1 PARA VOLVER
+            # PEDIR OPCIÓN CON -1 PARA VOLVER
             print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
             numero = input("Seleccione una opción: ")
             
-            # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+            # CHEQUEAR SI PRESIONÓ -1 PARA SALIR
             if numero == "-1":
                 print()
                 return None
@@ -430,7 +426,7 @@ def registrar_venta(matriz):
                 print(f"Opción {ROJO}inválida{RESET}. Ingrese una opción entre 1 y {len(disponibles)}")
                 numero = input("Seleccione una opción: ")
                 
-                # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+                # CHEQUEAR SI PRESIONÓ -1 PARA SALIR
                 if numero == "-1":
                     print()
                     return None
@@ -445,14 +441,14 @@ def registrar_venta(matriz):
             # Cantidad a comprar
             cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
             
-            # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+            # CHEQUEAR SI PRESIONÓ -1 PARA SALIR
             if cantidad == "-1":
                 print()
                 print("Operación cancelada.")
                 print()
                 return None
             
-            # ✅ VALIDAR: entero positivo Y que haya stock suficiente
+            # VALIDAR: entero positivo Y que haya stock suficiente
             while not validar_entero_positivo(cantidad) or not validar_stock_suficiente(medicamento, int(cantidad)):
                 if not validar_entero_positivo(cantidad):
                     print("Debe ser un número positivo.")
@@ -460,7 +456,7 @@ def registrar_venta(matriz):
                     print(f"{ROJO}No hay stock suficiente.{RESET}")
                 cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
                 
-                # ✅ CHEQUEAR SI PRESIONÓ -1 PARA SALIR
+                # CHEQUEA SI SE INGRESO -1 PARA SALIR
                 if cantidad == "-1":
                     print()
                     print("Operación cancelada.")
@@ -474,8 +470,7 @@ def registrar_venta(matriz):
             # Guardamos en items: codigo, nombre, cantidad, precio unitario y subtotal
             items.append([medicamento[0], medicamento[1], cantidad, medicamento[3], subtotal])
             
-            # ✅ ACTUALIZAR STOCK EN LA MATRIZ INMEDIATAMENTE
-            # Así la próxima vuelta del while mostrará el stock correcto
+            # ACTUALIZACION DE STOCK EN LA MATRIZ INMEDIATAMENTE
             medicamento[4] -= cantidad
             
             # ✅ PREGUNTA MEJORADA: "¿Desea registrar OTRA venta?"
@@ -499,10 +494,6 @@ def registrar_venta(matriz):
 
     # Forma de pago
     procesar_pago(total)
-
-    # ✅ EL STOCK YA FUE DESCONTADO EN EL WHILE ANTERIOR
-    # Entonces NO necesitamos descontar de nuevo
-    # Simplemente guardamos las ventas
 
     # Guardar la venta en ventas
     for f in range(len(items)):
@@ -541,7 +532,7 @@ def menu_gestion():
     print()
 
 
-def mostrar_menu(matriz, laboratorios, stock_minimo):  # ✅ AGREGAR parámetro
+def mostrar_menu_gestiones(matriz, laboratorios, stock_minimo):  
     """Menú principal de gestiones"""
     opcion = 0
 
@@ -551,13 +542,13 @@ def mostrar_menu(matriz, laboratorios, stock_minimo):  # ✅ AGREGAR parámetro
         if opcion == 1:
             submenu_laboratorios(laboratorios)
         elif opcion == 2:
-            stock_minimo = submenu_stock(matriz, stock_minimo)  # ✅ PASAR Y RECIBIR
+            stock_minimo = submenu_stock(matriz, stock_minimo)  
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
             print(f"{VERDE}✓ Volviendo al menú principal...{RESET}")
     
-    return stock_minimo  # ✅ RETORNAR
+    return stock_minimo  
 
 
 if __name__ == "__main__":
