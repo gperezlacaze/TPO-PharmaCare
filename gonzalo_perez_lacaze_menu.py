@@ -404,11 +404,13 @@ def ordenar_por_vencimiento(matriz):
                     matriz[j], matriz[j + 1] = matriz[j + 1], matriz[j]
 
 
-def informe_general(matriz, stock_minimo=None):
+def informe_general(matriz):
     '''Ordena y muestra el informe de medicamentos por vencimiento, con opción de ver días restantes'''
+    from lucas_bassi_menu_2 import obtener_stock_minimo
+    
     print()
     ordenar_por_vencimiento(matriz)
-    mostrar_matriz_con_colores(matriz, stock_minimo)
+    mostrar_matriz_con_colores(matriz, obtener_stock_minimo())
     
     if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): ") == "si":
         mostrar_dias_restantes(matriz)
