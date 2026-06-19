@@ -294,8 +294,8 @@ def ingresar_cobertura():
 # ============================================================
 
 
-def validar_opcion(desde, hasta):
-    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu (o -1 para salir)'''
+def validar_opcion_menu_anterior(desde, hasta):
+    '''Valida opción en funciones. Permite -1 para volver al menú anterior.'''
     opcion = input("Seleccione una opción: ")
     # Permitir números negativos para -1 (salida)
     while not (opcion.lstrip('-').isdigit() or opcion == '-1'):
@@ -327,8 +327,8 @@ def validar_confirmacion(pregunta):
 # Autor: Lucas Alegre
 # ============================================================
 
-def validar_opcion_submenu(desde, hasta):
-    '''Valida opción en submenús. NO permite -1 para salir (solo acepta opciones válidas)'''
+def validar_opcion(desde, hasta):
+    '''Valida opción en menús (principal, gestiones, submenús). NO permite -1 (solo opciones válidas).'''
     opcion = input("Seleccione una opción: ")
     while not opcion.isdigit() or int(opcion) < desde or int(opcion) > hasta:
         print(f"La opción seleccionada no es válida. Ingrese una opción entre {desde} y {hasta}")
