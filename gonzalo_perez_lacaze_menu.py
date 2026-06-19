@@ -8,7 +8,7 @@ from lucas_bassi_validaciones import (
     ingresar_stock, ingresar_cobertura, ingresar_fecha_vencimiento,
     validar_confirmacion
 )
-from lucas_alegre import mostrar_matriz, crear_matriz_inicial
+from lucas_alegre import mostrar_matriz, crear_matriz_inicial, mostrar_matriz_con_colores
 
 
 def mostrar_menu():
@@ -404,11 +404,11 @@ def ordenar_por_vencimiento(matriz):
                     matriz[j], matriz[j + 1] = matriz[j + 1], matriz[j]
 
 
-def informe_general(matriz):
+def informe_general(matriz, stock_minimo=None):
     '''Ordena y muestra el informe de medicamentos por vencimiento, con opción de ver días restantes'''
     print()
     ordenar_por_vencimiento(matriz)
-    mostrar_matriz(matriz)
+    mostrar_matriz_con_colores(matriz, stock_minimo)
     
     if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): ") == "si":
         mostrar_dias_restantes(matriz)
