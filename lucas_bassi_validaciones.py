@@ -103,28 +103,42 @@ def validar_cobertura(cobertura):
 
 
 def ingresar_medicamento():
-    """Pedir y validar el nombre del medicamento."""
-    nombre = input("Ingrese el nombre del medicamento: ").strip().capitalize()
+    """Pedir y validar el nombre del medicamento. Presione -1 para salir."""
+    nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ").strip()
+    
+    if nombre == "-1":
+        return None
+    
+    nombre = nombre.capitalize()
     while not validar_nombre_medicamento(nombre):
         print("El nombre no puede estar vacío. Intente nuevamente.")
-        nombre = input("Ingrese el nombre del medicamento: ").strip().capitalize()
+        nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ").strip()
+        if nombre == "-1":
+            return None
+        nombre = nombre.capitalize()
     return nombre
 
 
 def ingresar_codigo(matriz):
-    """Pedir y validar el código del medicamento."""
-    codigo = input("Ingrese el código del medicamento: ").upper()
+    """Pedir y validar el código del medicamento. Presione -1 para salir."""
+    codigo = input("Ingrese el código del medicamento (o -1 para volver): ").upper()
+    
+    if codigo == "-1":
+        return None
+    
     while not validar_codigo_medicamento(codigo) or not validar_codigo_unico(codigo, matriz):
         if not validar_codigo_medicamento(codigo):
             print("Código inválido: debe tener entre 4 y 10 caracteres alfanuméricos (sin espacios ni símbolos).")
         else:
             print("Codigo ya existente en la matriz")
-        codigo = input("Ingrese el código del medicamento: ").strip().upper()
+        codigo = input("Ingrese el código del medicamento (o -1 para volver): ").strip().upper()
+        if codigo == "-1":
+            return None
     return codigo
 
 
 def ingresar_laboratorio(laboratorios):
-    """Pedir y validar el nombre del laboratorio."""
+    """Pedir y validar el nombre del laboratorio. Presione -1 para salir."""
 
     # Ver laboratorios registrados
     print("========================================")
@@ -141,45 +155,77 @@ def ingresar_laboratorio(laboratorios):
             print(f"{contador}. {lab}")
             contador += 1
     print("========================================")
+    print("(Presione -1 para volver al menú anterior)")
+    print("========================================")
 
     # Seleccionar una opcion
     opcion = validar_opcion(1, len(laboratorios))
+    
+    if opcion == -1:
+        return None
 
     return laboratorios[opcion - 1]
 
 
 def ingresar_precio():
-    """Pedir y validar el precio unitario del medicamento."""
-    texto = input("Ingrese el precio del medicamento: ")
+    """Pedir y validar el precio unitario del medicamento. Presione -1 para salir."""
+    texto = input("Ingrese el precio del medicamento (o -1 para volver): ")
+    
+    if texto == "-1":
+        return None
+    
     while not validar_precio(texto):
         print("Precio inválido: debe ser un número positivo mayor a cero (ej: 2500.50).")
-        texto = input("Ingrese el precio del medicamento: ")
+        texto = input("Ingrese el precio del medicamento (o -1 para volver): ")
+        if texto == "-1":
+            return None
     return float(texto)
 
 
 def ingresar_stock():
-    """Pedir y validar el stock disponible del medicamento."""
-    texto = input("Ingrese el stock del medicamento: ")
+    """Pedir y validar el stock disponible del medicamento. Presione -1 para salir."""
+    texto = input("Ingrese el stock del medicamento (o -1 para volver): ")
+    
+    if texto == "-1":
+        return None
+    
     while not validar_entero_positivo(texto):
         print("Stock inválido: debe ser un número entero positivo (mayor a cero).")
-        texto = input("Ingrese el stock del medicamento: ")
+        texto = input("Ingrese el stock del medicamento (o -1 para volver): ")
+        if texto == "-1":
+            return None
     return int(texto)
 
 
 def ingresar_fecha_vencimiento():
-    fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
+    """Pedir y validar la fecha de vencimiento. Presione -1 para salir."""
+    fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
+    
+    if fecha == "-1":
+        return None
+    
     while not validar_fecha_vencimiento(fecha):
         print('Fecha inválida: debe estar en formato dd/mm/aaaa')
-        fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa): ')
+        fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
+        if fecha == "-1":
+            return None
     return fecha
 
 
 def ingresar_cobertura():
-    """Pedir y validar la cobertura médica del medicamento."""
-    cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
+    """Pedir y validar la cobertura médica del medicamento. Presione -1 para salir."""
+    cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
+    
+    if cobertura == "-1":
+        return None
+    
+    cobertura = cobertura.capitalize()
     while not validar_cobertura(cobertura):
         print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
-        cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura): ").strip().capitalize()
+        cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
+        if cobertura == "-1":
+            return None
+        cobertura = cobertura.capitalize()
     return cobertura
 
 
@@ -190,17 +236,18 @@ def ingresar_cobertura():
 
 
 def validar_opcion(desde, hasta):
-    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu'''
+    '''Esta funcion es auxiliar y valida que el usuario ingrese una opcion valida del menu (o -1 para salir)'''
     opcion = input("Seleccione una opción: ")
-    while not opcion.isdigit():
+    # Permitir números negativos para -1 (salida)
+    while not (opcion.lstrip('-').isdigit() or opcion == '-1'):
         print("La opción debe ser un número.")
         opcion = input("Seleccione una opción: ")
 
     opcion = int(opcion)
-    while (opcion < desde or opcion > hasta) and opcion != 8:
+    while (opcion < desde or opcion > hasta) and opcion != -1:
         print("La opción seleccionada no es válida") 
         opcion = input("Seleccione una opción: ")
-        while not opcion.isdigit():
+        while not (opcion.lstrip('-').isdigit() or opcion == '-1'):
             print("La opción debe ser un número.")
             opcion = input("Seleccione una opción: ")
         opcion = int(opcion)
@@ -289,17 +336,3 @@ if __name__ == "__main__":
     
     print("VÁLIDO - 'LAB999' (No existe): ", validar_codigo_unico("LAB999", matriz_prueba))  # True
     print("INVÁLIDO - 'FAR125' (Existe): ", validar_codigo_unico("FAR125", matriz_prueba))  # False
-   
-
-
-
-    
-
-
-    
-
-    
-    
-
-
-    
