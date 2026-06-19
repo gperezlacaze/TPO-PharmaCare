@@ -11,9 +11,7 @@ from lucas_bassi_validaciones import (
     validar_confirmacion,
     validar_precio,
     validar_laboratorio_fabricante,
-    ingresar_stock
-)
-from lucas_alegre_validaciones_fase_2 import (
+    ingresar_stock,
     validar_laboratorio_duplicado,
     validar_stock_suficiente,
     validar_monto_efectivo
