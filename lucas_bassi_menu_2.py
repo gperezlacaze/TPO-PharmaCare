@@ -4,6 +4,16 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
+# CÓDIGOS DE COLOR ANSI
+VERDE = '\033[92m'
+AZUL = '\033[94m'
+AMARILLO = '\033[93m'
+ROJO = '\033[91m'
+CELESTE = '\033[96m'
+VIOLETA = '\033[35m'
+NARANJA = '\033[33m'
+RESET = '\033[0m'
+
 from lucas_bassi_validaciones import (
     validar_opcion,
     validar_opcion_menu_anterior,
@@ -16,17 +26,7 @@ from lucas_bassi_validaciones import (
     validar_stock_suficiente,
     validar_monto_efectivo
 )
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
-
-# CÓDIGOS DE COLOR ANSI
-VERDE = '\033[92m'
-AZUL = '\033[94m'
-AMARILLO = '\033[93m'
-ROJO = '\033[91m'
-CELESTE = '\033[96m'
-VIOLETA = '\033[35m'
-NARANJA = '\033[33m'
-RESET = '\033[0m'
+from lucas_alegre import (crear_matriz_inicial, mostrar_matriz, mostrar_matriz_con_colores)
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
@@ -411,6 +411,12 @@ def registrar_venta(matriz):
 
     while validar_confirmacion("¿Desea registrar una venta? (si/no): ") == "si":
         disponibles = mostrar_medicamentos_disponibles(matriz)
+        
+        # Si no hay medicamentos disponibles, salir del bucle
+        if len(disponibles) == 0:
+            print(f"{ROJO}No hay medicamentos disponibles para vender.{RESET}")
+            break
+        
         # Pedir medicamento a comprar
         numero = validar_opcion(1, len(disponibles))
         # Obtener índice real del medicamento en la matriz
@@ -425,6 +431,7 @@ def registrar_venta(matriz):
         if cantidad == "-1":
             return None
         
+        # ✅ VALIDAR: entero positivo Y que haya stock suficiente
         while not validar_entero_positivo(cantidad) or not validar_stock_suficiente(medicamento, int(cantidad)):
             if not validar_entero_positivo(cantidad):
                 print("Debe ser un número positivo.")
@@ -435,12 +442,17 @@ def registrar_venta(matriz):
             # Chequear si presionó -1 para salir
             if cantidad == "-1":
                 return None
+        
         cantidad = int(cantidad)
 
         subtotal = medicamento[3] * cantidad
 
         # Guardamos en items: codigo, nombre, cantidad, precio unitario y subtotal
         items.append([medicamento[0], medicamento[1], cantidad, medicamento[3], subtotal])
+        
+        # ✅ ACTUALIZAR STOCK EN LA MATRIZ INMEDIATAMENTE
+        # Así la próxima vuelta del while mostrará el stock correcto
+        medicamento[4] -= cantidad
 
     # Verificar que se haya adquirido un producto
     if len(items) == 0:
@@ -461,11 +473,9 @@ def registrar_venta(matriz):
     # Forma de pago
     procesar_pago(total)
 
-    # Descontar stock
-    for f in range(len(items)):
-        for m in range(len(matriz)):
-            if matriz[m][0] == items[f][0]:  # buscar por codigo
-                matriz[m][4] -= items[f][2]  # restamos stock
+    # ✅ EL STOCK YA FUE DESCONTADO EN EL WHILE ANTERIOR
+    # Entonces NO necesitamos descontar de nuevo
+    # Simplemente guardamos las ventas
 
     # Guardar la venta en ventas
     for f in range(len(items)):
