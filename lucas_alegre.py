@@ -1,8 +1,12 @@
 # ============================================================
-# MODULO: matriz_medicamentos.py
+# MODULO: lucas_alegre.py (matriz_medicamentos.py)
 # Autor: Lucas Alegre
-# Descripcion: Modulo para crear y mostrar la matriz de medicamentos
+# Descripcion: Modulo para crear, mostrar y mostrar con colores la matriz de medicamentos
 # ============================================================
+
+# CÓDIGOS DE COLOR ANSI
+ROJO = '\033[91m'
+RESET = '\033[0m'
 
 
 def crear_matriz_inicial():
@@ -52,7 +56,42 @@ def mostrar_matriz(matriz):
     print("=" * 115 + "\n")
 
 
+def mostrar_matriz_con_colores(matriz, stock_minimo=None):
+    """
+    Muestra la matriz de medicamentos en formato de tabla.
+    Si stock_minimo es proporcionado, muestra el stock en ROJO si está por debajo.
+    Entrada: matriz (lista de listas), stock_minimo (int o None)
+    Salida: imprime la tabla en pantalla con colores (RF03)
+    """
+
+    # Encabezados
+    print("\n" + "=" * 115)
+    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Fecha de Vencimiento':<20}")
+    print("=" * 115)
+
+    # Filas
+    i = 0
+    while i < len(matriz):
+        fila = matriz[i]
+        stock = fila[4]
+        
+        # Colorear stock en ROJO si está por debajo del mínimo
+        if stock_minimo is not None and stock < stock_minimo:
+            stock_mostrar = f"{ROJO}{stock}{RESET}"
+        else:
+            stock_mostrar = str(stock)
+        
+        print(f"{fila[0]:<12} {fila[1]:<30} {fila[2]:<20} {fila[3]:<12.2f} {stock_mostrar:<10} {fila[5]:<15} {fila[6]:<20}")
+        i = i + 1
+
+    print("=" * 115 + "\n")
+
+
 if __name__ == "__main__":
     # Prueba funcional del modulo
     matriz = crear_matriz_inicial()
     mostrar_matriz(matriz)
+    
+    # Prueba con colores (stock_minimo = 50)
+    print("MATRIZ CON COLORES (stock_minimo = 50):")
+    mostrar_matriz_con_colores(matriz, 50)
