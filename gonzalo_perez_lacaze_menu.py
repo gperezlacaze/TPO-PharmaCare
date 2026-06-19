@@ -24,9 +24,9 @@ from lucas_alegre import mostrar_matriz, crear_matriz_inicial, mostrar_matriz_co
 
 def mostrar_menu():
     '''Muestra el menú principal con las opciones disponibles'''
-    print(f"{CELESTE}==================================================#{RESET}")
+    print(f"{CELESTE}=================================================={RESET}")
     print(f"{AZUL}SISTEMA DE GESTIÓN: PHARMACARE CENTRAL{RESET}")
-    print(f"{CELESTE}==================================================#{RESET}")
+    print(f"{CELESTE}=================================================={RESET}")
     print(f"{AMARILLO}1.{RESET} Registrar nuevo producto")
     print(f"{AMARILLO}2.{RESET} Eliminar medicamento")
     print(f"{AMARILLO}3.{RESET} Buscar medicamento")
@@ -34,7 +34,7 @@ def mostrar_menu():
     print(f"{AMARILLO}5.{RESET} Informe general")
     print(f"{AMARILLO}6.{RESET} Gestiones")
     print(f"{AMARILLO}7.{RESET} Salir")
-    print(f"{CELESTE}==================================================#{RESET}")
+    print(f"{CELESTE}=================================================={RESET}")
     print("Seleccione una opción (1-7):")
 
 
@@ -195,29 +195,37 @@ def mostrar_medicamento(matriz):
         
     if tipo == "1":  # CÓDIGO
         busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
-        while busqueda_codigo != "" and busqueda_codigo != "-1":
+        while busqueda_codigo != "-1":
+            if busqueda_codigo == "":
+                busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
+                continue
+            
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
             
             if resultado != -1:
                 print()
                 print(f"Medicamento encontrado:")
                 fila = resultado[0]
-                print(f"{matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+                print(f"{matriz[fila][0]:<12}{matriz[fila][1]:<30}{matriz[fila][2]:<20}{matriz[fila][3]:<12.2f}{matriz[fila][4]:<10}{matriz[fila][5]:<15}{matriz[fila][6]:<12}")
                 print()
                 return resultado
             else:
                 print()
-                print("Medicamento no encontrado. Intente de nuevo o presione -1 para volver.")
+                print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
                 busqueda_codigo = input("Ingrese el código (o -1 para volver): ").strip().upper()
         print()
         return None
 
     elif tipo == "2":
         busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
-        while busqueda_nombre != "" and busqueda_nombre != "-1":
+        while busqueda_nombre != "-1":
+            if busqueda_nombre == "":
+                busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
+                continue
+            
             resultados = buscar_por_nombre(matriz, busqueda_nombre)
             
-            if resultados != -1:  # ← Interpreta el -1
+            if resultados != -1:
                 print()
                 print(f"Se encontraron {len(resultados)} medicamento(s):")
                 print()
@@ -225,7 +233,7 @@ def mostrar_medicamento(matriz):
                 return resultados
             else:
                 print()
-                print("Medicamento no encontrado. Intente de nuevo o presione -1 para volver.")
+                print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
                 busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
 
         print()
@@ -508,4 +516,4 @@ if __name__ == '__main__':
     print("\n5. PRUEBA: mostrar_dias_restantes()")
     mostrar_dias_restantes(matriz_prueba)
     
-    print("=== FIN DE PRUEBAS ===") 
+    print("=== FIN DE PRUEBAS ===")
