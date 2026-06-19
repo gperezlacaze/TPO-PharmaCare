@@ -171,7 +171,7 @@ def ingresar_codigo(matriz):
         return None
     
     while not validar_codigo_medicamento(codigo):
-        print("Código inválido: debe tener 4-8 caracteres alfanuméricos sin espacios.")
+        print(f"Código {ROJO}inválido{RESET}: debe tener 4-8 caracteres alfanuméricos sin espacios.")
         codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
         if codigo == "-1":
             return None
@@ -253,7 +253,7 @@ def ingresar_precio():
         return None
     
     while not validar_precio(precio):
-        print("Precio inválido: debe ser un número positivo.")
+        print(f"Precio {ROJO}inválido{RESET}: debe ser un número positivo.")
         precio = input("Ingrese el precio (o -1 para volver): ")
         if precio == "-1":
             return None
@@ -269,7 +269,7 @@ def ingresar_stock():
         return None
     
     while not validar_entero_positivo(stock):
-        print("Stock inválido: debe ser un número entero positivo.")
+        print(f"Stock {ROJO}inválido{RESET}: debe ser un número entero positivo.")
         stock = input("Ingrese el stock (o -1 para volver): ")
         if stock == "-1":
             return None
@@ -285,7 +285,7 @@ def ingresar_fecha_vencimiento():
         return None
     
     while not validar_fecha_vencimiento(fecha):
-        print('Fecha inválida: debe estar en formato dd/mm/aaaa')
+        print(f'Fecha {ROJO}inválida{RESET}: debe estar en formato dd/mm/aaaa')
         fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
         if fecha == "-1":
             return None
@@ -301,7 +301,7 @@ def ingresar_cobertura():
     
     cobertura = cobertura.capitalize()
     while not validar_cobertura(cobertura):
-        print("Cobertura inválida: debe ser 'Con cobertura' o 'Sin cobertura'.")
+        print(f"Cobertura {ROJO}inválida{RESET}: debe ser 'Con cobertura' o 'Sin cobertura'.")
         cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
         if cobertura == "-1":
             return None
