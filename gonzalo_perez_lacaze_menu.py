@@ -2,6 +2,17 @@
 # Autor: Gonzalo Perez Lacaze
 # Fecha: 05/06/2026
 # Descripción: Funciones de menú para PharmaCare
+
+# CÓDIGOS DE COLOR ANSI
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+CELESTE = '\033[96m'
+VIOLETA = '\033[35m'
+NARANJA = '\033[33m'
+AZUL = '\033[94m'
+RESET = '\033[0m'
+
 from lucas_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento,
     ingresar_laboratorio, ingresar_precio,
@@ -13,17 +24,17 @@ from lucas_alegre import mostrar_matriz, crear_matriz_inicial, mostrar_matriz_co
 
 def mostrar_menu():
     '''Muestra el menú principal con las opciones disponibles'''
-    print("==================================================")
-    print("SISTEMA DE GESTIÓN: PHARMACARE CENTRAL")
-    print("==================================================")
-    print("1. Registrar nuevo producto")
-    print("2. Eliminar medicamento")
-    print("3. Buscar medicamento")
-    print("4. Modificar stock o precio")
-    print("5. Informe general")
-    print("6. Gestiones")
-    print("7. Salir")
-    print("==================================================")
+    print(f"{CELESTE}==================================================#{RESET}")
+    print(f"{AZUL}SISTEMA DE GESTIÓN: PHARMACARE CENTRAL{RESET}")
+    print(f"{CELESTE}==================================================#{RESET}")
+    print(f"{AMARILLO}1.{RESET} Registrar nuevo producto")
+    print(f"{AMARILLO}2.{RESET} Eliminar medicamento")
+    print(f"{AMARILLO}3.{RESET} Buscar medicamento")
+    print(f"{AMARILLO}4.{RESET} Modificar stock o precio")
+    print(f"{AMARILLO}5.{RESET} Informe general")
+    print(f"{AMARILLO}6.{RESET} Gestiones")
+    print(f"{AMARILLO}7.{RESET} Salir")
+    print(f"{CELESTE}==================================================#{RESET}")
     print("Seleccione una opción (1-7):")
 
 
@@ -34,7 +45,7 @@ def alta_medicamentos(matriz, laboratorios):
         return None
     
     print()
-    print("(Presione -1 en cualquier ingreso para volver al menú principal)")
+    print(f"(Presione {NARANJA}-1{RESET} en cualquier ingreso para volver al menú principal)")
     print()
     codigo = ""
     while codigo != "-1":
@@ -78,13 +89,13 @@ def alta_medicamentos(matriz, laboratorios):
 def baja_medicamentos(matriz):
     '''Permite eliminar medicamentos con stock = 0'''
     print()
-    print("(Presione -1 para volver al menú principal)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú principal)")
     print()
     
     print("¿Cómo desea buscar el medicamento?")
-    print("1. Por código (búsqueda exacta)")
-    print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    print(f"{AMARILLO}1.{RESET} Por código (búsqueda exacta)")
+    print(f"{AMARILLO}2.{RESET} Por nombre (búsqueda parcial)")
+    tipo = input(f"Seleccione (1 o 2, o {NARANJA}-1{RESET} para volver): ")
 
     while tipo not in ["1", "2", "-1"]:
         print("Opción inválida. Intente nuevamente.")
@@ -129,7 +140,7 @@ def procesar_eliminacion(matriz, resultado):
     
     if len(medicamentos_a_eliminar) == 0:
         print()
-        print("Ningún medicamento encontrado tiene stock = 0")
+        print(f"Ningún medicamento encontrado tiene stock = 0")
         print()
         return False 
     
@@ -143,17 +154,17 @@ def procesar_eliminacion(matriz, resultado):
         print(f"Se encontraron {len(medicamentos_a_eliminar)} medicamento(s) con stock = 0:")
         print()
         mostrar_posiciones_resultados(matriz, medicamentos_a_eliminar)
-        eleccion = input(f"¿Cuál desea eliminar? (1-{len(medicamentos_a_eliminar)}): ")
+        eleccion = input(f"¿Cuál desea eliminar? ({AMARILLO}1{RESET}-{AMARILLO}{len(medicamentos_a_eliminar)}{RESET}): ")
         while not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(medicamentos_a_eliminar):
-            print("Selección inválida")
-            eleccion = input(f"Ingrese el número (1-{len(medicamentos_a_eliminar)}): ")
+            print(f"Selección {ROJO}inválida{RESET}")
+            eleccion = input(f"Ingrese el número ({AMARILLO}1{RESET}-{AMARILLO}{len(medicamentos_a_eliminar)}{RESET}): ")
         fila = medicamentos_a_eliminar[int(eleccion) - 1]
 
     if validar_confirmacion(f"¿Eliminar {matriz[fila][1]}? (si/no): ") == "si":
         print()
-        print(f"Eliminando: {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+        print(f"{VERDE}Eliminando:{RESET} {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
         matriz.pop(fila)
-        print("Medicamento eliminado correctamente")
+        print(f"{VERDE}✓ Medicamento eliminado correctamente{RESET}")
         print()
         return validar_confirmacion("¿Eliminar otro? (si/no): ") == "si"
     else:
@@ -167,19 +178,19 @@ def mostrar_medicamento(matriz):
     '''La funcion busca por codigo (resultado unico) o por nombre (resultados multiples posibles) y muestra los resultados con posiciones'''
     print()
     print("¿Cómo desea buscar?")
-    print("1. Por código (búsqueda exacta)")
-    print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    print(f"{AMARILLO}1.{RESET} Por código (búsqueda exacta)")
+    print(f"{AMARILLO}2.{RESET} Por nombre (búsqueda parcial)")
+    tipo = input(f"Seleccione (1 o 2, o {NARANJA}-1{RESET} para volver): ")
 
     while tipo not in ["1", "2", "-1"]:
-        print("Opción inválida. Intente nuevamente.")
-        tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+        print(f"Opción {ROJO}inválida{RESET}. Intente nuevamente.")
+        tipo = input(f"Seleccione (1 o 2, o {NARANJA}-1{RESET} para volver): ")
     
     if tipo == "-1":
         return None
     
     print()
-    print("(Presione -1 para volver al menú principal)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú principal)")
     print()
         
     if tipo == "1":  # CÓDIGO
@@ -255,7 +266,7 @@ def mostrar_posiciones_resultados(matriz, resultados):
     while i < len(resultados):
         fila = resultados[i]
         posicion = i + 1
-        print(f"[{posicion}] {matriz[fila][0]:<12} | {matriz[fila][1]:<30} | {matriz[fila][2]:<20} | {matriz[fila][3]:<12.2f} | {matriz[fila][4]:<10} | {matriz[fila][5]:<15} | {matriz[fila][6]:<12}")
+        print(f"{AMARILLO}[{posicion}]{RESET} {matriz[fila][0]:<12}{matriz[fila][1]:<30}{matriz[fila][2]:<20}{matriz[fila][3]:<12.2f}{matriz[fila][4]:<10}{matriz[fila][5]:<15}{matriz[fila][6]:<12}")
         i = i + 1
 
 
@@ -263,19 +274,19 @@ def modificar_stock_precio(matriz):
     '''Modifica el stock, precio o ambos de un medicamento ya existente utilizando las funciones genéricas de búsqueda'''
     print()
     print("¿Cómo desea buscar?")
-    print("1. Por código (búsqueda exacta)")
-    print("2. Por nombre (búsqueda parcial)")
-    tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+    print(f"{AMARILLO}1.{RESET} Por código (búsqueda exacta)")
+    print(f"{AMARILLO}2.{RESET} Por nombre (búsqueda parcial)")
+    tipo = input(f"Seleccione (1 o 2, o {NARANJA}-1{RESET} para volver): ")
 
     while tipo not in ["1", "2", "-1"]:
-        print("Opción inválida. Intente nuevamente.")
-        tipo = input("Seleccione (1 o 2, o -1 para volver): ")
+        print(f"Opción {ROJO}inválida{RESET}. Intente nuevamente.")
+        tipo = input(f"Seleccione (1 o 2, o {NARANJA}-1{RESET} para volver): ")
     
     if tipo == "-1":
         return None
     
     print()
-    print("(Presione -1 para volver al menú principal)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú principal)")
     print()
     
     if tipo == "1":
@@ -338,18 +349,18 @@ def procesar_modificacion_medicamento(matriz, fila):
     print()
     
     print("¿Qué desea modificar?")
-    print("1. Stock")
-    print("2. Precio")
-    print("3. Ambos")
-    print("(Presione -1 para volver)")
+    print(f"{AMARILLO}1.{RESET} Stock")
+    print(f"{AMARILLO}2.{RESET} Precio")
+    print(f"{AMARILLO}3.{RESET} Ambos")
+    print(f"(Presione {NARANJA}-1{RESET} para volver)")
     opcion_mod = input("Seleccione (1-3): ")
     
     while not opcion_mod.isdigit() or int(opcion_mod) < 1 or int(opcion_mod) > 3:
         if opcion_mod == "-1":
             print()
             return None
-        print("Opción inválida. Intente nuevamente.")
-        opcion_mod = input("Seleccione (1-3) (o -1 para volver): ")
+        print(f"Opción {ROJO}inválida{RESET}. Intente nuevamente.")
+        opcion_mod = input(f"Seleccione (1-3) (o {NARANJA}-1{RESET} para volver): ")
     
     opcion_mod = int(opcion_mod)
     
@@ -360,7 +371,7 @@ def procesar_modificacion_medicamento(matriz, fila):
             return None
         matriz[fila][4] = nuevo_stock
         print()
-        print(f"Stock modificado: {matriz[fila][1]} | Stock: {matriz[fila][4]}")
+        print(f"{VERDE}✓ Stock modificado{RESET}: {matriz[fila][1]} | Stock: {matriz[fila][4]}")
         print()
     elif opcion_mod == 2:
         nuevo_precio = ingresar_precio()
@@ -368,7 +379,7 @@ def procesar_modificacion_medicamento(matriz, fila):
             return None
         matriz[fila][3] = nuevo_precio
         print()
-        print(f"Precio modificado: {matriz[fila][1]} | Precio: ${matriz[fila][3]:.2f}")
+        print(f"{VERDE}✓ Precio modificado{RESET}: {matriz[fila][1]} | Precio: ${matriz[fila][3]:.2f}")
         print()
     elif opcion_mod == 3:
         nuevo_stock = ingresar_stock()
@@ -380,7 +391,7 @@ def procesar_modificacion_medicamento(matriz, fila):
             return None
         matriz[fila][3] = nuevo_precio
         print()
-        print(f"Cambios realizados: {matriz[fila][1]} | Precio: ${matriz[fila][3]:.2f} | Stock: {matriz[fila][4]}")   
+        print(f"{VERDE}✓ Cambios realizados{RESET}: {matriz[fila][1]} | Precio: ${matriz[fila][3]:.2f} | Stock: {matriz[fila][4]}")   
         print()
 
 
@@ -420,9 +431,9 @@ def mostrar_dias_restantes(matriz):
     import time
     
     print()
-    print("=" * 70)
-    print(f"{'Código':<12} {'Nombre':<30} {'Días Restantes':<15}")
-    print("=" * 70)
+    print(f"{CELESTE}={'=' * 68}{RESET}")
+    print(f"{VIOLETA}{'Código':<12}{'Nombre':<30}{'Días Restantes':<15}{RESET}")
+    print(f"{CELESTE}{'=' * 68}{RESET}")
     
     i = 0
     while i < len(matriz):
@@ -444,10 +455,10 @@ def mostrar_dias_restantes(matriz):
         segundos_restantes = timestamp_vencimiento - timestamp_hoy
         dias_restantes = int(segundos_restantes // 86400)  # 86400 segundos = 1 día
         
-        print(f"{codigo:<12} {nombre:<30} {dias_restantes:<15}")
+        print(f"{codigo:<12}{nombre:<30}{dias_restantes:<15}")
         i = i + 1
     
-    print("=" * 70)
+    print(f"{CELESTE}{'=' * 68}{RESET}")
     print()
 
 
