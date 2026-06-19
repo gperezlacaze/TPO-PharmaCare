@@ -6,6 +6,8 @@
 
 # CÓDIGOS DE COLOR ANSI
 ROJO = '\033[91m'
+VIOLETA = '\033[35m'
+CELESTE = '\033[96m'
 RESET = '\033[0m'
 
 
@@ -41,19 +43,19 @@ def mostrar_matriz(matriz):
     Salida: imprime la tabla en pantalla
     """
 
-    # Encabezados
-    print("\n" + "=" * 115)
-    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Fecha de Vencimiento':<20}")
-    print("=" * 115)
+    # Encabezados con colores
+    print("\n" + f"{CELESTE}" + "=" * 115 + f"{RESET}")
+    print(f"{VIOLETA}{'Codigo':<12}{'Nombre':<30}{'Laboratorio':<20}{'Precio':<12}{'Stock':<10}{'Cobertura':<15}{'Fecha de Vencimiento':<20}{RESET}")
+    print(f"{CELESTE}" + "=" * 115 + f"{RESET}")
 
     # Filas
     i = 0
     while i < len(matriz):
         fila = matriz[i]
-        print(f"{fila[0]:<12} {fila[1]:<30} {fila[2]:<20} {fila[3]:<12.2f} {fila[4]:<10} {fila[5]:<15} {fila[6]:<20}")
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{fila[4]:<10}{fila[5]:<15}{fila[6]:<20}")
         i = i + 1
 
-    print("=" * 115 + "\n")
+    print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
 
 
 def mostrar_matriz_con_colores(matriz):
@@ -68,10 +70,10 @@ def mostrar_matriz_con_colores(matriz):
     
     stock_minimo = obtener_stock_minimo()
 
-    # Encabezados
-    print("\n" + "=" * 115)
-    print(f"{'Codigo':<12} {'Nombre':<30} {'Laboratorio':<20} {'Precio':<12} {'Stock':<10} {'Cobertura':<15} {'Fecha de Vencimiento':<20}")
-    print("=" * 115)
+    # Encabezados con colores
+    print("\n" + f"{CELESTE}" + "=" * 115 + f"{RESET}")
+    print(f"{VIOLETA}{'Codigo':<12}{'Nombre':<30}{'Laboratorio':<20}{'Precio':<12}{'Stock':<10}{'Cobertura':<15}{'Fecha de Vencimiento':<20}{RESET}")
+    print(f"{CELESTE}" + "=" * 115 + f"{RESET}")
 
     # Filas
     i = 0
@@ -85,10 +87,10 @@ def mostrar_matriz_con_colores(matriz):
         else:
             stock_mostrar = str(stock)
         
-        print(f"{fila[0]:<12} {fila[1]:<30} {fila[2]:<20} {fila[3]:<12.2f} {stock_mostrar:<10} {fila[5]:<15} {fila[6]:<20}")
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_mostrar:<10}{fila[5]:<15}{fila[6]:<20}")
         i = i + 1
 
-    print("=" * 115 + "\n")
+    print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
 
 
 if __name__ == "__main__":
