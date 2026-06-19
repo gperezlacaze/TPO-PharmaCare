@@ -56,13 +56,17 @@ def mostrar_matriz(matriz):
     print("=" * 115 + "\n")
 
 
-def mostrar_matriz_con_colores(matriz, stock_minimo=None):
+def mostrar_matriz_con_colores(matriz):
     """
     Muestra la matriz de medicamentos en formato de tabla.
-    Si stock_minimo es proporcionado, muestra el stock en ROJO si está por debajo.
-    Entrada: matriz (lista de listas), stock_minimo (int o None)
+    Obtiene stock_minimo dinámicamente y muestra el stock en ROJO si está por debajo.
+    Entrada: matriz (lista de listas)
     Salida: imprime la tabla en pantalla con colores (RF03)
     """
+    # Importar dinámicamente para evitar ciclos
+    from lucas_bassi_menu_2 import obtener_stock_minimo
+    
+    stock_minimo = obtener_stock_minimo()
 
     # Encabezados
     print("\n" + "=" * 115)
