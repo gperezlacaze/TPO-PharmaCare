@@ -70,14 +70,14 @@ def submenu_laboratorios(laboratorios):
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
 
-    laboratorio = input("Ingresá el nombre del laboratorio: ")
+    laboratorio = input("Ingresá el nombre del laboratorio: ").capitalize()
 
     while not validar_laboratorio_fabricante(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
         if not validar_laboratorio_fabricante(laboratorio):
             print("El nombre no puede estar vacío o solo contener numeros.")
         else:
             print("El laboratorio ya existe en la lista.")
-        laboratorio = input("Ingresá el nombre del laboratorio: ")
+        laboratorio = input("Ingresá el nombre del laboratorio: ").capitalize()
 
     laboratorios.append(laboratorio)
     print(f"Laboratorio {laboratorio} agregado exitosamente.")
