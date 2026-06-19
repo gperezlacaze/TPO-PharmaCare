@@ -124,11 +124,42 @@ def baja_medicamentos(matriz):
                 continue
             
             resultado = buscar_por_nombre(matriz, busqueda_nombre)
-            if procesar_eliminacion(matriz, resultado):
-                busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
+            
+            # ✅ SI HAY MÚLTIPLES RESULTADOS, MOSTRAR Y PERMITIR SELECCIONAR
+            if resultado != -1:
+                if len(resultado) > 1:
+                    # Múltiples medicamentos encontrados
+                    print()
+                    print(f"Se encontraron {len(resultado)} medicamento(s):")
+                    print()
+                    mostrar_posiciones_resultados(matriz, resultado)
+                    eleccion = input(f"¿Cuál desea eliminar? ({AMARILLO}1{RESET}-{AMARILLO}{len(resultado)}{RESET}) o presione -1 para volver: ")
+                    
+                    while eleccion != "" and eleccion != "-1" and (not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(resultado)):
+                        print(f"Selección {ROJO}inválida{RESET}")
+                        eleccion = input(f"Ingrese el número ({AMARILLO}1{RESET}-{AMARILLO}{len(resultado)}{RESET}) o presione -1 para volver: ")
+                    
+                    if eleccion != "" and eleccion != "-1":
+                        resultado_seleccionado = [resultado[int(eleccion) - 1]]
+                        if procesar_eliminacion(matriz, resultado_seleccionado):
+                            busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
+                        else:
+                            if resultado_seleccionado == -1:
+                                print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
+                            busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
+                    else:
+                        busqueda_nombre = "-1"
+                else:
+                    # Solo un resultado, procesar directamente
+                    if procesar_eliminacion(matriz, resultado):
+                        busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
+                    else:
+                        if resultado == -1:
+                            print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
+                        busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
             else:
-                if resultado == -1:
-                    print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
+                print()
+                print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
                 busqueda_nombre = input("Ingrese el nombre del producto (o -1 para volver): ").strip().lower()
     print()
 
