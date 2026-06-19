@@ -6,6 +6,7 @@
 
 from lucas_bassi_validaciones import (
     validar_opcion,
+    validar_opcion_submenu,
     validar_entero_positivo,
     validar_confirmacion,
     validar_precio,
@@ -46,7 +47,8 @@ def submenu_laboratorios(laboratorios):
     opcion = 0
     while opcion != 5:
         mostrar_menu_laboratorios()
-        opcion = validar_opcion(1,5)
+        print("(Presione una opción válida para continuar)")
+        opcion = validar_opcion_submenu(1, 5)
         if opcion == 1:
             agregar_laboratorio(laboratorios)
         elif opcion == 2:
@@ -60,7 +62,8 @@ def submenu_laboratorios(laboratorios):
 # Opcion 1:
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
-
+    
+    print("(Presione -1 para volver al menú anterior)")
     laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
     
     # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
@@ -96,6 +99,7 @@ def modificar_laboratorio(laboratorios):
     """Modificar el laboratorio"""
     ver_laboratorios(laboratorios)
     
+    print("(Presione -1 para volver al menú anterior)")
     numero = input("Ingrese el numero del laboratorio que desea modificar: ")
 
     while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
@@ -142,7 +146,8 @@ def dar_de_baja_laboratorio(laboratorios):
         print("No hay laboratorios registrados")
     else:
         ver_laboratorios(laboratorios)
-
+        
+        print("(Presione -1 para volver al menú anterior)")
         numero = input("Ingresa numero de laboratorio que desea eliminar: ")
 
         while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
@@ -198,7 +203,8 @@ def submenu_stock(matriz):
 
     while opcion != 3:
         mostrar_menu_stock()
-        opcion = validar_opcion(1,3)
+        print("(Presione una opción válida para continuar)")
+        opcion = validar_opcion_submenu(1, 3)
         if opcion == 1:
             stock_minimo = configuracion_stock_minimo()
         elif opcion == 2:
@@ -208,6 +214,7 @@ def submenu_stock(matriz):
 # Opcion 1:
 def configuracion_stock_minimo():
     """Configurar el stock minimo"""
+    print("(Presione -1 para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
     print("Stock minimo configurado con exito")
     
@@ -258,7 +265,8 @@ def submenu_ventas(matriz):
     opcion = 0
     while opcion != 3:
         mostrar_menu_ventas()
-        opcion = validar_opcion(1, 3)
+        print("(Presione una opción válida para continuar)")
+        opcion = validar_opcion_submenu(1, 3)
         if opcion == 1:
             registrar_venta(matriz)
         elif opcion == 2:
@@ -273,6 +281,7 @@ def mostrar_medicamentos_disponibles(matriz):
     print("========================================")
     print("MEDICAMENTOS DISPONIBLES")
     print("========================================")
+    print("(Presione una opción válida para continuar)")
     contador = 1
     for f in range(len(matriz)):
         # Mostrar medicamentos con stock mayor a 0
@@ -293,8 +302,9 @@ def procesar_pago(total):
     print("1. Efectivo")
     print("2. Tarjeta(10% de recargo)")
     print("========================================")
+    print("(Presione una opción válida para continuar)")
 
-    opcion = validar_opcion(1, 2)
+    opcion = validar_opcion_submenu(1, 2)
 
     if opcion == 1:
         monto = input("Ingresa el monto en efectivo: ")
@@ -325,8 +335,8 @@ def registrar_venta(matriz):
 
     while validar_confirmacion("¿Desea registrar una venta? (si/no): "):
         disponibles = mostrar_medicamentos_disponibles(matriz)
-        # Pedir medicamento a comprar1
-        numero = validar_opcion(1, len(disponibles))
+        # Pedir medicamento a comprar
+        numero = validar_opcion_submenu(1, len(disponibles))
         # Obtener índice real del medicamento en la matriz
         indice_real = disponibles[numero - 1]
         # Obtener fila completa del medicamento elegido
