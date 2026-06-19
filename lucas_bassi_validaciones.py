@@ -497,3 +497,33 @@ if __name__ == "__main__":
     print("\nvalidar_monto_efectivo:")
     print("VÁLIDO - Monto 1000, total 800: ", validar_monto_efectivo(1000, 800))  # True
     print("INVÁLIDO - Monto 500, total 800: ", validar_monto_efectivo(500, 800))  # False
+
+    # FASE 2 - seleccionar_laboratorio (Nueva función)
+    print("\n" + "="*70)
+    print("FASE 2 - VALIDACIONES NUEVAS (Lucas Alegre)")
+    print("="*70)
+    print("\nseleccionar_laboratorio:")
+    print("NOTA: Esta función requiere entrada interactiva del usuario.")
+    print("Pruebas de validación lógica:")
+    
+    # Prueba con lista de laboratorios
+    laboratorios_prueba = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
+    print(f"\nLaboratorios disponibles: {laboratorios_prueba}")
+    print("\nCasos de prueba esperados:")
+    print("  ✓ Seleccionar '1' → Retorna 'Roemmers'")
+    print("  ✓ Seleccionar '3' → Retorna 'Pfizer'")
+    print("  ✓ Seleccionar '5' → Retorna 'ISA'")
+    print("  ✓ Seleccionar '-2' → Rechaza (negativo)")
+    print("  ✓ Seleccionar '10' → Rechaza (fuera de rango)")
+    print("  ✓ Seleccionar 'abc' → Rechaza (no es número)")
+    print("  ✓ Seleccionar '-1' → Retorna None (salir)")
+    print("  ✓ Seleccionar '' (vacío) → Rechaza")
+    print("  ✓ Seleccionar '1.5' → Rechaza (decimal)")
+    print("  ✓ Seleccionar '!@#$' → Rechaza (símbolos)")
+    
+    print("\nEjemplo de ejecución interactiva (comentado para no bloquear):")
+    print("# resultado = seleccionar_laboratorio(laboratorios_prueba)")
+    print("# if resultado:")
+    print("#     print(f'Laboratorio seleccionado: {resultado}')")
+    print("# else:")
+    print("#     print('Salió sin seleccionar')")
