@@ -22,9 +22,20 @@ RESET = '\033[0m'
 
 
 def validar_nombre_medicamento(nombre):
-    '''Valida que el nombre no esté vacío. Retorna True/False.'''
+    '''Valida que el nombre tenga letras, no sea solo números o símbolos. Retorna True/False.'''
     nombre = nombre.strip()
-    return len(nombre) > 0
+    
+    # No puede estar vacío
+    if len(nombre) == 0:
+        return False
+    
+    # Debe tener al menos una letra
+    tiene_letra = any(c.isalpha() for c in nombre)
+    
+    if not tiene_letra:
+        return False
+    
+    return True
 
 
 def validar_codigo_medicamento(codigo):
@@ -182,7 +193,7 @@ def ingresar_medicamento():
         return None
     
     while not validar_nombre_medicamento(nombre):
-        print("Nombre inválido: no puede estar vacío.")
+        print(f"Nombre {ROJO}inválido{RESET}: debe contener al menos una letra (no solo números o símbolos).")
         nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
         if nombre == "-1":
             return None
