@@ -4,29 +4,20 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
-<<<<<<< HEAD
-from lucas_bassi_validaciones import(validar_opcion, 
-    validar_entero_positivo, validar_confirmacion, validar_precio,
-    validar_laboratorio_fabricante, ingresar_stock)
-from lucas_alegre_validaciones_fase_2 import(validar_laboratorio_duplicado,
-     validar_stock_suficiente, validar_monto_efectivo)
-from lucas_alegre import(crear_matriz_inicial, mostrar_matriz)
-
-=======
 from lucas_bassi_validaciones import (
     validar_opcion,
     validar_entero_positivo,
     validar_confirmacion,
     validar_precio,
+    validar_laboratorio_fabricante,
+    ingresar_stock
 )
 from lucas_alegre_validaciones_fase_2 import (
     validar_laboratorio_duplicado,
-    validar_nombre_laboratorio,
     validar_stock_suficiente,
-    validar_monto_efectivo,
+    validar_monto_efectivo
 )
 from lucas_alegre import (crear_matriz_inicial, mostrar_matriz)
->>>>>>> e721eb4645d842c06850472e58667de94766b6fe
 
 laboratorios = ["Roemmers", "Bagó", "Pfizer", "Roche", "ISA"]
 ventas = []
@@ -70,14 +61,31 @@ def submenu_laboratorios(laboratorios):
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
 
-    laboratorio = input("Ingresá el nombre del laboratorio: ").capitalize()
+    laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
+    
+    # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
+    if laboratorio.isupper() and laboratorio.isalpha():
+        es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+        if es_sigla != "si":
+            laboratorio = laboratorio.capitalize()
+    else:
+        # Si no está TODO en mayúscula, capitalizar (primera letra mayúscula, resto minúscula)
+        laboratorio = laboratorio.capitalize()
 
     while not validar_laboratorio_fabricante(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
         if not validar_laboratorio_fabricante(laboratorio):
-            print("El nombre no puede estar vacío o solo contener numeros.")
+            print("El nombre no puede estar vacío, solo contener números o solo símbolos.")
         else:
             print("El laboratorio ya existe en la lista.")
-        laboratorio = input("Ingresá el nombre del laboratorio: ").capitalize()
+        laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
+        
+        # Aplicar lógica de mayúsculas nuevamente
+        if laboratorio.isupper() and laboratorio.isalpha():
+            es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+            if es_sigla != "si":
+                laboratorio = laboratorio.capitalize()
+        else:
+            laboratorio = laboratorio.capitalize()
 
     laboratorios.append(laboratorio)
     print(f"Laboratorio {laboratorio} agregado exitosamente.")
@@ -97,14 +105,31 @@ def modificar_laboratorio(laboratorios):
             print("El numero ingresado no tiene asignado un laboratorio")
         numero = input("Ingrese el numero del laboratorio que desea modificar: ")
          
-    nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").capitalize()
+    nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
+    
+    # Si TODO está en mayúscula, preguntar si es sigla/acrónimo
+    if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
+        es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+        if es_sigla != "si":
+            nuevo_nombre = nuevo_nombre.capitalize()
+    else:
+        # Si no está TODO en mayúscula, capitalizar
+        nuevo_nombre = nuevo_nombre.capitalize()
 
     while not validar_laboratorio_fabricante(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
         if not validar_laboratorio_fabricante(nuevo_nombre):
-            print("El nombre no puede estar vacío o solo contener numeros.")
+            print("El nombre no puede estar vacío, solo contener números o solo símbolos.")
         else:
             print("El laboratorio ya existe en la lista.")
-        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").capitalize()
+        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
+        
+        # Aplicar lógica de mayúsculas nuevamente
+        if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
+            es_sigla = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
+            if es_sigla != "si":
+                nuevo_nombre = nuevo_nombre.capitalize()
+        else:
+            nuevo_nombre = nuevo_nombre.capitalize()
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
     print(f"Laboratorio modificado exitosamente a {nuevo_nombre}.")
@@ -400,4 +425,3 @@ def mostrar_menu(matriz, laboratorios):
 if __name__ == "__main__":
     matriz = crear_matriz_inicial()
     mostrar_menu(matriz)
-    
