@@ -4,6 +4,16 @@
 # Descripción: Funciones de validación para PharmaCare
 # ============================================================
 
+# CÓDIGOS DE COLOR ANSI
+VERDE = '\033[92m'
+ROJO = '\033[91m'
+AMARILLO = '\033[93m'
+CELESTE = '\033[96m'
+VIOLETA = '\033[35m'
+NARANJA = '\033[33m'
+AZUL = '\033[94m'
+RESET = '\033[0m'
+
 
 # ============================================================
 # SECCIÓN: FUNCIONES DE VALIDACIÓN
@@ -156,7 +166,7 @@ def ingresar_codigo(matriz):
             return None
     
     while not validar_codigo_unico(codigo, matriz):
-        print("Código duplicado: ya existe en el sistema.")
+        print(f"Código {ROJO}duplicado{RESET}: ya existe en el sistema.")
         codigo = input("Ingrese el código (4-8 caracteres) (o -1 para volver): ").strip().upper()
         if codigo == "-1":
             return None
@@ -188,7 +198,7 @@ def ingresar_laboratorio(laboratorios):
         return None
     
     while not validar_laboratorio_fabricante(laboratorio):
-        print("El nombre no puede estar vacío, solo contener números o solo símbolos.")
+        print(f"El nombre no puede estar vacío, solo contener números o solo símbolos.")
         laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
         if laboratorio == "-1":
             return None
@@ -200,7 +210,7 @@ def ingresar_laboratorio(laboratorios):
         print()
         
         while respuesta not in ["si", "no"]:
-            print("Respuesta inválida. Ingrese 'si' o 'no'")
+            print(f"Respuesta {ROJO}inválida{RESET}. Ingrese 'si' o 'no'")
             respuesta = input("¿Es una sigla o acrónimo? (si/no): ").strip().lower()
             print()
         
@@ -214,7 +224,7 @@ def ingresar_laboratorio(laboratorios):
     while True:
         es_duplicado = validar_laboratorio_duplicado(laboratorio, laboratorios)
         if es_duplicado:
-            print("Laboratorio duplicado: ya existe en el sistema.")
+            print(f"Laboratorio {ROJO}duplicado{RESET}: ya existe en el sistema.")
             laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
             if laboratorio == "-1":
                 return None
@@ -304,7 +314,7 @@ def validar_opcion_menu_anterior(desde, hasta):
 
     opcion = int(opcion)
     while (opcion < desde or opcion > hasta) and opcion != -1:
-        print("La opción seleccionada no es válida") 
+        print(f"La opción seleccionada no es {ROJO}válida{RESET}") 
         opcion = input("Seleccione una opción: ")
         while not (opcion.lstrip('-').isdigit() or opcion == '-1'):
             print("La opción debe ser un número.")
@@ -317,7 +327,7 @@ def validar_confirmacion(pregunta):
     '''Valida que la respuesta sea "si" o "no" (case-insensitive). Solo acepta estas dos palabras.'''
     respuesta = input(pregunta).strip().lower()
     while respuesta not in ["si", "no"]:
-        print("Respuesta inválida. Ingrese 'si' o 'no':")
+        print(f"Respuesta {ROJO}inválida{RESET}. Ingrese '{VERDE}si{RESET}' o '{ROJO}no{RESET}':")
         respuesta = input(pregunta).strip().lower()
     return respuesta
 
@@ -331,7 +341,7 @@ def validar_opcion(desde, hasta):
     '''Valida opción en menús (principal, gestiones, submenús). NO permite -1 (solo opciones válidas).'''
     opcion = input("Seleccione una opción: ")
     while not opcion.isdigit() or int(opcion) < desde or int(opcion) > hasta:
-        print(f"La opción seleccionada no es válida. Ingrese una opción entre {desde} y {hasta}")
+        print(f"La opción seleccionada no es {ROJO}válida{RESET}. Ingrese una opción entre {desde} y {hasta}")
         opcion = input("Seleccione una opción: ")
     return int(opcion)
 
