@@ -9,6 +9,9 @@ VERDE = '\033[92m'
 AZUL = '\033[94m'
 AMARILLO = '\033[93m'
 ROJO = '\033[91m'
+CELESTE = '\033[96m'
+VIOLETA = '\033[35m'
+NARANJA = '\033[33m'
 RESET = '\033[0m'
 
 from lucas_bassi_validaciones import (
@@ -48,15 +51,15 @@ def establecer_stock_minimo(nuevo_stock_minimo):
 def mostrar_menu_laboratorios():
     """Mostrar el menu de laboratorios y sus opciones"""
 
-    print("========================================")
-    print("GESTIÓN DE LABORATORIOS")
-    print("========================================")
-    print("1. Agregar laboratorio")
-    print("2. Modificar laboratorio")
-    print("3. Dar de baja laboratorio")
-    print("4. Ver laboratorios")
-    print("5. Volver al menú anterior")
-    print("========================================")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AZUL}GESTIÓN DE LABORATORIOS{RESET}")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AMARILLO}1.{RESET} Agregar laboratorio")
+    print(f"{AMARILLO}2.{RESET} Modificar laboratorio")
+    print(f"{AMARILLO}3.{RESET} Dar de baja laboratorio")
+    print(f"{AMARILLO}4.{RESET} Ver laboratorios")
+    print(f"{AMARILLO}5.{RESET} Volver al menú anterior")
+    print(f"{CELESTE}========================================#{RESET}")
     print()
 
 
@@ -81,7 +84,7 @@ def submenu_laboratorios(laboratorios):
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
     
-    print("(Presione -1 para volver al menú anterior)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
     
     # Chequear si presionó -1 para salir
@@ -126,7 +129,7 @@ def modificar_laboratorio(laboratorios):
     """Modificar el laboratorio"""
     ver_laboratorios(laboratorios)
     
-    print("(Presione -1 para volver al menú anterior)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     numero = input("Ingrese el numero del laboratorio que desea modificar: ")
     
     # Chequear si presionó -1 para salir
@@ -187,11 +190,11 @@ def modificar_laboratorio(laboratorios):
 def dar_de_baja_laboratorio(laboratorios):
     """Eliminar laboratorio de la lista"""
     if len(laboratorios) == 0:
-        print("No hay laboratorios registrados")
+        print(f"{ROJO}No hay laboratorios registrados{RESET}")
     else:
         ver_laboratorios(laboratorios)
         
-        print("(Presione -1 para volver al menú anterior)")
+        print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
         numero = input("Ingresa numero de laboratorio que desea eliminar: ")
         
         # Chequear si presionó -1 para salir
@@ -225,7 +228,7 @@ def ver_laboratorios(laboratorios):
     contador = 1
     # Recorrer la lista para verificar que existan laboratorios
     if len(laboratorios) == 0:
-        print("No hay laboratorios registrados")
+        print(f"{ROJO}No hay laboratorios registrados{RESET}")
     else:
         for lab in laboratorios:
             print(f"{contador}. {lab}")
@@ -241,13 +244,13 @@ def ver_laboratorios(laboratorios):
 def mostrar_menu_stock():
     """Mostrar el menu de stock y sus opciones"""
 
-    print("========================================")
-    print("GESTIÓN DE STOCK")
-    print("========================================")
-    print("1. Configurar stock mínimo")
-    print("2. Reporte stock bajo mínimo")
-    print("3. Volver al menú anterior")
-    print("========================================")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AZUL}GESTIÓN DE STOCK{RESET}")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AMARILLO}1.{RESET} Configurar stock mínimo")
+    print(f"{AMARILLO}2.{RESET} Reporte stock bajo mínimo")
+    print(f"{AMARILLO}3.{RESET} Volver al menú anterior")
+    print(f"{CELESTE}========================================#{RESET}")
     print()
 
 
@@ -268,7 +271,7 @@ def submenu_stock(matriz):
 # Opcion 1:
 def configuracion_stock_minimo():
     """Configurar el stock minimo"""
-    print("(Presione -1 para volver al menú anterior)")
+    print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
     if asignar_stock_minimo is not None:
         establecer_stock_minimo(asignar_stock_minimo)
@@ -311,13 +314,13 @@ def reporte_stock_bajo(matriz, stock_minimo):
 def mostrar_menu_ventas():
     """Mostrar el menu de ventas y sus opciones"""
 
-    print("========================================")
-    print("GESTIÓN DE VENTAS")
-    print("========================================")
-    print("1. Registrar venta")
-    print("2. Ver ventas")
-    print("3. Volver al menú anterior")
-    print("========================================")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AZUL}GESTIÓN DE VENTAS{RESET}")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AMARILLO}1.{RESET} Registrar venta")
+    print(f"{AMARILLO}2.{RESET} Ver ventas")
+    print(f"{AMARILLO}3.{RESET} Volver al menú anterior")
+    print(f"{CELESTE}========================================#{RESET}")
     print()
 
 
@@ -426,7 +429,7 @@ def registrar_venta(matriz):
             if not validar_entero_positivo(cantidad):
                 print("Debe ser un número positivo.")
             else:
-                print("No hay stock suficiente.")
+                print(f"{ROJO}No hay stock suficiente.{RESET}")
             cantidad = input("Ingrese la cantidad a comprar (o -1 para volver): ")
             
             # Chequear si presionó -1 para salir
@@ -475,7 +478,7 @@ def ver_ventas(ventas):
     print("HISTORIAL DE VENTAS")
     print("========================================")
     if len(ventas) == 0:
-        print("No hay ventas registradas")
+        print(f"{ROJO}No hay ventas registradas{RESET}")
     else:
         for f in range(len(ventas)):
             print(f"{f + 1}. {ventas[f][1]} - Cantidad: {ventas[f][2]} - Subtotal: ${ventas[f][4]}")
@@ -490,14 +493,14 @@ def ver_ventas(ventas):
 
 def menu_gestion():
     """Mostrar menu de gestiones con todas sus opciones"""
-    print("========================================")
-    print("GESTIONES - PHARMACARE CENTRAL")
-    print("========================================")
-    print("1. Gestión de Laboratorios")
-    print("2. Gestión de Stock")
-    print("3. Gestión de Ventas")
-    print("4. Volver al menú principal")
-    print("========================================")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AZUL}GESTIONES - PHARMACARE CENTRAL{RESET}")
+    print(f"{CELESTE}========================================#{RESET}")
+    print(f"{AMARILLO}1.{RESET} Gestión de Laboratorios")
+    print(f"{AMARILLO}2.{RESET} Gestión de Stock")
+    print(f"{AMARILLO}3.{RESET} Gestión de Ventas")
+    print(f"{AMARILLO}4.{RESET} Volver al menú principal")
+    print(f"{CELESTE}========================================#{RESET}")
     print()
 
 
@@ -515,7 +518,7 @@ def mostrar_menu(matriz, laboratorios):
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
-            print("Volviendo al menú principal...")
+            print(f"{VERDE}✓ Volviendo al menú principal...{RESET}")
 
 
 if __name__ == "__main__":
