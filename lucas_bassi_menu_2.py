@@ -5,9 +5,10 @@
 # ============================================================
 
 from lucas_bassi_validaciones import(validar_opcion, 
-    validar_entero_positivo, validar_confirmacion, validar_precio)
-from lucas_alegre_validaciones_fase_2 import(validar_laboratorio_duplicado, 
-    validar_nombre_laboratorio, validar_stock_suficiente, validar_monto_efectivo)
+    validar_entero_positivo, validar_confirmacion, validar_precio,
+    validar_laboratorio_fabricante, ingresar_stock)
+from lucas_alegre_validaciones_fase_2 import(validar_laboratorio_duplicado,
+     validar_stock_suficiente, validar_monto_efectivo)
 from lucas_alegre import(crear_matriz_inicial, mostrar_matriz)
 
 
@@ -53,14 +54,14 @@ def submenu_laboratorios(laboratorios):
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
 
-    laboratorio = input("Ingresá el nombre del laboratorio: ").strip()
+    laboratorio = input("Ingresá el nombre del laboratorio: ")
 
-    while not validar_nombre_laboratorio(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
-        if not validar_nombre_laboratorio(laboratorio):
-            print("El nombre no puede estar vacío.")
+    while not validar_laboratorio_fabricante(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
+        if not validar_laboratorio_fabricante(laboratorio):
+            print("El nombre no puede estar vacío o solo contener numeros.")
         else:
             print("El laboratorio ya existe en la lista.")
-        laboratorio = input("Ingresá el nombre del laboratorio: ").strip()
+        laboratorio = input("Ingresá el nombre del laboratorio: ")
 
     laboratorios.append(laboratorio)
     print(f"Laboratorio {laboratorio} agregado exitosamente.")
@@ -79,14 +80,14 @@ def modificar_laboratorio(laboratorios):
             print("El numero ingresado no tiene asignado un laboratorio")
         numero = input("Ingrese el numero del laboratorio que desea modificar: ")
          
-    nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").strip()
+    nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").capitalize()
 
-    while not validar_nombre_laboratorio(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
-        if not validar_nombre_laboratorio(nuevo_nombre):
-            print("El nombre no puede estar vacío.")
+    while not validar_laboratorio_fabricante(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
+        if not validar_laboratorio_fabricante(nuevo_nombre):
+            print("El nombre no puede estar vacío o solo contener numeros.")
         else:
             print("El laboratorio ya existe en la lista.")
-        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").strip()
+        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio: ").capitalize()
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
     print(f"Laboratorio modificado exitosamente a {nuevo_nombre}.")
@@ -163,13 +164,9 @@ def submenu_stock(matriz):
 # Opcion 1:
 def configuracion_stock_minimo():
     """Configurar el stock minimo"""
-    asignar_stock_minimo = input("Ingrese stock minimo: ")
-
-    while not validar_entero_positivo(asignar_stock_minimo):
-        print("Debe ser un número positivo.")
-        asignar_stock_minimo = input("Ingrese stock minimo: ")
-    
+    asignar_stock_minimo = ingresar_stock()
     print("Stock minimo configurado con exito")
+    
     return int(asignar_stock_minimo)
 
 

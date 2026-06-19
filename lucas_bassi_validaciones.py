@@ -35,7 +35,13 @@ def validar_codigo_unico(codigo, matriz):
 
 def validar_laboratorio_fabricante(laboratorio):
     """Validar que el nombre del laboratorio no esté vacío."""
-    return laboratorio.strip() != ""
+    laboratorio = laboratorio.strip()
+    if laboratorio == "":
+        return False
+    for caracter in laboratorio:
+        if caracter.isalpha():
+            return True
+    return False
 
 
 def validar_entero_positivo(texto):
@@ -141,7 +147,6 @@ def ingresar_laboratorio(laboratorios):
     opcion = validar_opcion(1, len(laboratorios))
 
     return laboratorios[opcion - 1]
-
 
 
 def ingresar_precio():
