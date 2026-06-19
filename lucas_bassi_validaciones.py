@@ -202,7 +202,6 @@ def ingresar_medicamento():
 
 
 def ingresar_laboratorio(laboratorios):
-    '''Pedir y validar el laboratorio. Presione -1 para salir.'''
     laboratorio = input("Ingrese el laboratorio (o -1 para volver): ").strip()
     
     if laboratorio == "-1":
@@ -347,6 +346,33 @@ def validar_confirmacion(pregunta):
 # FASE 2 - VALIDACIONES ADICIONALES
 # Autor: Lucas Alegre
 # ============================================================
+
+def seleccionar_laboratorio(laboratorios):
+    '''Permite seleccionar un laboratorio de la lista existente. Presione -1 para salir.
+    Función nueva implementada en Fase 2 para permitir seleccionar laboratorios existentes al dar de alta medicamentos.'''
+    print()
+    print("Laboratorios disponibles:")
+    
+    i = 0
+    while i < len(laboratorios):
+        print(f"{AMARILLO}{i + 1}.{RESET} {laboratorios[i]}")
+        i = i + 1
+    
+    print()
+    seleccion = input(f"Seleccione un laboratorio ({AMARILLO}1{RESET}-{AMARILLO}{len(laboratorios)}{RESET}) (o {AMARILLO}-1{RESET} para volver): ").strip()
+    
+    if seleccion == "-1":
+        return None
+    
+    while not seleccion.isdigit() or int(seleccion) < 1 or int(seleccion) > len(laboratorios):
+        print(f"Selección {ROJO}inválida{RESET}. Intente de nuevo.")
+        seleccion = input(f"Seleccione un laboratorio ({AMARILLO}1{RESET}-{AMARILLO}{len(laboratorios)}{RESET}) (o {AMARILLO}-1{RESET} para volver): ").strip()
+        if seleccion == "-1":
+            return None
+    
+    laboratorio_seleccionado = laboratorios[int(seleccion) - 1]
+    return laboratorio_seleccionado
+
 
 def validar_opcion(desde, hasta):
     '''Valida opción en menús (principal, gestiones, submenús). NO permite -1 (solo opciones válidas).'''
