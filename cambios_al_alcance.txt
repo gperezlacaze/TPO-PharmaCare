@@ -5,7 +5,12 @@ UADE 2026
 RESUMEN
 
 El presente documento describe los cambios y mejoras implementadas en el sistema 
-PharmaCare Central que van más allá del alcance mínimo especificado en la consigna.
+PharmaCare Central que van más allá del alcance mínimo especificado en la consigna, 
+organizados en dos fases de desarrollo.
+
+================================================================================
+FASE 1:
+================================================================================
 
 ACLARACIÓN SOBRE ESTRUCTURA DE OPCIONES
 
@@ -31,7 +36,7 @@ paso para encontrar el medicamento que querés cambiar o borrar. En cambio, la o
 de búsqueda independiente solo muestra los datos del medicamento sin hacer cambios, 
 permitiendo consultar información sin afectar nada.
 
-CAMBIOS IMPLEMENTADOS
+CAMBIOS IMPLEMENTADOS - FASE 1
 
 1. VALIDACIÓN MEJORADA DE CONFIRMACIONES (validar_confirmacion)
 
@@ -42,12 +47,202 @@ DECISIONES TÉCNICAS
 - case-insensitive en validaciones (mejor UX).
 - Rango de código 4-10 caracteres alfanuméricos (flexibilidad vs validación).
 
-CONCLUSIÓN
+CONCLUSIÓN FASE 1
 
-Los cambios implementados van más allá del requisito mínimo, enfocándose en 
+Los cambios implementados en Fase 1 van más allá del requisito mínimo, enfocándose en 
 experiencia de usuario, código limpio, separación de responsabilidades y 
 validación robusta. Todos mantienen la consigna original: datos en RAM (listas), 
 sin estructuras avanzadas, código explicable y defendible.
 
 Fecha: 6 de junio de 2026
 Equipo: Gonzalo Perez Lacaze, Lucas Alegre, Lucas Bassi
+
+================================================================================
+FASE 2:
+================================================================================
+
+RESUMEN FASE 2
+
+En la segunda fase del desarrollo se implementaron tres nuevas gestiones completas 
+(laboratorios, stock mínimo, ventas) junto con mejoras arquitectónicas significativas 
+en búsqueda, validación, interfaz visual y modularización.
+
+CAMBIOS IMPLEMENTADOS - FASE 2 (Ordenados por importancia)
+
+1. IMPLEMENTACIÓN DE BÚSQUEDA GENÉRICA POR CÓDIGO Y NOMBRE
+
+Decisión: Se implementaron dos funciones auxiliares genéricas: `buscar_por_codigo()` 
+y `buscar_por_nombre()`.
+
+Justificación: La consigna solicitaba una función auxiliar genérica para búsqueda. 
+Se decidió implementar DOS funciones especializadas:
+- `buscar_por_codigo(matriz, codigo)` — Búsqueda exacta por código completo.
+- `buscar_por_nombre(matriz, nombre)` — Búsqueda parcial por nombre (reconoce 
+  fragmentos ingresados dentro de nombres de productos).
+
+Ventaja: Permite mayor flexibilidad de búsqueda sin duplicar lógica. Ambas retornan 
+lista de índices o -1 si no encuentran resultados, facilitando manejo de múltiples 
+coincidencias.
+
+2. GESTIÓN COMPLETA DE LABORATORIOS
+
+Decisión: Se implementó un módulo completo de gestión de laboratorios con alta, 
+modificación, baja y visualización.
+
+Funcionalidades:
+- `agregar_laboratorio()` — Alta de laboratorios con detección automática de siglas.
+- `modificar_laboratorio()` — Modificación de nombre con validaciones.
+- `dar_de_baja_laboratorio()` — Eliminación de laboratorios.
+- `ver_laboratorios()` — Visualización de lista numerada.
+- `seleccionar_laboratorio()` — Selección de laboratorio existente para alta de medicamentos.
+
+Ventaja: Sistema completo de gestión que permite mantener una lista de laboratorios 
+registrados, evitando duplicados y mejorando consistencia de datos.
+
+3. SISTEMA DE COLORES ANSI MEJORADO
+
+Decisión: Se implementó un sistema completo de colores ANSI para mejorar la interfaz 
+visual y la experiencia del usuario.
+
+Colores implementados y su significado:
+- AMARILLO (\033[93m) — Posiciones de opciones, números importantes, mensajes destacados.
+- VERDE (\033[92m) — Procesos exitosos, confirmaciones afirmativas, operaciones completadas.
+- ROJO (\033[91m) — Errores, negaciones, medicamentos con stock por debajo del mínimo.
+- AZUL (\033[94m) — Títulos principales de menús y secciones.
+- CELESTE (\033[96m) — Líneas de estructura, separadores visuales.
+- VIOLETA (\033[35m) — Nombres de columnas en tablas.
+- NARANJA (\033[33m) — Resaltado de mensajes especiales y opciones críticas.
+- RESET (\033[0m) — Reinicio de formato.
+
+Ventaja: Interfaz visualmente clara que permite identificar rápidamente tipos de 
+mensajes (error, éxito, información) mejorando la usabilidad.
+
+4. GESTIÓN DE STOCK MÍNIMO CON REPORTES
+
+Decisión: Se implementó sistema configurable de stock mínimo con reporte visual.
+
+Funcionalidades:
+- `configuracion_stock_minimo()` — Configuración de valor mínimo.
+- `reporte_stock_bajo()` — Reporte de medicamentos con stock bajo mínimo.
+- Integración con `mostrar_matriz_con_colores()` para colorear stock bajo en ROJO.
+
+Ventaja: Permite monitoreo en tiempo real de productos críticos, facilitando decisiones 
+de reorden.
+
+5. GESTIÓN COMPLETA DE VENTAS
+
+Decisión: Se implementó módulo completo de ventas con registro, procesamiento de pagos 
+y reversión de stock.
+
+Funcionalidades:
+- `registrar_venta()` — Registro de una o más ventas en transacción.
+- `procesar_pago()` — Procesamiento de pago (efectivo con vuelto o tarjeta con 10% recargo).
+- `ver_ventas()` — Historial de ventas registradas.
+- Reversión automática de stock si se cancela operación.
+
+Ventaja: Sistema de ventas robusto con validación de stock y manejo seguro de 
+transacciones.
+
+6. FUNCIONES AUXILIARES EN MENÚ PRINCIPAL
+
+Decisión: Se agregaron funciones auxiliares para filtrado, modificación y visualización 
+de resultados.
+
+Funciones agregadas:
+- `procesar_eliminacion()` — Filtrado y eliminación de medicamentos con stock = 0.
+- `procesar_modificacion_medicamento()` — Submenú para seleccionar qué modificar.
+- `mostrar_posiciones_resultados()` — Visualización numerada de resultados de búsqueda.
+- `ordenar_por_vencimiento()` — Bubble Sort por fecha con tiebreak alfabético.
+- `mostrar_dias_restantes()` — Cálculo dinámico de días para vencimiento.
+
+Ventaja: Modularización mejorada que duplicación de código.
+
+7. CAMBIO DE NAVEGACIÓN: -1 PARA CANCELAR, OPCIONES PARA VOLVER
+
+Decisión: Se cambió del uso de opción 8 para salir global a -1 para cancelar en 
+inputs y opciones específicas "Volver al menú anterior" en cada submenú.
+
+Razón técnica:
+- -1 en inputs de datos (código, precio, stock, etc.) permite cancelar sin completar.
+- Opción numérica "Volver al menú anterior" en cada menú principal (opción 5 en 
+  Laboratorios, opción 3 en Stock/Ventas, opción 4 en Gestiones).
+- Opción 7 para salir desde menú principal.
+- Claridad: cada nivel jerárquico tiene salida explícita.
+
+Ventaja: Sistema de navegación más intuitivo y consistente que evita conflictos con 
+inputs válidos.
+
+8. RENOMBRE DE ARCHIVOS PARA CLARIDAD
+
+Decisión: Se renombraron archivos para mejor interpretación de responsabilidades.
+
+Cambios realizados:
+- main.py → programa_principal.py (claridad de que es el programa principal)
+- lucas_alegre.py → matriz_lucas_alegre.py (especifica que maneja matriz)
+- gonzalo_perez_lacaze_menu.py → gonzalo_pl_menu_principal.py (iniciales + claridad)
+- lucas_bassi_validaciones.py → alegre_bassi_validaciones.py (fusión de módulos)
+- lucas_bassi_menu_2.py → lucas_bassi_submenus.py (claridad de contenido)
+
+Ventaja: Nombres más descriptivos facilitan comprensión rápida de responsabilidades.
+
+9. VALIDACIÓN DE SIGLAS Y ACRÓNIMOS EN LABORATORIOS
+
+Decisión: Se implementó detección automática y validación de siglas/acrónimos en 
+alta y modificación de laboratorios.
+
+Funcionalidad:
+- Detecta entrada en MAYÚSCULAS y pregunta si es sigla/acrónimo.
+- Si NO es sigla, auto-capitaliza a Formato Título.
+- Valida contra duplicados (case-insensitive).
+
+Ventaja: Flexibilidad para mantener siglas como "ISA" o nombres como "Roemmers".
+
+10. PARÁMETRO STOCK_MINIMO EN INFORME GENERAL
+
+Decisión: Se agregó parámetro `stock_minimo` a `informe_general()` para colorear 
+en ROJO medicamentos con stock bajo mínimo.
+
+Funcionalidad:
+- Llama `mostrar_matriz_con_colores(matriz, stock_minimo)`.
+- Si medicamento[4] < stock_minimo, colorea en ROJO.
+
+Ventaja: Visualización inmediata de productos críticos en el informe principal.
+
+11. USO DE LISTAS PARA FILTRADO Y GESTIÓN
+
+Decisión: Se utilizan listas de índices para filtrado, modificación y eliminación 
+de medicamentos.
+
+Implementación:
+- `buscar_por_codigo()` y `buscar_por_nombre()` retornan listas de índices.
+- `procesar_eliminacion()` filtra medicamentos con stock = 0.
+- `reporte_stock_bajo()` crea lista de medicamentos bajo mínimo.
+- Evita duplicación de datos y facilita multi-selección.
+
+Ventaja: Estructura eficiente que permite manejar múltiples resultados sin duplicar 
+filas de la matriz.
+
+12. PRUEBAS DE ERRORES Y VALIDACIONES EN CADA MÓDULO
+
+Decisión: Se implementó bloque `if __name__ == "__main__":` en cada módulo con 
+pruebas unitarias.
+
+Contenido de pruebas por módulo:
+- `matriz_lucas_alegre.py` — Pruebas de creación e visualización de matriz.
+- `gonzalo_pl_menu_principal.py` — Pruebas de búsqueda, ordenamiento, cálculo de días.
+- `alegre_bassi_validaciones.py` — Pruebas de todas las validaciones (Fase 1 + 2).
+- `lucas_bassi_submenus.py` — Pruebas interactivas de menús.
+
+Ventaja: Validación independiente de cada módulo sin ejecutar programa principal.
+
+CONCLUSIÓN FASE 2
+
+Los cambios implementados en Fase 2 representan una expansión significativa del 
+sistema manteniendo adherencia estricta a las restricciones PCAP. El código mantiene claridad, modularización 
+y validación robusta mientras se añaden tres gestiones completas de valor empresarial (laboratorios, stock, ventas).
+
+Equipo: Gonzalo Perez Lacaze, Lucas Alegre, Lucas Bassi
+Profesores: Santiago Ricardo Jose Mendoza, Verónica Galati
+Materia: Pensamiento Computacion, Algortimia y Programación.
+Nivel: 1er año, 1er cuatrimestre
+Fecha: 20/06/2026
