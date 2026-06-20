@@ -4,7 +4,7 @@
 # Proyecto: PharmaCare Central
 # ============================================================
 
-from lucas_bassi_validaciones import (
+from alegre_bassi_validaciones import (
     validar_opcion,
     validar_entero_positivo,
     validar_confirmacion,
@@ -15,7 +15,7 @@ from lucas_bassi_validaciones import (
     validar_stock_suficiente,
     validar_monto_efectivo
 )
-from lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
+from matriz_lucas_alegre import (crear_matriz_inicial, mostrar_matriz_con_colores)
 
 # CÓDIGOS DE COLOR ANSI
 VERDE = '\033[92m'
