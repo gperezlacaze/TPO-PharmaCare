@@ -444,6 +444,8 @@ def procesar_pago(total, medicamentos_comprados):
         print(f"{VERDE}✓ Venta registrada exitosamente{RESET}")
         print(f"{AMARILLO} El vuelto es de:{RESET} ${vuelto}")
         print()
+        return True  
+    
     elif opcion == 2:
         # Sumar recargo al total
         recargo = total * 0.10
@@ -453,6 +455,7 @@ def procesar_pago(total, medicamentos_comprados):
         print(f"{VERDE}✓ Venta registrada exitosamente{RESET}")
         print(f"{AMARILLO} El total a pagar es de:{RESET} ${total_con_recargo}")
         print()
+        return True  
 
 
 def registrar_venta(matriz):
@@ -557,12 +560,11 @@ def registrar_venta(matriz):
     print()
 
     # Forma de pago
-    # PASAR medicamentos_comprados (contiene todos los medicamentos y cantidades)
-    procesar_pago(total, medicamentos_comprados)
+    resultado_pago = procesar_pago(total, medicamentos_comprados)
 
-    # Guardar la venta en ventas
-    for f in range(len(items)):
-        ventas.append(items[f])
+    if resultado_pago is True:  # Solo si pagó exitoso
+        for f in range(len(items)):
+            ventas.append(items[f]) 
 
 
 def ver_ventas(ventas):
