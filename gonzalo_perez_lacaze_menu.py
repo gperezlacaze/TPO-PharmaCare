@@ -468,7 +468,7 @@ def informe_general(matriz, stock_minimo):
     '''Ordena y muestra el informe de medicamentos por vencimiento, con opción de ver días restantes'''
     print()
     ordenar_por_vencimiento(matriz)
-    mostrar_matriz_con_colores(matriz, stock_minimo=None)
+    mostrar_matriz_con_colores(matriz, stock_minimo)
     
     if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): ") == "si":
         mostrar_dias_restantes(matriz)
