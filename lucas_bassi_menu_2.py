@@ -141,6 +141,13 @@ def modificar_laboratorio(laboratorios):
     if nuevo_nombre == "-1":
         return None
     
+    while not nuevo_nombre.isalpha() and not (nuevo_nombre.isupper() and nuevo_nombre.isalpha()):
+        print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
+        nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
+        
+        if nuevo_nombre == "-1":
+            return None
+    
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
     if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
         es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
@@ -155,7 +162,7 @@ def modificar_laboratorio(laboratorios):
 
     while not validar_laboratorio_fabricante(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
         if not validar_laboratorio_fabricante(nuevo_nombre):
-            print(f"El nombre {ROJO}NO{RESET} puede estar vacío,{ROJO}NI{RESET} solo contener números o solo símbolos.")
+            print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
         else:
             print(f"{AMARILLO}El laboratorio ya existe en la lista.{RESET}")
         nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
@@ -164,9 +171,20 @@ def modificar_laboratorio(laboratorios):
         if nuevo_nombre == "-1":
             return None
         
+        # ✅ VALIDAR QUE NO SEA SOLO NÚMEROS O SÍMBOLOS
+        while not nuevo_nombre.isalpha() and not (nuevo_nombre.isupper() and nuevo_nombre.isalpha()):
+            print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
+            nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
+            
+            if nuevo_nombre == "-1":
+                return None
+
         # Aplicar lógica de mayúsculas nuevamente
         if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
+            while es_sigla != "si" and es_sigla != "no":
+                print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
+                es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             if es_sigla != "si":
                 nuevo_nombre = nuevo_nombre.capitalize()
         else:
@@ -178,7 +196,6 @@ def modificar_laboratorio(laboratorios):
     print()
 
 
-# Opcion 3
 def dar_de_baja_laboratorio(laboratorios):
     """Eliminar laboratorio de la lista"""
     if len(laboratorios) == 0:
