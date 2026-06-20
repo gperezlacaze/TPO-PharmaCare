@@ -54,14 +54,14 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
         fila = matriz[i]
         stock = fila[4]
         
-        # Construir línea sin colorear primero
-        linea = f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock:<10}{fila[5]:<15}{fila[6]:<12}"
-        
-        # Si stock está bajo, colorear solo el número de stock en la línea ya formada
+        # Colorear stock en ROJO si está por debajo del mínimo
         if stock_minimo is not None and stock < stock_minimo:
-            linea = linea.replace(str(stock), f"{ROJO}{stock}{RESET}", 1)
+            stock_str = f"{ROJO}{stock}{RESET}"
+        else:
+            stock_str = str(stock)
         
-        print(linea)
+        # Usar el stock ya coloreado directamente en el print
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_str:<10}{fila[5]:<15}{fila[6]:<12}")
         i = i + 1
 
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
