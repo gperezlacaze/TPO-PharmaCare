@@ -3,12 +3,12 @@
 # Fecha: 05/06/2026
 # Descripción: Funciones de menú para PharmaCare
 
-from lucas_bassi_validaciones import (
+from alegre_bassi_validaciones import (
     ingresar_codigo, ingresar_medicamento, ingresar_precio,
     ingresar_stock, ingresar_cobertura, ingresar_fecha_vencimiento,
     validar_confirmacion, seleccionar_laboratorio
 )
-from lucas_alegre import crear_matriz_inicial, mostrar_matriz_con_colores
+from matriz_lucas_alegre import crear_matriz_inicial, mostrar_matriz_con_colores
 
 # CÓDIGOS DE COLOR ANSI
 VERDE = '\033[92m'
