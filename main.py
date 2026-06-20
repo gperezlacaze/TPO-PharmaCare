@@ -12,7 +12,7 @@ from gonzalo_perez_lacaze_menu import (
 )
 from lucas_alegre import crear_matriz_inicial
 from lucas_bassi_validaciones import validar_opcion
-from lucas_bassi_menu_2 import mostrar_menu as menu_gestiones, laboratorios
+from lucas_bassi_menu_2 import mostrar_menu_gestiones, laboratorios
 
 
 def main():
@@ -21,7 +21,7 @@ def main():
     Crea el inventario inicial y maneja el menú principal.
     """
     inventario = crear_matriz_inicial() 
-    stock_minimo = None  # ✅ VARIABLE LOCAL - Sin variable global
+    stock_minimo = None  
 
     opcion = 0
     while opcion != 7:
@@ -37,9 +37,9 @@ def main():
         elif opcion == 4:
             modificar_stock_precio(inventario)
         elif opcion == 5:
-            informe_general(inventario)
+            informe_general(inventario, stock_minimo)
         elif opcion == 6:
-            stock_minimo = menu_gestiones(inventario, laboratorios, stock_minimo)  # ✅ PASA Y RECIBE
+            stock_minimo = mostrar_menu_gestiones(inventario, laboratorios, stock_minimo) 
         elif opcion == 7:
             salir()
 

@@ -58,7 +58,7 @@ def mostrar_matriz(matriz):
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
 
 
-def mostrar_matriz_con_colores(matriz):
+def mostrar_matriz_con_colores(matriz, stock_minimo):
     """
     Muestra la matriz de medicamentos en formato de tabla.
     Obtiene stock_minimo dinámicamente y muestra el stock en ROJO si está por debajo.

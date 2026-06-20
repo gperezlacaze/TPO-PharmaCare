@@ -124,7 +124,6 @@ def baja_medicamentos(matriz):
             
             resultado = buscar_por_nombre(matriz, busqueda_nombre)
             
-            # ✅ SI HAY MÚLTIPLES RESULTADOS, MOSTRAR Y PERMITIR SELECCIONAR
             if resultado != -1:
                 if len(resultado) > 1:
                     # Múltiples medicamentos encontrados
@@ -469,7 +468,7 @@ def informe_general(matriz):
     '''Ordena y muestra el informe de medicamentos por vencimiento, con opción de ver días restantes'''
     print()
     ordenar_por_vencimiento(matriz)
-    mostrar_matriz_con_colores(matriz)
+    mostrar_matriz_con_colores(matriz, stock_minimo = None)
     
     if validar_confirmacion("¿Desea visualizar días restantes para el vencimiento? (si/no): ") == "si":
         mostrar_dias_restantes(matriz)
