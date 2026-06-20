@@ -373,7 +373,7 @@ def procesar_pago(total, medicamentos_comprados):
             i = i + 1
         
         print()
-        print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+        print(f"{ROJO}Operación cancelada.{RESET} Stock de todos revertido.")
         print()
         return None
     
@@ -392,7 +392,7 @@ def procesar_pago(total, medicamentos_comprados):
                 i = i + 1
             
             print()
-            print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+            print(f"{ROJO}Operación cancelada.{RESET} Stock de todos revertido.")
             print()
             return None
     
@@ -411,7 +411,7 @@ def procesar_pago(total, medicamentos_comprados):
                 i = i + 1
             
             print()
-            print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+            print(f"{ROJO}Operación cancelada.{RESET} Stock de todos revertido.")
             print()
             return None
 
@@ -433,7 +433,7 @@ def procesar_pago(total, medicamentos_comprados):
                     i = i + 1
                 
                 print()
-                print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+                print(f"{ROJO}Operación cancelada.{RESET}2 Stock de todos revertido.")
                 print()
                 return None
 
