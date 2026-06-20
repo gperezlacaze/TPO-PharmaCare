@@ -108,6 +108,7 @@ def agregar_laboratorio(laboratorios):
             laboratorio = laboratorio.capitalize()
 
     laboratorios.append(laboratorio)
+    print()
     print(f"{VERDE}✓ Laboratorio {laboratorio} agregado exitosamente.{RESET}")
     print()
 
@@ -172,6 +173,7 @@ def modificar_laboratorio(laboratorios):
             nuevo_nombre = nuevo_nombre.capitalize()
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
+    print()
     print(f"{VERDE}✓ Laboratorio modificado exitosamente a {nuevo_nombre}.{RESET}")
     print()
 
@@ -204,6 +206,7 @@ def dar_de_baja_laboratorio(laboratorios):
         
         nombre = laboratorios[int(numero) - 1]
         laboratorios.pop(int(numero) - 1)
+        print()
         print(f"{VERDE}✓ Laboratorio {nombre} eliminado con exito{RESET}")
         print()
 
@@ -268,6 +271,7 @@ def configuracion_stock_minimo():
     print(f"(Presione {AMARILLO}-1{RESET} para volver al menú anterior)")
     asignar_stock_minimo = ingresar_stock()
     if asignar_stock_minimo is not None:
+        print()
         print(f"{VERDE}✓ Stock minimo configurado con exito{RESET}")
         print()
         return asignar_stock_minimo 
@@ -297,6 +301,7 @@ def reporte_stock_bajo(matriz, stock_minimo):
         mostrar_matriz_con_colores(mtz_debajo_stockMin, stock_minimo)
         print()
     else:
+        print()
         print(f"{VERDE}✓ Todos los medicamentos tienen stock suficiente{RESET}")
         print()
 
@@ -617,6 +622,7 @@ def mostrar_menu_gestiones(matriz, laboratorios, stock_minimo):
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
+            print()
             print(f"{VERDE}✓ Volviendo al menú principal...{RESET}")
     
     return stock_minimo  
