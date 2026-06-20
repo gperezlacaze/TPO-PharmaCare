@@ -34,7 +34,7 @@ def mostrar_menu():
     print(f"{AMARILLO}6.{RESET} Gestiones")
     print(f"{AMARILLO}7.{RESET} Salir")
     print(f"{CELESTE}=================================================={RESET}")
-    print("Seleccione una opción (1-7):")
+    print(f"Seleccione una opción ({AMARILLO}1-7{RESET}):")
 
 
 def alta_medicamentos(matriz, laboratorios):

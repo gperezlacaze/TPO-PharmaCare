@@ -194,18 +194,17 @@ def ingresar_codigo(matriz):
 
 def ingresar_medicamento():
     '''Pedir y validar el nombre del medicamento. Presione -1 para salir.'''
-    nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
+    nombre = input(f"Ingrese el nombre del medicamento (o {AMARILLO}-1{RESET} para volver): ")
     
     if nombre == "-1":
         return None
     
     while not validar_nombre_medicamento(nombre):
         print(f"Nombre {ROJO}inválido{RESET}: debe contener al menos una letra (no solo números o símbolos).")
-        nombre = input("Ingrese el nombre del medicamento (o -1 para volver): ")
+        nombre = input(f"Ingrese el nombre del medicamento (o {AMARILLO}-1{RESET} para volver): ")
         if nombre == "-1":
             return None
     
-    # ✅ CAPITALIZAR automáticamente: primera letra mayúscula, resto minúscula
     nombre = nombre.capitalize()
     
     return nombre
@@ -256,14 +255,14 @@ def ingresar_laboratorio(laboratorios):
 
 def ingresar_precio():
     '''Pedir y validar el precio del medicamento. Presione -1 para salir.'''
-    precio = input("Ingrese el precio (o -1 para volver): ")
+    precio = input(f"Ingrese el precio (o {AMARILLO}-1{RESET} para volver): ")
     
     if precio == "-1":
         return None
     
     while not validar_precio(precio):
         print(f"Precio {ROJO}inválido{RESET}: debe ser un número positivo.")
-        precio = input("Ingrese el precio (o -1 para volver): ")
+        precio = input(f"Ingrese el precio (o {AMARILLO}-1{RESET} para volver): ")
         if precio == "-1":
             return None
     
