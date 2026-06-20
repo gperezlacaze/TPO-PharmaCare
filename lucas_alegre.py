@@ -60,8 +60,11 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
         else:
             stock_str = str(stock)
         
-        # Usar el stock ya coloreado directamente en el print
-        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_str} {fila[5]:<15}{fila[6]:<12}")
+        # Rellenar con espacios para mantener alineación (10 caracteres totales)
+        # El stock visible tiene 1-3 dígitos, rellena el resto con espacios
+        stock_alineado = f"{stock_str}{' ' * (10 - len(str(stock)))}"
+        
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_alineado}{fila[5]:<15}{fila[6]:<12}")
         i = i + 1
 
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
