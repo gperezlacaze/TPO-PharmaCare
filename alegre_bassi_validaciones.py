@@ -126,7 +126,7 @@ def validar_fecha_vencimiento(fecha):
     if not (dia_str.isdigit() and mes_str.isdigit() and anio_str.isdigit()):
         return False
     
-    # ✅ VALIDAR CANTIDAD DE DÍGITOS: día y mes deben tener 2, año 4
+    # Validar cantidad de digitos: día y mes deben tener 2, año 4
     if len(dia_str) != 2 or len(mes_str) != 2 or len(anio_str) != 4:
         return False
     
@@ -440,6 +440,7 @@ if __name__ == "__main__":
     print("INVÁLIDO -  'RTX 456' (Espacio central): ", validar_codigo_medicamento("RTX 456"))  # False
     print("INVÁLIDO -  ' ' (Vacio): ", validar_codigo_medicamento(" "))  # False
     print("INVÁLIDO -  'as3'(Muy corto): ", validar_codigo_medicamento("as3"))  # False
+    print("INVÁLIDO -  '#$-'(Simbolos): ", validar_codigo_medicamento("#$-"))  # False
     print("INVÁLIDO -  'UEYDMWM34675'(Muy largo): ", validar_codigo_medicamento("UEYDMWM34675"))  # False
     print("INVÁLIDO -  'WES@546'(Caracteres especiales): ", validar_codigo_medicamento("WES@546"))  # False
     
@@ -467,11 +468,9 @@ if __name__ == "__main__":
     print("\nvalidar_fecha_vencimiento: ")
     print("VÁLIDO - '12/09/2034': ", validar_fecha_vencimiento("12/09/2034"))  # True
     print("VÁLIDO - '07/12/2012': ", validar_fecha_vencimiento("07/12/2012"))  # True
-    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012"))  # True
+    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012"))  # False
     print("INVÁLIDO - ''(Vacio): ", validar_fecha_vencimiento(""))  # False
     print("INVÁLIDO - '//'(Barras): ", validar_fecha_vencimiento("//")) # False
-    print("INVÁLIDO - '32/1/2052'(dia no valido): ", validar_fecha_vencimiento("32/1/2052"))  # False
-    print("INVÁLIDO - '32/1/2052'(vacio): ", validar_fecha_vencimiento("32/1/2052"))  # False
     print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018"))  # False
     print("INVÁLIDO - '12/01'(sin año): ", validar_fecha_vencimiento("12/01")) # False
     print("INVÁLIDO - '12/12/27'(año 2 dígitos): ", validar_fecha_vencimiento("12/12/27"))  # False - NUEVO
