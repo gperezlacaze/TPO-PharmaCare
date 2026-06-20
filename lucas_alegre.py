@@ -61,7 +61,7 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
             stock_str = str(stock)
         
         # Usar el stock ya coloreado directamente en el print
-        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_str:<10}{fila[5]:<15}{fila[6]:<12}")
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_str} {fila[5]:<15}{fila[6]:<12}")
         i = i + 1
 
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
