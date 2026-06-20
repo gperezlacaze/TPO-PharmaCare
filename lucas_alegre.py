@@ -45,7 +45,7 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
 
     # Encabezados con colores
     print("\n" + f"{CELESTE}" + "=" * 115 + f"{RESET}")
-    print(f"{VIOLETA}{'Codigo':<12}{'Nombre':<30}{'Laboratorio':<20}{'Precio':<12}{'Stock':<10}{'Cobertura':<15}{'Fecha de Vencimiento':<20}{RESET}")
+    print(f"{VIOLETA}{'Codigo':<12}{'Nombre':<30}{'Laboratorio':<20}{'Precio':<12}{'Stock':<10}{'Cobertura':<15}{'Fecha de Vencimiento':<12}{RESET}")
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}")
 
     # Filas
@@ -56,11 +56,11 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
         
         # Colorear stock en ROJO si está por debajo del mínimo
         if stock_minimo is not None and stock < stock_minimo:
-            stock_mostrar = f"{ROJO}{stock}{RESET}"
+            stock_coloreado = f"{ROJO}{stock}{RESET}"
         else:
-            stock_mostrar = str(stock)
+            stock_coloreado = str(stock)
         
-        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_mostrar:<10}{fila[5]:<15}{fila[6]:<20}")
+        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{stock_coloreado} {fila[5]:<15}{fila[6]:<12}")
         i = i + 1
 
     print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
