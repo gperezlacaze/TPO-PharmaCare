@@ -67,7 +67,6 @@ def submenu_laboratorios(laboratorios):
             ver_laboratorios(laboratorios)
 
 
-# Opcion 1:
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
     
@@ -80,9 +79,12 @@ def agregar_laboratorio(laboratorios):
     
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
     if laboratorio.isupper() and laboratorio.isalpha():
-        es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
-        if es_sigla != "si":
-            laboratorio = laboratorio.capitalize()
+            es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
+            while es_sigla != "si" and es_sigla != "no":
+                print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
+                es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
+            if es_sigla != "si":
+                laboratorio = laboratorio.capitalize()
     else:
         laboratorio = laboratorio.capitalize()
 
@@ -110,7 +112,6 @@ def agregar_laboratorio(laboratorios):
     print()
 
 
-# Opcion 2
 def modificar_laboratorio(laboratorios):
     """Modificar el laboratorio"""
     ver_laboratorios(laboratorios)
@@ -142,6 +143,9 @@ def modificar_laboratorio(laboratorios):
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
     if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
         es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
+        while es_sigla != "si" and es_sigla != "no":
+            print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
+            es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
         if es_sigla != "si":
             nuevo_nombre = nuevo_nombre.capitalize()
     else:
