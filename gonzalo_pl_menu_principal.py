@@ -470,7 +470,7 @@ def informe_general(matriz, stock_minimo):
     ordenar_por_vencimiento(matriz)
     mostrar_matriz_con_colores(matriz, stock_minimo)
     
-    if validar_confirmacion(f"¿Desea visualizar días restantes para el vencimiento? ({VERDE}si{RESET}/{ROJO}no{RESET): ") == "si":
+    if validar_confirmacion(f"¿Desea visualizar días restantes para el vencimiento? ({VERDE}si{RESET}/{ROJO}no{RESET}): ") == "si":
         mostrar_dias_restantes(matriz)
     print()
 
