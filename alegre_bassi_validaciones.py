@@ -134,12 +134,19 @@ def validar_fecha_vencimiento(fecha):
     mes = int(mes_str)
     anio = int(anio_str)
     
+    # Validar mes
     if mes < 1 or mes > 12:
         return False
     
-    # Días máximos por mes (sin considerar bisiestos)
+    # Validar día según mes (considerando bisiestos)
     dias_por_mes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     
+    # Chequear si es año bisiesto
+    es_bisiesto = (anio % 4 == 0 and anio % 100 != 0) or (anio % 400 == 0)
+    if es_bisiesto:
+        dias_por_mes[1] = 29  # Febrero tiene 29 días en años bisiestos
+    
+    # Validar día
     if dia < 1 or dia > dias_por_mes[mes - 1]:
         return False
     
