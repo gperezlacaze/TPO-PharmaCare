@@ -5,14 +5,14 @@
 # Descripción: Coordina el flujo del sistema de gestión de inventario
 # ============================================================
 
-from gonzalo_perez_lacaze_menu import (
+from gonzalo_pl_menu_principal import (
     mostrar_menu, alta_medicamentos,
     baja_medicamentos, mostrar_medicamento,
     modificar_stock_precio, informe_general, salir
 )
-from lucas_alegre import crear_matriz_inicial
-from lucas_bassi_validaciones import validar_opcion
-from lucas_bassi_menu_2 import mostrar_menu_gestiones, laboratorios
+from matriz_lucas_alegre import crear_matriz_inicial
+from alegre_bassi_validaciones import validar_opcion
+from lucas_bassi_submenus import mostrar_menu_gestiones, laboratorios
 
 
 def main():
