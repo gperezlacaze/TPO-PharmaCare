@@ -171,7 +171,7 @@ def modificar_laboratorio(laboratorios):
         if nuevo_nombre == "-1":
             return None
         
-        # ✅ VALIDAR QUE NO SEA SOLO NÚMEROS O SÍMBOLOS
+        # Validar que no sea solo numeros o simbolos
         while not nuevo_nombre.isalpha() and not (nuevo_nombre.isupper() and nuevo_nombre.isalpha()):
             print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
             nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
