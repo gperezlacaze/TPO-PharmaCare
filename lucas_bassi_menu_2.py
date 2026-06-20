@@ -360,10 +360,46 @@ def procesar_pago(total, medicamentos_comprados):
     print(f"{CELESTE}========================================{RESET}")
     print()
 
-    opcion = validar_opcion(1, 2)
+    print(f"(Presione {AMARILLO}-1{RESET} para volver al menú anterior)")
+    opcion_str = input("Seleccione una opción: ").strip()
+    
+    # Chequea si presion -1 para salir
+    if opcion_str == "-1":
+        # Devuelve stock de todos los medicamentos
+        i = 0
+        while i < len(medicamentos_comprados):
+            medicamento, cantidad = medicamentos_comprados[i]
+            medicamento[4] += cantidad
+            i = i + 1
+        
+        print()
+        print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+        print()
+        return None
+    
+    # Valida que sea 1 o 2
+    while not opcion_str.isdigit() or int(opcion_str) < 1 or int(opcion_str) > 2:
+        print(f"Opción {ROJO}inválida{RESET}. Ingrese una opción entre {AMARILLO}1{RESET} y {AMARILLO}2{RESET}")
+        opcion_str = input("Seleccione una opción: ").strip()
+        
+        # Chequea si presion -1 para salir
+        if opcion_str == "-1":
+            # Devuelve stock de todos los medicamentos
+            i = 0
+            while i < len(medicamentos_comprados):
+                medicamento, cantidad = medicamentos_comprados[i]
+                medicamento[4] += cantidad
+                i = i + 1
+            
+            print()
+            print(f"{ROJO}Operación cancelada. Stock de todos revertido.{RESET}")
+            print()
+            return None
+    
+    opcion = int(opcion_str)
 
     if opcion == 1:
-        monto = input(f"Ingresa el monto en efectivo (o {AMARILLO}-1{RESET} para volver): ")
+        monto = input(f"Ingresa el monto en efectivo (o {AMARILLO}-1{RESET} para volver): ").strip()
         
         # Chequear si presionó -1 para salir
         if monto == "-1":
@@ -385,7 +421,7 @@ def procesar_pago(total, medicamentos_comprados):
             else:
                 print(f"{ROJO}Monto insuficiente{RESET}")
 
-            monto = input(f"Ingresa el monto en efectivo (o {AMARILLO}-1{RESET} para volver): ")
+            monto = input(f"Ingresa el monto en efectivo (o {AMARILLO}-1{RESET} para volver): ").strip()    
             
             # Chequear si presionó -1 para salir
             if monto == "-1":
