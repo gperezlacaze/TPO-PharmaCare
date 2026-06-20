@@ -182,6 +182,7 @@ def modificar_laboratorio(laboratorios):
 def dar_de_baja_laboratorio(laboratorios):
     """Eliminar laboratorio de la lista"""
     if len(laboratorios) == 0:
+        print()
         print(f"{ROJO}No hay laboratorios registrados{RESET}")
     else:
         ver_laboratorios(laboratorios)
@@ -221,6 +222,7 @@ def ver_laboratorios(laboratorios):
     contador = 1
     # Recorrer la lista para verificar que existan laboratorios
     if len(laboratorios) == 0:
+        print()
         print(f"{ROJO}No hay laboratorios registrados{RESET}")
     else:
         for lab in laboratorios:
@@ -622,7 +624,7 @@ def mostrar_menu_gestiones(matriz, laboratorios, stock_minimo):
         elif opcion == 3:
             submenu_ventas(matriz)
         elif opcion == 4:
-            print()
+            print() 
             print(f"{VERDE}✓ Volviendo al menú principal...{RESET}")
     
     return stock_minimo  
