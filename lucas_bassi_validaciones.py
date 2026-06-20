@@ -39,16 +39,32 @@ def validar_nombre_medicamento(nombre):
 
 
 def validar_codigo_medicamento(codigo):
-    '''Valida el código: 4-8 caracteres alfanuméricos, sin espacios internos. Retorna True/False.'''
+    '''Valida código: 4-8 caracteres, COMBINACIÓN de letras Y números.'''
     codigo = codigo.strip().upper()
     
+    # Validar largo: 4-8 caracteres
     if len(codigo) < 4 or len(codigo) > 8:
         return False
-    
+    # Validar que SOLO sean alfanuméricos (sin símbolos)
     if not codigo.isalnum():
         return False
     
-    return True
+    # Contar letras y números
+    cantidad_letras = 0
+    cantidad_numeros = 0
+    i = 0
+    while i < len(codigo):
+        if codigo[i].isalpha():
+            cantidad_letras = cantidad_letras + 1
+        if codigo[i].isdigit():
+            cantidad_numeros = cantidad_numeros + 1
+        i = i + 1
+    
+    # Debe tener AL MENOS 1 letra Y 1 número
+    if cantidad_letras > 0 and cantidad_numeros > 0:
+        return True
+    else:
+        return False
 
 
 def validar_codigo_unico(codigo, matriz):
