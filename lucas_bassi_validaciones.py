@@ -287,14 +287,14 @@ def ingresar_precio():
 
 def ingresar_stock():
     '''Pedir y validar el stock del medicamento. Presione -1 para salir.'''
-    stock = input("Ingrese el stock (o -1 para volver): ")
+    stock = input(f"Ingrese el stock (o {AMARILLO}-1{RESET} para volver): ")
     
     if stock == "-1":
         return None
     
     while not validar_entero_positivo(stock):
         print(f"Stock {ROJO}inválido{RESET}: debe ser un número entero positivo.")
-        stock = input("Ingrese el stock (o -1 para volver): ")
+        stock = input(f"Ingrese el stock (o {AMARILLO}-1{RESET} para volver): ")
         if stock == "-1":
             return None
     
@@ -318,7 +318,7 @@ def ingresar_fecha_vencimiento():
 
 def ingresar_cobertura():
     '''Pedir y validar la cobertura médica del medicamento. Presione -1 para salir.'''
-    cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
+    cobertura = input(f"Ingrese la cobertura (Con cobertura / Sin cobertura) (o {AMARILLO}-1{RESET} para volver): ").strip()
     
     if cobertura == "-1":
         return None
@@ -326,7 +326,7 @@ def ingresar_cobertura():
     cobertura = cobertura.capitalize()
     while not validar_cobertura(cobertura):
         print(f"Cobertura {ROJO}inválida{RESET}: debe ser 'Con cobertura' o 'Sin cobertura'.")
-        cobertura = input("Ingrese la cobertura (Con cobertura / Sin cobertura) (o -1 para volver): ").strip()
+        cobertura = input(f"Ingrese la cobertura (Con cobertura / Sin cobertura) (o {AMARILLO}-1{RESET} para volver): ").strip()
         if cobertura == "-1":
             return None
         cobertura = cobertura.capitalize()
