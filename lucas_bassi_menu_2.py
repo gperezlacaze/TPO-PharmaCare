@@ -290,7 +290,7 @@ def reporte_stock_bajo(matriz, stock_minimo):
     if len(mtz_debajo_stockMin) > 0:
         print(f"\n{ROJO}⚠ MEDICAMENTOS CON STOCK POR DEBAJO DEL MÍNIMO ({stock_minimo}){RESET}")
         # Mostrar informe con colores (obtiene stock_minimo internamente)
-        mostrar_matriz_con_colores(mtz_debajo_stockMin)
+        mostrar_matriz_con_colores(mtz_debajo_stockMin, stock_minimo)
         print()
     else:
         print(f"{VERDE}✓ Todos los medicamentos tienen stock suficiente{RESET}")

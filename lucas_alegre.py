@@ -36,28 +36,6 @@ def crear_matriz_inicial():
     return matriz_medicamentos
 
 
-def mostrar_matriz(matriz):
-    """
-    Muestra la matriz de medicamentos en formato de tabla.
-    Entrada: matriz (lista de listas)
-    Salida: imprime la tabla en pantalla
-    """
-
-    # Encabezados con colores
-    print("\n" + f"{CELESTE}" + "=" * 115 + f"{RESET}")
-    print(f"{VIOLETA}{'Codigo':<12}{'Nombre':<30}{'Laboratorio':<20}{'Precio':<12}{'Stock':<10}{'Cobertura':<15}{'Fecha de Vencimiento':<20}{RESET}")
-    print(f"{CELESTE}" + "=" * 115 + f"{RESET}")
-
-    # Filas
-    i = 0
-    while i < len(matriz):
-        fila = matriz[i]
-        print(f"{fila[0]:<12}{fila[1]:<30}{fila[2]:<20}{fila[3]:<12.2f}{fila[4]:<10}{fila[5]:<15}{fila[6]:<20}")
-        i = i + 1
-
-    print(f"{CELESTE}" + "=" * 115 + f"{RESET}\n")
-
-
 def mostrar_matriz_con_colores(matriz, stock_minimo):
     """
     Muestra la matriz de medicamentos en formato de tabla.
