@@ -73,8 +73,8 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
 if __name__ == "__main__":
     # Prueba funcional del modulo
     matriz = crear_matriz_inicial()
-    mostrar_matriz_con_colores(matriz)
+    mostrar_matriz_con_colores(matriz, None)  
     
-    # Prueba con colores (obtiene stock_minimo internamente)
-    print("MATRIZ CON COLORES:")
-    mostrar_matriz_con_colores(matriz, None)
+    # Prueba con colores (stock mínimo = 50)
+    print("MATRIZ CON COLORES (stock mínimo = 50):")
+    mostrar_matriz_con_colores(matriz, 50)  
