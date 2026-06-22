@@ -79,21 +79,18 @@ def validar_codigo_unico(codigo, matriz):
 
 
 def validar_laboratorio_fabricante(nombre):
-    '''Valida que el laboratorio no esté vacío y tenga al menos una letra. Rechaza solo números y solo símbolos. Retorna True/False.'''
+    """Valida que el laboratorio no esté vacío y tenga al menos una letra."""
     nombre = nombre.strip()
     
     if len(nombre) == 0:
         return False
     
-    # Rechazar si solo contiene números
-    if nombre.isdigit():
-        return False
+    # Debe tener al menos una letra
+    for c in nombre:
+        if c.isalpha():
+            return True
     
-    # Rechazar si solo contiene símbolos (sin letras ni números)
-    if not any(c.isalnum() for c in nombre):
-        return False
-    
-    return True
+    return False
 
 
 def validar_entero_positivo(valor):
@@ -475,7 +472,7 @@ if __name__ == "__main__":
     print("\nvalidar_fecha_vencimiento: ")
     print("VÁLIDO - '12/09/2034': ", validar_fecha_vencimiento("12/09/2034"))  # True
     print("VÁLIDO - '07/12/2012': ", validar_fecha_vencimiento("07/12/2012"))  # True
-    print("VÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012"))  # False
+    print("INVÁLIDO - '2/2/2012': ", validar_fecha_vencimiento("2/2/2012"))  # False
     print("INVÁLIDO - ''(Vacio): ", validar_fecha_vencimiento(""))  # False
     print("INVÁLIDO - '//'(Barras): ", validar_fecha_vencimiento("//")) # False
     print("INVÁLIDO - '12-1-2018'(guiones): ", validar_fecha_vencimiento("12-1-2018"))  # False

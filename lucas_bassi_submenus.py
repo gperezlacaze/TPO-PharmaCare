@@ -70,7 +70,7 @@ def submenu_laboratorios(laboratorios):
 def agregar_laboratorio(laboratorios):
     """Agregar laboratorio a la lista"""
     
-    print(f"(Presione {NARANJA}-1{RESET} para volver al menú anterior)")
+    print(f"(Presione {AMARILLO}-1{RESET} para volver al menú anterior)")
     laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
     
     # Chequea si presionó -1 para salir
@@ -78,21 +78,21 @@ def agregar_laboratorio(laboratorios):
         return None
     
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
-    if laboratorio.isupper() and laboratorio.isalpha():
+    if laboratorio.replace(" ", "").isupper() and laboratorio.replace(" ", "").isalpha():
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             while es_sigla != "si" and es_sigla != "no":
                 print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
                 es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             if es_sigla != "si":
-                laboratorio = laboratorio.capitalize()
+                laboratorio = laboratorio.title()
     else:
-        laboratorio = laboratorio.capitalize()
+        laboratorio = laboratorio.title()
 
     while not validar_laboratorio_fabricante(laboratorio) or validar_laboratorio_duplicado(laboratorio, laboratorios):
         if not validar_laboratorio_fabricante(laboratorio):
             print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
         else:
-            print(f"{AMARILLO}El laboratorio ya existe en la lista.{RESET}")
+            print(f"{ROJO}El laboratorio ya existe en la lista.{RESET}")
         laboratorio = input("Ingresá el nombre del laboratorio (mayúscula para siglas): ").strip()
         
         # Chequear si presionó -1 para salir
@@ -103,9 +103,9 @@ def agregar_laboratorio(laboratorios):
         if laboratorio.isupper() and laboratorio.isalpha():
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             if es_sigla != "si":
-                laboratorio = laboratorio.capitalize()
+                laboratorio = laboratorio.title()
         else:
-            laboratorio = laboratorio.capitalize()
+            laboratorio = laboratorio.title()
 
     laboratorios.append(laboratorio)
     print()
@@ -126,9 +126,9 @@ def modificar_laboratorio(laboratorios):
 
     while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
         if not validar_entero_positivo(numero):
-            print("El numero debe ser entero y positivo")
+            print(f"{ROJO}El numero debe ser entero y positivo{RESET}")
         else:
-            print("El numero ingresado no tiene asignado un laboratorio")
+            print(f"{ROJO}El numero ingresado no tiene asignado un laboratorio{RESET}")
         numero = input("Ingrese el numero del laboratorio que desea modificar: ")
         
         # Chequea si presionó -1 para salir
@@ -141,7 +141,7 @@ def modificar_laboratorio(laboratorios):
     if nuevo_nombre == "-1":
         return None
     
-    while not nuevo_nombre.isalpha() and not (nuevo_nombre.isupper() and nuevo_nombre.isalpha()):
+    while not validar_laboratorio_fabricante(nuevo_nombre):
         print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
         nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
         
@@ -149,16 +149,16 @@ def modificar_laboratorio(laboratorios):
             return None
     
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
-    if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
+    if nuevo_nombre.replace(" ", "").isupper() and nuevo_nombre.replace(" ", "").isalpha():
         es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
         while es_sigla != "si" and es_sigla != "no":
             print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
         if es_sigla != "si":
-            nuevo_nombre = nuevo_nombre.capitalize()
+            nuevo_nombre = nuevo_nombre.title()
     else:
         # Si no está todo en mayúscula, capitalizar
-        nuevo_nombre = nuevo_nombre.capitalize()
+        nuevo_nombre = nuevo_nombre.title()
 
     while not validar_laboratorio_fabricante(nuevo_nombre) or validar_laboratorio_duplicado(nuevo_nombre, laboratorios):
         if not validar_laboratorio_fabricante(nuevo_nombre):
@@ -172,7 +172,7 @@ def modificar_laboratorio(laboratorios):
             return None
         
         # Validar que no sea solo numeros o simbolos
-        while not nuevo_nombre.isalpha() and not (nuevo_nombre.isupper() and nuevo_nombre.isalpha()):
+        while not validar_laboratorio_fabricante(nuevo_nombre):
             print(f"El nombre {ROJO}NO{RESET} puede estar vacío, {ROJO}NI{RESET} contener solo números o solo símbolos.")
             nuevo_nombre = input("Ingresa nuevo nombre del laboratorio (mayúscula para siglas): ").strip()
             
@@ -180,15 +180,15 @@ def modificar_laboratorio(laboratorios):
                 return None
 
         # Aplicar lógica de mayúsculas nuevamente
-        if nuevo_nombre.isupper() and nuevo_nombre.isalpha():
+        if nuevo_nombre.replace(" ", "").isupper() and nuevo_nombre.replace(" ", "").isalpha():
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             while es_sigla != "si" and es_sigla != "no":
                 print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
                 es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
             if es_sigla != "si":
-                nuevo_nombre = nuevo_nombre.capitalize()
+                nuevo_nombre = nuevo_nombre.title()
         else:
-            nuevo_nombre = nuevo_nombre.capitalize()
+            nuevo_nombre = nuevo_nombre.title()
 
     laboratorios[int(numero) - 1] = nuevo_nombre    # Cambiamos al nombre nuevo
     print()
@@ -213,7 +213,7 @@ def dar_de_baja_laboratorio(laboratorios):
 
         while not validar_entero_positivo(numero) or len(laboratorios) < int(numero):
             if not validar_entero_positivo(numero):
-                print("El numero debe ser entero y positivo")
+                print(f"{AMARILLO}El numero debe ser entero y positivo{RESET}")
             else:
                 print(f"{ROJO}El numero ingresado no tiene asignado un laboratorio{RESET}")
             numero = input("Ingresa numero de laboratorio que desea eliminar: ")
@@ -461,7 +461,7 @@ def procesar_pago(total, medicamentos_comprados):
                     i = i + 1
                 
                 print()
-                print(f"{ROJO}Operación cancelada.{RESET}2 Stock de todos revertido.")
+                print(f"{ROJO}Operación cancelada.{RESET} Stock de todos revertido.")
                 print()
                 return None
 
@@ -470,7 +470,7 @@ def procesar_pago(total, medicamentos_comprados):
         vuelto = monto - total
         print()
         print(f"{VERDE}✓ Venta registrada exitosamente{RESET}")
-        print(f"{AMARILLO} El vuelto es de:{RESET} ${vuelto}")
+        print(f"{NARANJA} El vuelto es de:{RESET} ${vuelto}")
         print()
         return True  
     
@@ -481,7 +481,7 @@ def procesar_pago(total, medicamentos_comprados):
 
         print()
         print(f"{VERDE}✓ Venta registrada exitosamente{RESET}")
-        print(f"{AMARILLO} El total a pagar es de:{RESET} ${total_con_recargo}")
+        print(f"{NARANJA} El total a pagar es de:{RESET} ${total_con_recargo}")
         print()
         return True  
 
@@ -649,4 +649,4 @@ def mostrar_menu_gestiones(matriz, laboratorios, stock_minimo):
 
 if __name__ == "__main__":
     matriz = crear_matriz_inicial()
-    mostrar_menu_gestiones(matriz)
+    mostrar_menu_gestiones(matriz, laboratorios, None)
