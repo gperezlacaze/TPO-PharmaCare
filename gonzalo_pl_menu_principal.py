@@ -192,7 +192,7 @@ def procesar_eliminacion(matriz, resultado):
         print()
     else:
         print()
-        print(f"Se encontraron {AMARILLO}{len(medicamentos_a_eliminar){RESET}} medicamento(s) con stock = 0:")
+        print(f"Se encontraron {AMARILLO}{len(medicamentos_a_eliminar)}{RESET} medicamento(s) con stock = 0:")
         print()
         mostrar_posiciones_resultados(matriz, medicamentos_a_eliminar)
         eleccion = input(f"¿Cuál desea eliminar? ({AMARILLO}1{RESET}-{AMARILLO}{len(medicamentos_a_eliminar)}{RESET}): ")
