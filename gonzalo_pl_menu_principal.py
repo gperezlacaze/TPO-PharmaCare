@@ -108,7 +108,11 @@ def baja_medicamentos(matriz):
     print()
     if tipo == "1":
         busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
-        while busqueda_codigo != "" and busqueda_codigo != "-1":
+        while busqueda_codigo != "-1":
+            if busqueda_codigo == "":
+                busqueda_codigo = input(f"Ingrese el nombre del producto (o {AMARILLO}-1{RESET} para volver): ").strip().lower()
+                continue
+
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
             if procesar_eliminacion(matriz, resultado):
                 busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
@@ -260,14 +264,14 @@ def mostrar_medicamento(matriz):
                 busqueda_nombre = input(f"Ingrese el nombre del producto (o {AMARILLO}-1{RESET} para volver): ").strip().lower()
                 continue
             
-            resultados = buscar_por_nombre(matriz, busqueda_nombre)
+            resultado = buscar_por_nombre(matriz, busqueda_nombre)
             
-            if resultados != -1:
+            if resultado != -1:
                 print()
-                print(f"Se encontraron {len(resultados)} medicamento(s):")
+                print(f"Se encontraron {len(resultado)} medicamento(s):")
                 print()
-                mostrar_posiciones_resultados(matriz, resultados)
-                return resultados
+                mostrar_posiciones_resultados(matriz, resultado)
+                return resultado
             else:
                 print()
                 print(f"Medicamento {ROJO}no encontrado{RESET}. Intente de nuevo o presione -1 para volver.")
@@ -292,24 +296,24 @@ def buscar_por_codigo(matriz, codigo):
 def buscar_por_nombre(matriz, nombre):
     '''Busca medicamentos por nombre (búsqueda parcial).
     Retorna lista de índices si encuentra o -1 si no encuentra.'''
-    resultados = []
+    resultado = []
     i = 0
     while i < len(matriz):
         if nombre.lower() in matriz[i][1].lower():
-            resultados.append(i)
+            resultado.append(i)
         i = i + 1
     
-    if resultados:
-        return resultados
+    if resultado:
+        return resultado
     else:
         return -1
 
 
-def mostrar_posiciones_resultados(matriz, resultados):
+def mostrar_posiciones_resultados(matriz, resultado):
     '''Le otorga posiciones a los resultados de busqueda para su visualizacion y seleccion'''
     i = 0
-    while i < len(resultados):
-        fila = resultados[i]
+    while i < len(resultado):
+        fila = resultado[i]
         posicion = i + 1
         print(f"{AMARILLO}[{posicion}]{RESET} {matriz[fila][0]:<12}{matriz[fila][1]:<30}{matriz[fila][2]:<20}{matriz[fila][3]:<12.2f}{matriz[fila][4]:<10}{matriz[fila][5]:<15}{matriz[fila][6]:<12}")
         i = i + 1
@@ -336,7 +340,11 @@ def modificar_stock_precio(matriz):
     
     if tipo == "1":
         busqueda_codigo = input(f"Ingrese el código (o {AMARILLO}-1{RESET} para volver): ").strip().upper()
-        while busqueda_codigo != "" and busqueda_codigo != "-1":
+        while busqueda_codigo != "-1":
+            if busqueda_codigo == "":
+                busqueda_codigo = input(f"Ingrese el nombre del producto (o {AMARILLO}-1{RESET} para volver): ").strip().lower()
+                continue
+
             resultado = buscar_por_codigo(matriz, busqueda_codigo)
             if resultado != -1:
                 fila = resultado[0]
@@ -360,20 +368,20 @@ def modificar_stock_precio(matriz):
                 busqueda_nombre = input(f"Ingrese el nombre del producto (o {AMARILLO}-1{RESET} para volver): ").strip().lower()
                 continue
             
-            resultados = buscar_por_nombre(matriz, busqueda_nombre)
-            if resultados != -1:
+            resultado = buscar_por_nombre(matriz, busqueda_nombre)
+            if resultado != -1:
                 print()
-                print(f"Se encontraron {len(resultados)} medicamento(s):")
+                print(f"Se encontraron {len(resultado)} medicamento(s):")
                 print()
-                mostrar_posiciones_resultados(matriz, resultados)
-                eleccion = input(f"¿Cuál desea modificar? ({AMARILLO}1-{len(resultados)}){RESET} o presione {ROJO}-1{RESET} para volver: ")
+                mostrar_posiciones_resultados(matriz, resultado)
+                eleccion = input(f"¿Cuál desea modificar? ({AMARILLO}1-{len(resultado)}){RESET} o presione {ROJO}-1{RESET} para volver: ")
                 
                 while eleccion != "" and eleccion != "-1" and (not eleccion.isdigit() or int(eleccion) < 1 or int(eleccion) > len(resultados)):
                     print(f"Selección {ROJO}inválida{RESET}")
-                    eleccion = input(f"Ingrese el número {AMARILLO}(1-{len(resultados)}){RESET} o presione {AMARILLO}-1{RESET} para volver: ")
+                    eleccion = input(f"Ingrese el número {AMARILLO}(1-{len(resultado)}){RESET} o presione {AMARILLO}-1{RESET} para volver: ")
                 
                 if eleccion != "" and eleccion != "-1":
-                    fila = resultados[int(eleccion) - 1]
+                    fila = resultado[int(eleccion) - 1]
                     procesar_modificacion_medicamento(matriz, fila)
                     
                     respuesta = validar_confirmacion(f"¿Modificar otro medicamento? ({VERDE}si{RESET}/{ROJO}no{RESET}): ")
