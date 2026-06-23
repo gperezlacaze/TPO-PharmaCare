@@ -79,12 +79,12 @@ def agregar_laboratorio(laboratorios):
     
     # Si todo está en mayúscula, preguntar si es sigla/acrónimo
     if laboratorio.replace(" ", "").isupper() and laboratorio.replace(" ", "").isalpha():
+        es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
+        while es_sigla != "si" and es_sigla != "no":
+            print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
             es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
-            while es_sigla != "si" and es_sigla != "no":
-                print(f"Opción {ROJO}inválida{RESET}. Ingrese {VERDE}si{RESET} o {ROJO}no{RESET}")
-                es_sigla = input(f"¿Es una sigla o acrónimo? ({VERDE}si{RESET}/{ROJO}no{RESET}): ").strip().lower()
-            if es_sigla != "si":
-                laboratorio = laboratorio.title()
+        if es_sigla != "si":
+            laboratorio = laboratorio.title()
     else:
         laboratorio = laboratorio.title()
 
