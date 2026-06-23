@@ -50,8 +50,8 @@ def mostrar_matriz_con_colores(matriz, stock_minimo):
 
     # Filas
     i = 0
-    while i < len(matriz):
-        fila = matriz[i]
+    while i < len(matriz):   
+        fila = matriz[i]       
         stock = fila[4]
         
         # Colorear stock en ROJO si está por debajo del mínimo
@@ -74,7 +74,7 @@ if __name__ == "__main__":
     # Prueba funcional del modulo
     matriz = crear_matriz_inicial()
     mostrar_matriz_con_colores(matriz, None)  
-    
+
     # Prueba con colores (stock mínimo = 50)
     print("MATRIZ CON COLORES (stock mínimo = 50):")
     mostrar_matriz_con_colores(matriz, 50)  

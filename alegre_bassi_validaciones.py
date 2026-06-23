@@ -307,14 +307,14 @@ def ingresar_stock():
 
 def ingresar_fecha_vencimiento():
     '''Pedir y validar la fecha de vencimiento. Presione -1 para salir.'''
-    fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
+    fecha = input(f'Ingrese la fecha de vencimiento (dd/mm/aaaa) (o {AMARILLO}-1{RESET} para volver): ')
     
     if fecha == "-1":
         return None
     
     while not validar_fecha_vencimiento(fecha):
         print(f'Fecha {ROJO}inválida{RESET}: debe estar en formato dd/mm/aaaa (año con 4 dígitos, ej: 2026 no 26)')
-        fecha = input('Ingrese la fecha de vencimiento (dd/mm/aaaa) (o -1 para volver): ')
+        fecha = input(f'Ingrese la fecha de vencimiento (dd/mm/aaaa) (o {AMARILLO}-1{RESET} para volver): ')
         if fecha == "-1":
             return None
     return fecha
